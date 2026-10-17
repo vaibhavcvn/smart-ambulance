@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #09090b;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Custom leaflet map adjustments */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  font-family: inherit;
+  background-color: #f1f5f9;
+}
+
+/* Custom Pulsing Markers */
+.pulse-marker {
+  position: relative;
+}
+.pulse-marker::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  margin-left: -16px;
+  border-radius: 50%;
+  background-color: rgba(220, 38, 38, 0.45);
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.pulse-marker-hospital::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
+  margin-left: -18px;
+  border-radius: 50%;
+  background-color: rgba(5, 150, 105, 0.45);
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.33);
+    opacity: 1;
+  }
+  80%, 100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Siren Flashing Effect */
+@keyframes siren-red {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px rgba(220, 38, 38, 0.95)); }
+  50% { opacity: 0.25; filter: none; }
+}
+
+@keyframes siren-blue {
+  0%, 100% { opacity: 0.25; filter: none; }
+  50% { opacity: 1; filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.95)); }
+}
+
+.siren-light-red {
+  animation: siren-red 0.75s infinite;
+}
+
+.siren-light-blue {
+  animation: siren-blue 0.75s infinite;
+}
+
+/* Smooth Ambulance Rotation & Position */
+.ambulance-marker-smooth {
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

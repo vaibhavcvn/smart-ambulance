@@ -1,0 +1,6002 @@
+[
+  {
+    "distanceKm": 6.4,
+    "osrmDurationSeconds": 697,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 5,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 697,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.9,
+    "osrmDurationSeconds": 1867,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 15,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1867,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.4,
+    "osrmDurationSeconds": 1721,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 4,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1721,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1771,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 0,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1855,
+    "observedDelaySeconds": 84
+  },
+  {
+    "distanceKm": 15.7,
+    "osrmDurationSeconds": 1394,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 23,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1394,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.8,
+    "osrmDurationSeconds": 332,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 19,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 424,
+    "observedDelaySeconds": 92
+  },
+  {
+    "distanceKm": 19.6,
+    "osrmDurationSeconds": 1623,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1795,
+    "observedDelaySeconds": 172
+  },
+  {
+    "distanceKm": 20.4,
+    "osrmDurationSeconds": 1762,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 17,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2144,
+    "observedDelaySeconds": 382
+  },
+  {
+    "distanceKm": 15.7,
+    "osrmDurationSeconds": 1492,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 5,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1518,
+    "observedDelaySeconds": 26
+  },
+  {
+    "distanceKm": 4.4,
+    "osrmDurationSeconds": 473,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 15,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 473,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.8,
+    "osrmDurationSeconds": 241,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 19,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 454,
+    "observedDelaySeconds": 213
+  },
+  {
+    "distanceKm": 20.2,
+    "osrmDurationSeconds": 2116,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 12,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2116,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.1,
+    "osrmDurationSeconds": 1140,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 16,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1206,
+    "observedDelaySeconds": 66
+  },
+  {
+    "distanceKm": 6.1,
+    "osrmDurationSeconds": 510,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 13,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 513,
+    "observedDelaySeconds": 3
+  },
+  {
+    "distanceKm": 11.6,
+    "osrmDurationSeconds": 962,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 16,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 977,
+    "observedDelaySeconds": 15
+  },
+  {
+    "distanceKm": 2.2,
+    "osrmDurationSeconds": 220,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 18,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 346,
+    "observedDelaySeconds": 126
+  },
+  {
+    "distanceKm": 10.9,
+    "osrmDurationSeconds": 1119,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 12,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1345,
+    "observedDelaySeconds": 226
+  },
+  {
+    "distanceKm": 12.4,
+    "osrmDurationSeconds": 1016,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 14,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1025,
+    "observedDelaySeconds": 9
+  },
+  {
+    "distanceKm": 6.4,
+    "osrmDurationSeconds": 562,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 562,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 9.7,
+    "osrmDurationSeconds": 894,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 3,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 894,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.5,
+    "osrmDurationSeconds": 1934,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 8,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1934,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.8,
+    "osrmDurationSeconds": 1300,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 6,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1300,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.4,
+    "osrmDurationSeconds": 1577,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 6,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1595,
+    "observedDelaySeconds": 18
+  },
+  {
+    "distanceKm": 12.1,
+    "osrmDurationSeconds": 1061,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1237,
+    "observedDelaySeconds": 176
+  },
+  {
+    "distanceKm": 13.4,
+    "osrmDurationSeconds": 1263,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 0,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1263,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 9.2,
+    "osrmDurationSeconds": 758,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 14,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 792,
+    "observedDelaySeconds": 34
+  },
+  {
+    "distanceKm": 4.2,
+    "osrmDurationSeconds": 447,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 23,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 470,
+    "observedDelaySeconds": 23
+  },
+  {
+    "distanceKm": 19.3,
+    "osrmDurationSeconds": 1635,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 2,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1827,
+    "observedDelaySeconds": 192
+  },
+  {
+    "distanceKm": 17,
+    "osrmDurationSeconds": 1490,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 18,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1849,
+    "observedDelaySeconds": 359
+  },
+  {
+    "distanceKm": 4.1,
+    "osrmDurationSeconds": 355,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 5,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 393,
+    "observedDelaySeconds": 38
+  },
+  {
+    "distanceKm": 9.5,
+    "osrmDurationSeconds": 919,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 2,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 919,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.2,
+    "osrmDurationSeconds": 1641,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1641,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8,
+    "osrmDurationSeconds": 669,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1039,
+    "observedDelaySeconds": 370
+  },
+  {
+    "distanceKm": 3.1,
+    "osrmDurationSeconds": 273,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 6,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 369,
+    "observedDelaySeconds": 96
+  },
+  {
+    "distanceKm": 16.5,
+    "osrmDurationSeconds": 1741,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 23,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1741,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.5,
+    "osrmDurationSeconds": 236,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 23,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 236,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.5,
+    "osrmDurationSeconds": 1700,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 15,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1700,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.1,
+    "osrmDurationSeconds": 339,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 711,
+    "observedDelaySeconds": 372
+  },
+  {
+    "distanceKm": 9,
+    "osrmDurationSeconds": 850,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 5,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 850,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.4,
+    "osrmDurationSeconds": 892,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 13,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 892,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.5,
+    "osrmDurationSeconds": 525,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 682,
+    "observedDelaySeconds": 157
+  },
+  {
+    "distanceKm": 9.3,
+    "osrmDurationSeconds": 784,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 5,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 784,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 15.9,
+    "osrmDurationSeconds": 1377,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 13,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1377,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.7,
+    "osrmDurationSeconds": 734,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 16,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 799,
+    "observedDelaySeconds": 65
+  },
+  {
+    "distanceKm": 16.6,
+    "osrmDurationSeconds": 1739,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2183,
+    "observedDelaySeconds": 444
+  },
+  {
+    "distanceKm": 19,
+    "osrmDurationSeconds": 1899,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 23,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2049,
+    "observedDelaySeconds": 150
+  },
+  {
+    "distanceKm": 7.2,
+    "osrmDurationSeconds": 610,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 7,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 610,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 19.5,
+    "osrmDurationSeconds": 1834,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 21,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1894,
+    "observedDelaySeconds": 60
+  },
+  {
+    "distanceKm": 19.9,
+    "osrmDurationSeconds": 2012,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 8,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2036,
+    "observedDelaySeconds": 24
+  },
+  {
+    "distanceKm": 3.9,
+    "osrmDurationSeconds": 329,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 15,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 329,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.4,
+    "osrmDurationSeconds": 1684,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 1,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1684,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.6,
+    "osrmDurationSeconds": 214,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 21,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 214,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 12.8,
+    "osrmDurationSeconds": 1164,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1793,
+    "observedDelaySeconds": 629
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 286,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 21,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 308,
+    "observedDelaySeconds": 22
+  },
+  {
+    "distanceKm": 18,
+    "osrmDurationSeconds": 1568,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 8,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1671,
+    "observedDelaySeconds": 103
+  },
+  {
+    "distanceKm": 19.1,
+    "osrmDurationSeconds": 1811,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 9,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2251,
+    "observedDelaySeconds": 440
+  },
+  {
+    "distanceKm": 14.2,
+    "osrmDurationSeconds": 1392,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1501,
+    "observedDelaySeconds": 109
+  },
+  {
+    "distanceKm": 13.9,
+    "osrmDurationSeconds": 1357,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1453,
+    "observedDelaySeconds": 96
+  },
+  {
+    "distanceKm": 14.6,
+    "osrmDurationSeconds": 1576,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 3,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1753,
+    "observedDelaySeconds": 177
+  },
+  {
+    "distanceKm": 20.1,
+    "osrmDurationSeconds": 2084,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 17,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2324,
+    "observedDelaySeconds": 240
+  },
+  {
+    "distanceKm": 16.6,
+    "osrmDurationSeconds": 1392,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 7,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1423,
+    "observedDelaySeconds": 31
+  },
+  {
+    "distanceKm": 21.4,
+    "osrmDurationSeconds": 2081,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 2,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2081,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.7,
+    "osrmDurationSeconds": 1815,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 20,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2307,
+    "observedDelaySeconds": 492
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1853,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 18,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2268,
+    "observedDelaySeconds": 415
+  },
+  {
+    "distanceKm": 6.7,
+    "osrmDurationSeconds": 709,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 891,
+    "observedDelaySeconds": 182
+  },
+  {
+    "distanceKm": 3.7,
+    "osrmDurationSeconds": 370,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 10,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 557,
+    "observedDelaySeconds": 187
+  },
+  {
+    "distanceKm": 9.4,
+    "osrmDurationSeconds": 828,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 17,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1114,
+    "observedDelaySeconds": 286
+  },
+  {
+    "distanceKm": 14.3,
+    "osrmDurationSeconds": 1342,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 4,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1342,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.4,
+    "osrmDurationSeconds": 234,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 4,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 234,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.7,
+    "osrmDurationSeconds": 1182,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1600,
+    "observedDelaySeconds": 418
+  },
+  {
+    "distanceKm": 9.2,
+    "osrmDurationSeconds": 869,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 8,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 869,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.3,
+    "osrmDurationSeconds": 1307,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 5,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1374,
+    "observedDelaySeconds": 67
+  },
+  {
+    "distanceKm": 13,
+    "osrmDurationSeconds": 1377,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1613,
+    "observedDelaySeconds": 236
+  },
+  {
+    "distanceKm": 18.6,
+    "osrmDurationSeconds": 1891,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 11,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2107,
+    "observedDelaySeconds": 216
+  },
+  {
+    "distanceKm": 21.4,
+    "osrmDurationSeconds": 2007,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 13,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2221,
+    "observedDelaySeconds": 214
+  },
+  {
+    "distanceKm": 4.7,
+    "osrmDurationSeconds": 397,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 14,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 397,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.1,
+    "osrmDurationSeconds": 2143,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 21,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2260,
+    "observedDelaySeconds": 117
+  },
+  {
+    "distanceKm": 2.1,
+    "osrmDurationSeconds": 186,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 17,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 420,
+    "observedDelaySeconds": 234
+  },
+  {
+    "distanceKm": 10.5,
+    "osrmDurationSeconds": 1121,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 21,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1121,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.1,
+    "osrmDurationSeconds": 1539,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1829,
+    "observedDelaySeconds": 290
+  },
+  {
+    "distanceKm": 8.3,
+    "osrmDurationSeconds": 812,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 888,
+    "observedDelaySeconds": 76
+  },
+  {
+    "distanceKm": 7.3,
+    "osrmDurationSeconds": 719,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 15,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 719,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.3,
+    "osrmDurationSeconds": 1421,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1693,
+    "observedDelaySeconds": 272
+  },
+  {
+    "distanceKm": 21.9,
+    "osrmDurationSeconds": 2215,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2215,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 1.4,
+    "osrmDurationSeconds": 145,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 14,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 258,
+    "observedDelaySeconds": 113
+  },
+  {
+    "distanceKm": 7.3,
+    "osrmDurationSeconds": 785,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 914,
+    "observedDelaySeconds": 129
+  },
+  {
+    "distanceKm": 17.7,
+    "osrmDurationSeconds": 1814,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 17,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2202,
+    "observedDelaySeconds": 388
+  },
+  {
+    "distanceKm": 6.5,
+    "osrmDurationSeconds": 695,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 5,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 695,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.3,
+    "osrmDurationSeconds": 313,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 3,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 718,
+    "observedDelaySeconds": 405
+  },
+  {
+    "distanceKm": 12.6,
+    "osrmDurationSeconds": 1223,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1512,
+    "observedDelaySeconds": 289
+  },
+  {
+    "distanceKm": 21.2,
+    "osrmDurationSeconds": 1980,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 2,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1980,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.2,
+    "osrmDurationSeconds": 1046,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 7,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1046,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.9,
+    "osrmDurationSeconds": 653,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 22,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 730,
+    "observedDelaySeconds": 77
+  },
+  {
+    "distanceKm": 9.4,
+    "osrmDurationSeconds": 903,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 21,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 903,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.6,
+    "osrmDurationSeconds": 1922,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 8,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1922,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.3,
+    "osrmDurationSeconds": 287,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 0,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 549,
+    "observedDelaySeconds": 262
+  },
+  {
+    "distanceKm": 13.9,
+    "osrmDurationSeconds": 1495,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 13,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1495,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.1,
+    "osrmDurationSeconds": 1101,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1279,
+    "observedDelaySeconds": 178
+  },
+  {
+    "distanceKm": 12.7,
+    "osrmDurationSeconds": 1235,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 7,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1235,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.6,
+    "osrmDurationSeconds": 2296,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 9,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2979,
+    "observedDelaySeconds": 683
+  },
+  {
+    "distanceKm": 13.6,
+    "osrmDurationSeconds": 1325,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 0,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1325,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.9,
+    "osrmDurationSeconds": 522,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 6,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 522,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.8,
+    "osrmDurationSeconds": 901,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 13,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1014,
+    "observedDelaySeconds": 113
+  },
+  {
+    "distanceKm": 17.2,
+    "osrmDurationSeconds": 1836,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 23,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1836,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6,
+    "osrmDurationSeconds": 562,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 21,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 624,
+    "observedDelaySeconds": 62
+  },
+  {
+    "distanceKm": 12.4,
+    "osrmDurationSeconds": 1043,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 23,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1043,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.7,
+    "osrmDurationSeconds": 487,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 15,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 487,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 7.8,
+    "osrmDurationSeconds": 724,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 19,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1017,
+    "observedDelaySeconds": 293
+  },
+  {
+    "distanceKm": 21.9,
+    "osrmDurationSeconds": 2165,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2347,
+    "observedDelaySeconds": 182
+  },
+  {
+    "distanceKm": 15.7,
+    "osrmDurationSeconds": 1479,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1744,
+    "observedDelaySeconds": 265
+  },
+  {
+    "distanceKm": 21.6,
+    "osrmDurationSeconds": 2083,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 3,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2083,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 19.5,
+    "osrmDurationSeconds": 1826,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 14,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1874,
+    "observedDelaySeconds": 48
+  },
+  {
+    "distanceKm": 5.3,
+    "osrmDurationSeconds": 568,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 796,
+    "observedDelaySeconds": 228
+  },
+  {
+    "distanceKm": 3.3,
+    "osrmDurationSeconds": 317,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 16,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 317,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.5,
+    "osrmDurationSeconds": 1952,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 12,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1952,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5,
+    "osrmDurationSeconds": 480,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 13,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 567,
+    "observedDelaySeconds": 87
+  },
+  {
+    "distanceKm": 7.2,
+    "osrmDurationSeconds": 641,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 21,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 641,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.5,
+    "osrmDurationSeconds": 544,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 19,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 767,
+    "observedDelaySeconds": 223
+  },
+  {
+    "distanceKm": 19.7,
+    "osrmDurationSeconds": 1919,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 16,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1929,
+    "observedDelaySeconds": 10
+  },
+  {
+    "distanceKm": 20.7,
+    "osrmDurationSeconds": 2312,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 1,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 2628,
+    "observedDelaySeconds": 316
+  },
+  {
+    "distanceKm": 16.8,
+    "osrmDurationSeconds": 1535,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 10,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2074,
+    "observedDelaySeconds": 539
+  },
+  {
+    "distanceKm": 20,
+    "osrmDurationSeconds": 1779,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 2,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1779,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.9,
+    "osrmDurationSeconds": 1906,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 13,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1906,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 7.3,
+    "osrmDurationSeconds": 767,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 23,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 773,
+    "observedDelaySeconds": 6
+  },
+  {
+    "distanceKm": 11.8,
+    "osrmDurationSeconds": 998,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 8,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 998,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 1.3,
+    "osrmDurationSeconds": 114,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 114,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 12.8,
+    "osrmDurationSeconds": 1141,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 16,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1141,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 19.9,
+    "osrmDurationSeconds": 2166,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 18,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2374,
+    "observedDelaySeconds": 208
+  },
+  {
+    "distanceKm": 6.3,
+    "osrmDurationSeconds": 548,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 14,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 548,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 7.2,
+    "osrmDurationSeconds": 612,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 4,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 612,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.4,
+    "osrmDurationSeconds": 1688,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1776,
+    "observedDelaySeconds": 88
+  },
+  {
+    "distanceKm": 17.1,
+    "osrmDurationSeconds": 1421,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 4,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1549,
+    "observedDelaySeconds": 128
+  },
+  {
+    "distanceKm": 12.4,
+    "osrmDurationSeconds": 1032,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 10,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1318,
+    "observedDelaySeconds": 286
+  },
+  {
+    "distanceKm": 9.2,
+    "osrmDurationSeconds": 986,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 6,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1000,
+    "observedDelaySeconds": 14
+  },
+  {
+    "distanceKm": 21.1,
+    "osrmDurationSeconds": 2103,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 3,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2285,
+    "observedDelaySeconds": 182
+  },
+  {
+    "distanceKm": 8.3,
+    "osrmDurationSeconds": 894,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 3,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 894,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10,
+    "osrmDurationSeconds": 1078,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 15,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1404,
+    "observedDelaySeconds": 326
+  },
+  {
+    "distanceKm": 14.4,
+    "osrmDurationSeconds": 1544,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 18,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2202,
+    "observedDelaySeconds": 658
+  },
+  {
+    "distanceKm": 9.1,
+    "osrmDurationSeconds": 899,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 15,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 899,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.7,
+    "osrmDurationSeconds": 1567,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 8,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1693,
+    "observedDelaySeconds": 126
+  },
+  {
+    "distanceKm": 21.1,
+    "osrmDurationSeconds": 1996,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2406,
+    "observedDelaySeconds": 410
+  },
+  {
+    "distanceKm": 5.2,
+    "osrmDurationSeconds": 443,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 2,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 596,
+    "observedDelaySeconds": 153
+  },
+  {
+    "distanceKm": 21.7,
+    "osrmDurationSeconds": 1789,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 3,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1789,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 4.1,
+    "osrmDurationSeconds": 356,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 19,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 472,
+    "observedDelaySeconds": 116
+  },
+  {
+    "distanceKm": 19.1,
+    "osrmDurationSeconds": 1765,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 23,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1864,
+    "observedDelaySeconds": 99
+  },
+  {
+    "distanceKm": 7.5,
+    "osrmDurationSeconds": 638,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 20,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 958,
+    "observedDelaySeconds": 320
+  },
+  {
+    "distanceKm": 11.7,
+    "osrmDurationSeconds": 1286,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 14,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1363,
+    "observedDelaySeconds": 77
+  },
+  {
+    "distanceKm": 11.1,
+    "osrmDurationSeconds": 1095,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1341,
+    "observedDelaySeconds": 246
+  },
+  {
+    "distanceKm": 10.3,
+    "osrmDurationSeconds": 878,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 5,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 878,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.9,
+    "osrmDurationSeconds": 1532,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 14,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1532,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.5,
+    "osrmDurationSeconds": 850,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 12,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 850,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.3,
+    "osrmDurationSeconds": 999,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 16,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1151,
+    "observedDelaySeconds": 152
+  },
+  {
+    "distanceKm": 15.8,
+    "osrmDurationSeconds": 1593,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 21,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1593,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16,
+    "osrmDurationSeconds": 1380,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 4,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1397,
+    "observedDelaySeconds": 17
+  },
+  {
+    "distanceKm": 10.8,
+    "osrmDurationSeconds": 1043,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 21,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1277,
+    "observedDelaySeconds": 234
+  },
+  {
+    "distanceKm": 4.7,
+    "osrmDurationSeconds": 483,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 554,
+    "observedDelaySeconds": 71
+  },
+  {
+    "distanceKm": 15.2,
+    "osrmDurationSeconds": 1399,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 2,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1527,
+    "observedDelaySeconds": 128
+  },
+  {
+    "distanceKm": 17,
+    "osrmDurationSeconds": 1895,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 16,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1895,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.7,
+    "osrmDurationSeconds": 1553,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 8,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1553,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 15.8,
+    "osrmDurationSeconds": 1459,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 20,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1838,
+    "observedDelaySeconds": 379
+  },
+  {
+    "distanceKm": 15.7,
+    "osrmDurationSeconds": 1338,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 0,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1523,
+    "observedDelaySeconds": 185
+  },
+  {
+    "distanceKm": 18.6,
+    "osrmDurationSeconds": 1774,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 10,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2048,
+    "observedDelaySeconds": 274
+  },
+  {
+    "distanceKm": 15.7,
+    "osrmDurationSeconds": 1766,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 5,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1766,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.3,
+    "osrmDurationSeconds": 2332,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 17,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2642,
+    "observedDelaySeconds": 310
+  },
+  {
+    "distanceKm": 15.9,
+    "osrmDurationSeconds": 1728,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 1,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1763,
+    "observedDelaySeconds": 35
+  },
+  {
+    "distanceKm": 15.8,
+    "osrmDurationSeconds": 1584,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 2,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1584,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.7,
+    "osrmDurationSeconds": 1739,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 20,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2172,
+    "observedDelaySeconds": 433
+  },
+  {
+    "distanceKm": 5.7,
+    "osrmDurationSeconds": 590,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 590,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.4,
+    "osrmDurationSeconds": 1943,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 15,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1943,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.4,
+    "osrmDurationSeconds": 1846,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 20,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2194,
+    "observedDelaySeconds": 348
+  },
+  {
+    "distanceKm": 6.9,
+    "osrmDurationSeconds": 639,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 907,
+    "observedDelaySeconds": 268
+  },
+  {
+    "distanceKm": 21.6,
+    "osrmDurationSeconds": 1887,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 15,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1887,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.9,
+    "osrmDurationSeconds": 1417,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1798,
+    "observedDelaySeconds": 381
+  },
+  {
+    "distanceKm": 5.5,
+    "osrmDurationSeconds": 450,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 1,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 563,
+    "observedDelaySeconds": 113
+  },
+  {
+    "distanceKm": 3.3,
+    "osrmDurationSeconds": 317,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 1,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 345,
+    "observedDelaySeconds": 28
+  },
+  {
+    "distanceKm": 20.2,
+    "osrmDurationSeconds": 2218,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 21,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2398,
+    "observedDelaySeconds": 180
+  },
+  {
+    "distanceKm": 5.3,
+    "osrmDurationSeconds": 544,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 5,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 639,
+    "observedDelaySeconds": 95
+  },
+  {
+    "distanceKm": 21.7,
+    "osrmDurationSeconds": 2352,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 19,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2777,
+    "observedDelaySeconds": 425
+  },
+  {
+    "distanceKm": 15.2,
+    "osrmDurationSeconds": 1574,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1829,
+    "observedDelaySeconds": 255
+  },
+  {
+    "distanceKm": 21,
+    "osrmDurationSeconds": 2239,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 12,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2239,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.5,
+    "osrmDurationSeconds": 643,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 901,
+    "observedDelaySeconds": 258
+  },
+  {
+    "distanceKm": 4.6,
+    "osrmDurationSeconds": 492,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 5,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 511,
+    "observedDelaySeconds": 19
+  },
+  {
+    "distanceKm": 15.6,
+    "osrmDurationSeconds": 1457,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 12,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1457,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.5,
+    "osrmDurationSeconds": 1685,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 12,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1716,
+    "observedDelaySeconds": 31
+  },
+  {
+    "distanceKm": 2.8,
+    "osrmDurationSeconds": 260,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 8,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 319,
+    "observedDelaySeconds": 59
+  },
+  {
+    "distanceKm": 6.5,
+    "osrmDurationSeconds": 581,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1026,
+    "observedDelaySeconds": 445
+  },
+  {
+    "distanceKm": 17.6,
+    "osrmDurationSeconds": 1599,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 15,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1620,
+    "observedDelaySeconds": 21
+  },
+  {
+    "distanceKm": 3.5,
+    "osrmDurationSeconds": 335,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 20,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 452,
+    "observedDelaySeconds": 117
+  },
+  {
+    "distanceKm": 18.9,
+    "osrmDurationSeconds": 1954,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 3,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1974,
+    "observedDelaySeconds": 20
+  },
+  {
+    "distanceKm": 4.4,
+    "osrmDurationSeconds": 480,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 2,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 480,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 1.9,
+    "osrmDurationSeconds": 176,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 261,
+    "observedDelaySeconds": 85
+  },
+  {
+    "distanceKm": 3.5,
+    "osrmDurationSeconds": 323,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 7,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 350,
+    "observedDelaySeconds": 27
+  },
+  {
+    "distanceKm": 20.2,
+    "osrmDurationSeconds": 1988,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 21,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2027,
+    "observedDelaySeconds": 39
+  },
+  {
+    "distanceKm": 18.7,
+    "osrmDurationSeconds": 1678,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 2,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1680,
+    "observedDelaySeconds": 2
+  },
+  {
+    "distanceKm": 9.4,
+    "osrmDurationSeconds": 915,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 10,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1126,
+    "observedDelaySeconds": 211
+  },
+  {
+    "distanceKm": 17.9,
+    "osrmDurationSeconds": 1482,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 3,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1582,
+    "observedDelaySeconds": 100
+  },
+  {
+    "distanceKm": 8.7,
+    "osrmDurationSeconds": 936,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 22,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1255,
+    "observedDelaySeconds": 319
+  },
+  {
+    "distanceKm": 16.2,
+    "osrmDurationSeconds": 1411,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 20,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1824,
+    "observedDelaySeconds": 413
+  },
+  {
+    "distanceKm": 20.9,
+    "osrmDurationSeconds": 1873,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1899,
+    "observedDelaySeconds": 26
+  },
+  {
+    "distanceKm": 17.4,
+    "osrmDurationSeconds": 1673,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 5,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1673,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 7.6,
+    "osrmDurationSeconds": 818,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 16,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 818,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 19.7,
+    "osrmDurationSeconds": 1826,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 2,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1841,
+    "observedDelaySeconds": 15
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1558,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 3,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1660,
+    "observedDelaySeconds": 102
+  },
+  {
+    "distanceKm": 15.6,
+    "osrmDurationSeconds": 1531,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 23,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1632,
+    "observedDelaySeconds": 101
+  },
+  {
+    "distanceKm": 16.2,
+    "osrmDurationSeconds": 1464,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 18,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1925,
+    "observedDelaySeconds": 461
+  },
+  {
+    "distanceKm": 20,
+    "osrmDurationSeconds": 1843,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 7,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1843,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.5,
+    "osrmDurationSeconds": 539,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 22,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 539,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 1.3,
+    "osrmDurationSeconds": 110,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 0,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 110,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.6,
+    "osrmDurationSeconds": 2189,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2251,
+    "observedDelaySeconds": 62
+  },
+  {
+    "distanceKm": 7.2,
+    "osrmDurationSeconds": 638,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 18,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 772,
+    "observedDelaySeconds": 134
+  },
+  {
+    "distanceKm": 17,
+    "osrmDurationSeconds": 1714,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 10,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2026,
+    "observedDelaySeconds": 312
+  },
+  {
+    "distanceKm": 7.4,
+    "osrmDurationSeconds": 608,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 0,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 608,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.5,
+    "osrmDurationSeconds": 1415,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1915,
+    "observedDelaySeconds": 500
+  },
+  {
+    "distanceKm": 11.9,
+    "osrmDurationSeconds": 1021,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 10,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1470,
+    "observedDelaySeconds": 449
+  },
+  {
+    "distanceKm": 5,
+    "osrmDurationSeconds": 448,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 14,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 448,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.2,
+    "osrmDurationSeconds": 1640,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1640,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.8,
+    "osrmDurationSeconds": 686,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 969,
+    "observedDelaySeconds": 283
+  },
+  {
+    "distanceKm": 21.6,
+    "osrmDurationSeconds": 1971,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2312,
+    "observedDelaySeconds": 341
+  },
+  {
+    "distanceKm": 6.3,
+    "osrmDurationSeconds": 557,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 23,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 889,
+    "observedDelaySeconds": 332
+  },
+  {
+    "distanceKm": 9.3,
+    "osrmDurationSeconds": 811,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1301,
+    "observedDelaySeconds": 490
+  },
+  {
+    "distanceKm": 9.8,
+    "osrmDurationSeconds": 848,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1102,
+    "observedDelaySeconds": 254
+  },
+  {
+    "distanceKm": 11.2,
+    "osrmDurationSeconds": 1054,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 1,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1054,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.8,
+    "osrmDurationSeconds": 1306,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 13,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1306,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.9,
+    "osrmDurationSeconds": 992,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 21,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1151,
+    "observedDelaySeconds": 159
+  },
+  {
+    "distanceKm": 9.2,
+    "osrmDurationSeconds": 881,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 20,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1187,
+    "observedDelaySeconds": 306
+  },
+  {
+    "distanceKm": 8.9,
+    "osrmDurationSeconds": 964,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 17,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1387,
+    "observedDelaySeconds": 423
+  },
+  {
+    "distanceKm": 12.1,
+    "osrmDurationSeconds": 1327,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 6,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1327,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 1.4,
+    "osrmDurationSeconds": 157,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 18,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 244,
+    "observedDelaySeconds": 87
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 297,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 17,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 413,
+    "observedDelaySeconds": 116
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 288,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 288,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.2,
+    "osrmDurationSeconds": 1545,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 2,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1577,
+    "observedDelaySeconds": 32
+  },
+  {
+    "distanceKm": 2.2,
+    "osrmDurationSeconds": 183,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 7,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 339,
+    "observedDelaySeconds": 156
+  },
+  {
+    "distanceKm": 4.6,
+    "osrmDurationSeconds": 418,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 15,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 503,
+    "observedDelaySeconds": 85
+  },
+  {
+    "distanceKm": 14.3,
+    "osrmDurationSeconds": 1555,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 17,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1937,
+    "observedDelaySeconds": 382
+  },
+  {
+    "distanceKm": 19.1,
+    "osrmDurationSeconds": 1582,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 3,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1716,
+    "observedDelaySeconds": 134
+  },
+  {
+    "distanceKm": 10.2,
+    "osrmDurationSeconds": 1034,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1812,
+    "observedDelaySeconds": 778
+  },
+  {
+    "distanceKm": 8.2,
+    "osrmDurationSeconds": 835,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 20,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1293,
+    "observedDelaySeconds": 458
+  },
+  {
+    "distanceKm": 5.5,
+    "osrmDurationSeconds": 611,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 611,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 12.9,
+    "osrmDurationSeconds": 1354,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 4,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1393,
+    "observedDelaySeconds": 39
+  },
+  {
+    "distanceKm": 1.4,
+    "osrmDurationSeconds": 142,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 19,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 325,
+    "observedDelaySeconds": 183
+  },
+  {
+    "distanceKm": 11.2,
+    "osrmDurationSeconds": 933,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 5,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1083,
+    "observedDelaySeconds": 150
+  },
+  {
+    "distanceKm": 15.9,
+    "osrmDurationSeconds": 1437,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 23,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1437,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.7,
+    "osrmDurationSeconds": 827,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 0,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 959,
+    "observedDelaySeconds": 132
+  },
+  {
+    "distanceKm": 19.2,
+    "osrmDurationSeconds": 1829,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 21,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1829,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.7,
+    "osrmDurationSeconds": 1912,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 8,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1963,
+    "observedDelaySeconds": 51
+  },
+  {
+    "distanceKm": 15.9,
+    "osrmDurationSeconds": 1625,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 22,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1625,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.3,
+    "osrmDurationSeconds": 2274,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 3,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2381,
+    "observedDelaySeconds": 107
+  },
+  {
+    "distanceKm": 11,
+    "osrmDurationSeconds": 905,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 20,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1168,
+    "observedDelaySeconds": 263
+  },
+  {
+    "distanceKm": 18.6,
+    "osrmDurationSeconds": 2012,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 19,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2255,
+    "observedDelaySeconds": 243
+  },
+  {
+    "distanceKm": 5.2,
+    "osrmDurationSeconds": 473,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 4,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 586,
+    "observedDelaySeconds": 113
+  },
+  {
+    "distanceKm": 14.8,
+    "osrmDurationSeconds": 1233,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1338,
+    "observedDelaySeconds": 105
+  },
+  {
+    "distanceKm": 9.8,
+    "osrmDurationSeconds": 831,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 19,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1164,
+    "observedDelaySeconds": 333
+  },
+  {
+    "distanceKm": 8.7,
+    "osrmDurationSeconds": 959,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 1,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 962,
+    "observedDelaySeconds": 3
+  },
+  {
+    "distanceKm": 5.6,
+    "osrmDurationSeconds": 610,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 4,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 610,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 15.7,
+    "osrmDurationSeconds": 1348,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 3,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1348,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 9.3,
+    "osrmDurationSeconds": 922,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 22,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 922,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 15.1,
+    "osrmDurationSeconds": 1463,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 19,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1705,
+    "observedDelaySeconds": 242
+  },
+  {
+    "distanceKm": 19.1,
+    "osrmDurationSeconds": 1690,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 3,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1713,
+    "observedDelaySeconds": 23
+  },
+  {
+    "distanceKm": 20.5,
+    "osrmDurationSeconds": 1895,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 10,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 2356,
+    "observedDelaySeconds": 461
+  },
+  {
+    "distanceKm": 11,
+    "osrmDurationSeconds": 1050,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1050,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.8,
+    "osrmDurationSeconds": 1327,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 15,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1398,
+    "observedDelaySeconds": 71
+  },
+  {
+    "distanceKm": 14.6,
+    "osrmDurationSeconds": 1207,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 20,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1428,
+    "observedDelaySeconds": 221
+  },
+  {
+    "distanceKm": 5.3,
+    "osrmDurationSeconds": 472,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 22,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 575,
+    "observedDelaySeconds": 103
+  },
+  {
+    "distanceKm": 9.8,
+    "osrmDurationSeconds": 908,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 9,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1011,
+    "observedDelaySeconds": 103
+  },
+  {
+    "distanceKm": 15.3,
+    "osrmDurationSeconds": 1495,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 4,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1495,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.1,
+    "osrmDurationSeconds": 561,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 685,
+    "observedDelaySeconds": 124
+  },
+  {
+    "distanceKm": 5,
+    "osrmDurationSeconds": 432,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 432,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.2,
+    "osrmDurationSeconds": 334,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 9,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 623,
+    "observedDelaySeconds": 289
+  },
+  {
+    "distanceKm": 15.5,
+    "osrmDurationSeconds": 1330,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 10,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1608,
+    "observedDelaySeconds": 278
+  },
+  {
+    "distanceKm": 10.9,
+    "osrmDurationSeconds": 1154,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 2,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1368,
+    "observedDelaySeconds": 214
+  },
+  {
+    "distanceKm": 21.5,
+    "osrmDurationSeconds": 2034,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 0,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2034,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.8,
+    "osrmDurationSeconds": 986,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 16,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 986,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.5,
+    "osrmDurationSeconds": 1932,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 9,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 2582,
+    "observedDelaySeconds": 650
+  },
+  {
+    "distanceKm": 13.1,
+    "osrmDurationSeconds": 1100,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1274,
+    "observedDelaySeconds": 174
+  },
+  {
+    "distanceKm": 14.1,
+    "osrmDurationSeconds": 1519,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2159,
+    "observedDelaySeconds": 640
+  },
+  {
+    "distanceKm": 8.1,
+    "osrmDurationSeconds": 863,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 863,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.2,
+    "osrmDurationSeconds": 297,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 536,
+    "observedDelaySeconds": 239
+  },
+  {
+    "distanceKm": 17.2,
+    "osrmDurationSeconds": 1710,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 15,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1738,
+    "observedDelaySeconds": 28
+  },
+  {
+    "distanceKm": 13.6,
+    "osrmDurationSeconds": 1119,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 17,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1498,
+    "observedDelaySeconds": 379
+  },
+  {
+    "distanceKm": 1.9,
+    "osrmDurationSeconds": 205,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 205,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 4.1,
+    "osrmDurationSeconds": 353,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 15,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 453,
+    "observedDelaySeconds": 100
+  },
+  {
+    "distanceKm": 1.5,
+    "osrmDurationSeconds": 138,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 9,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 327,
+    "observedDelaySeconds": 189
+  },
+  {
+    "distanceKm": 14.3,
+    "osrmDurationSeconds": 1219,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 0,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1219,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.7,
+    "osrmDurationSeconds": 1348,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1348,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.3,
+    "osrmDurationSeconds": 1670,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2075,
+    "observedDelaySeconds": 405
+  },
+  {
+    "distanceKm": 11.4,
+    "osrmDurationSeconds": 1027,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1267,
+    "observedDelaySeconds": 240
+  },
+  {
+    "distanceKm": 17.8,
+    "osrmDurationSeconds": 1708,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1953,
+    "observedDelaySeconds": 245
+  },
+  {
+    "distanceKm": 15,
+    "osrmDurationSeconds": 1467,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 14,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1467,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 9.1,
+    "osrmDurationSeconds": 869,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 980,
+    "observedDelaySeconds": 111
+  },
+  {
+    "distanceKm": 5.4,
+    "osrmDurationSeconds": 584,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 15,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 584,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.5,
+    "osrmDurationSeconds": 299,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 0,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 299,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.4,
+    "osrmDurationSeconds": 237,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 22,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 341,
+    "observedDelaySeconds": 104
+  },
+  {
+    "distanceKm": 21.8,
+    "osrmDurationSeconds": 1820,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 8,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1914,
+    "observedDelaySeconds": 94
+  },
+  {
+    "distanceKm": 20.4,
+    "osrmDurationSeconds": 2051,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 20,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2329,
+    "observedDelaySeconds": 278
+  },
+  {
+    "distanceKm": 8,
+    "osrmDurationSeconds": 808,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 864,
+    "observedDelaySeconds": 56
+  },
+  {
+    "distanceKm": 8.9,
+    "osrmDurationSeconds": 964,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 21,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1032,
+    "observedDelaySeconds": 68
+  },
+  {
+    "distanceKm": 3.1,
+    "osrmDurationSeconds": 300,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 10,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 337,
+    "observedDelaySeconds": 37
+  },
+  {
+    "distanceKm": 6.2,
+    "osrmDurationSeconds": 665,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 20,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 842,
+    "observedDelaySeconds": 177
+  },
+  {
+    "distanceKm": 4.2,
+    "osrmDurationSeconds": 469,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 14,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 469,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 4.9,
+    "osrmDurationSeconds": 507,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 23,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 507,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.7,
+    "osrmDurationSeconds": 654,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 8,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 654,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 15.3,
+    "osrmDurationSeconds": 1252,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1375,
+    "observedDelaySeconds": 123
+  },
+  {
+    "distanceKm": 1.8,
+    "osrmDurationSeconds": 171,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 588,
+    "observedDelaySeconds": 417
+  },
+  {
+    "distanceKm": 5.2,
+    "osrmDurationSeconds": 557,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 17,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 747,
+    "observedDelaySeconds": 190
+  },
+  {
+    "distanceKm": 4.8,
+    "osrmDurationSeconds": 443,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 21,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 443,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.4,
+    "osrmDurationSeconds": 899,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1218,
+    "observedDelaySeconds": 319
+  },
+  {
+    "distanceKm": 7.9,
+    "osrmDurationSeconds": 709,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 18,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 955,
+    "observedDelaySeconds": 246
+  },
+  {
+    "distanceKm": 2.5,
+    "osrmDurationSeconds": 224,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 3,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 225,
+    "observedDelaySeconds": 1
+  },
+  {
+    "distanceKm": 6.8,
+    "osrmDurationSeconds": 606,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 2,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 657,
+    "observedDelaySeconds": 51
+  },
+  {
+    "distanceKm": 21.7,
+    "osrmDurationSeconds": 2347,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2791,
+    "observedDelaySeconds": 444
+  },
+  {
+    "distanceKm": 6,
+    "osrmDurationSeconds": 512,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 16,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 631,
+    "observedDelaySeconds": 119
+  },
+  {
+    "distanceKm": 19.2,
+    "osrmDurationSeconds": 1885,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 12,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1885,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.5,
+    "osrmDurationSeconds": 575,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 20,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 834,
+    "observedDelaySeconds": 259
+  },
+  {
+    "distanceKm": 15,
+    "osrmDurationSeconds": 1367,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 0,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1367,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.3,
+    "osrmDurationSeconds": 1877,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1877,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.5,
+    "osrmDurationSeconds": 1058,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 7,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1058,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.7,
+    "osrmDurationSeconds": 537,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 6,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 673,
+    "observedDelaySeconds": 136
+  },
+  {
+    "distanceKm": 2,
+    "osrmDurationSeconds": 169,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 16,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 254,
+    "observedDelaySeconds": 85
+  },
+  {
+    "distanceKm": 16.4,
+    "osrmDurationSeconds": 1672,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 0,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1672,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.6,
+    "osrmDurationSeconds": 1622,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1815,
+    "observedDelaySeconds": 193
+  },
+  {
+    "distanceKm": 14.6,
+    "osrmDurationSeconds": 1515,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 20,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1636,
+    "observedDelaySeconds": 121
+  },
+  {
+    "distanceKm": 15.1,
+    "osrmDurationSeconds": 1588,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 2,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1588,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.5,
+    "osrmDurationSeconds": 528,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 14,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 528,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.2,
+    "osrmDurationSeconds": 949,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 977,
+    "observedDelaySeconds": 28
+  },
+  {
+    "distanceKm": 12.5,
+    "osrmDurationSeconds": 1312,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 8,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1405,
+    "observedDelaySeconds": 93
+  },
+  {
+    "distanceKm": 8,
+    "osrmDurationSeconds": 689,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 7,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 689,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 12.8,
+    "osrmDurationSeconds": 1416,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 7,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1416,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.3,
+    "osrmDurationSeconds": 948,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 1,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 948,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.3,
+    "osrmDurationSeconds": 1404,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 15,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1477,
+    "observedDelaySeconds": 73
+  },
+  {
+    "distanceKm": 10.6,
+    "osrmDurationSeconds": 1042,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 4,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1065,
+    "observedDelaySeconds": 23
+  },
+  {
+    "distanceKm": 5.3,
+    "osrmDurationSeconds": 497,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 15,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 510,
+    "observedDelaySeconds": 13
+  },
+  {
+    "distanceKm": 13.2,
+    "osrmDurationSeconds": 1111,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 19,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1591,
+    "observedDelaySeconds": 480
+  },
+  {
+    "distanceKm": 12.6,
+    "osrmDurationSeconds": 1255,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 7,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1255,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.9,
+    "osrmDurationSeconds": 1493,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 7,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1722,
+    "observedDelaySeconds": 229
+  },
+  {
+    "distanceKm": 5.8,
+    "osrmDurationSeconds": 533,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 0,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 598,
+    "observedDelaySeconds": 65
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1748,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 6,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1892,
+    "observedDelaySeconds": 144
+  },
+  {
+    "distanceKm": 20.6,
+    "osrmDurationSeconds": 2276,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 21,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 2295,
+    "observedDelaySeconds": 19
+  },
+  {
+    "distanceKm": 14.4,
+    "osrmDurationSeconds": 1194,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 0,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1196,
+    "observedDelaySeconds": 2
+  },
+  {
+    "distanceKm": 16.3,
+    "osrmDurationSeconds": 1362,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 5,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1557,
+    "observedDelaySeconds": 195
+  },
+  {
+    "distanceKm": 8.3,
+    "osrmDurationSeconds": 730,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 17,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1008,
+    "observedDelaySeconds": 278
+  },
+  {
+    "distanceKm": 9.4,
+    "osrmDurationSeconds": 822,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 12,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 822,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.3,
+    "osrmDurationSeconds": 655,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 13,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 664,
+    "observedDelaySeconds": 9
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1599,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1680,
+    "observedDelaySeconds": 81
+  },
+  {
+    "distanceKm": 3.1,
+    "osrmDurationSeconds": 254,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 7,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 346,
+    "observedDelaySeconds": 92
+  },
+  {
+    "distanceKm": 1.8,
+    "osrmDurationSeconds": 179,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 1,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 228,
+    "observedDelaySeconds": 49
+  },
+  {
+    "distanceKm": 8.7,
+    "osrmDurationSeconds": 894,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 968,
+    "observedDelaySeconds": 74
+  },
+  {
+    "distanceKm": 21.2,
+    "osrmDurationSeconds": 2023,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2056,
+    "observedDelaySeconds": 33
+  },
+  {
+    "distanceKm": 11.4,
+    "osrmDurationSeconds": 1008,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 20,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1560,
+    "observedDelaySeconds": 552
+  },
+  {
+    "distanceKm": 6.9,
+    "osrmDurationSeconds": 776,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 11,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1195,
+    "observedDelaySeconds": 419
+  },
+  {
+    "distanceKm": 21.8,
+    "osrmDurationSeconds": 2030,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 14,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2130,
+    "observedDelaySeconds": 100
+  },
+  {
+    "distanceKm": 14.5,
+    "osrmDurationSeconds": 1378,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 7,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1378,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.5,
+    "osrmDurationSeconds": 2124,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 18,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2605,
+    "observedDelaySeconds": 481
+  },
+  {
+    "distanceKm": 3.7,
+    "osrmDurationSeconds": 318,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 2,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 318,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.1,
+    "osrmDurationSeconds": 856,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 3,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 856,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 4.2,
+    "osrmDurationSeconds": 422,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 12,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 622,
+    "observedDelaySeconds": 200
+  },
+  {
+    "distanceKm": 6.4,
+    "osrmDurationSeconds": 565,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 3,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 760,
+    "observedDelaySeconds": 195
+  },
+  {
+    "distanceKm": 6.8,
+    "osrmDurationSeconds": 612,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 12,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 663,
+    "observedDelaySeconds": 51
+  },
+  {
+    "distanceKm": 12.3,
+    "osrmDurationSeconds": 1365,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 7,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1481,
+    "observedDelaySeconds": 116
+  },
+  {
+    "distanceKm": 17.7,
+    "osrmDurationSeconds": 1582,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 19,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2057,
+    "observedDelaySeconds": 475
+  },
+  {
+    "distanceKm": 8.7,
+    "osrmDurationSeconds": 793,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 14,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 793,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 15.5,
+    "osrmDurationSeconds": 1661,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 5,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1661,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.9,
+    "osrmDurationSeconds": 1707,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 8,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1707,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.5,
+    "osrmDurationSeconds": 1225,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 20,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1329,
+    "observedDelaySeconds": 104
+  },
+  {
+    "distanceKm": 17.9,
+    "osrmDurationSeconds": 1688,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 12,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1688,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.4,
+    "osrmDurationSeconds": 300,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 13,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 300,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 19,
+    "osrmDurationSeconds": 1761,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 0,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1761,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.3,
+    "osrmDurationSeconds": 748,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 9,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1085,
+    "observedDelaySeconds": 337
+  },
+  {
+    "distanceKm": 19.5,
+    "osrmDurationSeconds": 1966,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 11,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2320,
+    "observedDelaySeconds": 354
+  },
+  {
+    "distanceKm": 18.7,
+    "osrmDurationSeconds": 1830,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1853,
+    "observedDelaySeconds": 23
+  },
+  {
+    "distanceKm": 15.4,
+    "osrmDurationSeconds": 1645,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 9,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1932,
+    "observedDelaySeconds": 287
+  },
+  {
+    "distanceKm": 13.7,
+    "osrmDurationSeconds": 1318,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 19,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1962,
+    "observedDelaySeconds": 644
+  },
+  {
+    "distanceKm": 9.4,
+    "osrmDurationSeconds": 852,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 2,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 995,
+    "observedDelaySeconds": 143
+  },
+  {
+    "distanceKm": 11.2,
+    "osrmDurationSeconds": 1061,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 17,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1529,
+    "observedDelaySeconds": 468
+  },
+  {
+    "distanceKm": 21.8,
+    "osrmDurationSeconds": 1822,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 5,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1861,
+    "observedDelaySeconds": 39
+  },
+  {
+    "distanceKm": 2.7,
+    "osrmDurationSeconds": 299,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 14,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 299,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.4,
+    "osrmDurationSeconds": 1409,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 5,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1409,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.4,
+    "osrmDurationSeconds": 287,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 12,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 478,
+    "observedDelaySeconds": 191
+  },
+  {
+    "distanceKm": 16.7,
+    "osrmDurationSeconds": 1759,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 9,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2042,
+    "observedDelaySeconds": 283
+  },
+  {
+    "distanceKm": 11.7,
+    "osrmDurationSeconds": 1059,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 23,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1279,
+    "observedDelaySeconds": 220
+  },
+  {
+    "distanceKm": 3.5,
+    "osrmDurationSeconds": 304,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 1,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 304,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.6,
+    "osrmDurationSeconds": 2180,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 1,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2291,
+    "observedDelaySeconds": 111
+  },
+  {
+    "distanceKm": 8.9,
+    "osrmDurationSeconds": 893,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 4,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 893,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 22,
+    "osrmDurationSeconds": 1985,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1985,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.7,
+    "osrmDurationSeconds": 1221,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 5,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1221,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.3,
+    "osrmDurationSeconds": 304,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 13,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 304,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.7,
+    "osrmDurationSeconds": 525,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 5,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 548,
+    "observedDelaySeconds": 23
+  },
+  {
+    "distanceKm": 20.3,
+    "osrmDurationSeconds": 2152,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 13,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2152,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.1,
+    "osrmDurationSeconds": 1365,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1365,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.8,
+    "osrmDurationSeconds": 796,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 801,
+    "observedDelaySeconds": 5
+  },
+  {
+    "distanceKm": 5.3,
+    "osrmDurationSeconds": 451,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 616,
+    "observedDelaySeconds": 165
+  },
+  {
+    "distanceKm": 21.5,
+    "osrmDurationSeconds": 2015,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 7,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2048,
+    "observedDelaySeconds": 33
+  },
+  {
+    "distanceKm": 20.6,
+    "osrmDurationSeconds": 2112,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 0,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2124,
+    "observedDelaySeconds": 12
+  },
+  {
+    "distanceKm": 13.8,
+    "osrmDurationSeconds": 1235,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 3,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1235,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.8,
+    "osrmDurationSeconds": 1511,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 19,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1862,
+    "observedDelaySeconds": 351
+  },
+  {
+    "distanceKm": 10.5,
+    "osrmDurationSeconds": 1062,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 10,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1259,
+    "observedDelaySeconds": 197
+  },
+  {
+    "distanceKm": 6.9,
+    "osrmDurationSeconds": 688,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 13,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 707,
+    "observedDelaySeconds": 19
+  },
+  {
+    "distanceKm": 17,
+    "osrmDurationSeconds": 1517,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 4,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1517,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 9.6,
+    "osrmDurationSeconds": 838,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 6,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 838,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.2,
+    "osrmDurationSeconds": 243,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 1,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 243,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11,
+    "osrmDurationSeconds": 1083,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 4,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1099,
+    "observedDelaySeconds": 16
+  },
+  {
+    "distanceKm": 10,
+    "osrmDurationSeconds": 1121,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1306,
+    "observedDelaySeconds": 185
+  },
+  {
+    "distanceKm": 11.7,
+    "osrmDurationSeconds": 1002,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 22,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1002,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 4.4,
+    "osrmDurationSeconds": 493,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 15,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 532,
+    "observedDelaySeconds": 39
+  },
+  {
+    "distanceKm": 6.3,
+    "osrmDurationSeconds": 689,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 11,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 997,
+    "observedDelaySeconds": 308
+  },
+  {
+    "distanceKm": 2,
+    "osrmDurationSeconds": 218,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 9,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 561,
+    "observedDelaySeconds": 343
+  },
+  {
+    "distanceKm": 5.2,
+    "osrmDurationSeconds": 436,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 17,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 745,
+    "observedDelaySeconds": 309
+  },
+  {
+    "distanceKm": 20.3,
+    "osrmDurationSeconds": 1797,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 5,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1997,
+    "observedDelaySeconds": 200
+  },
+  {
+    "distanceKm": 19.5,
+    "osrmDurationSeconds": 1995,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 22,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 2156,
+    "observedDelaySeconds": 161
+  },
+  {
+    "distanceKm": 15,
+    "osrmDurationSeconds": 1454,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 17,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1649,
+    "observedDelaySeconds": 195
+  },
+  {
+    "distanceKm": 7.1,
+    "osrmDurationSeconds": 738,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 16,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 738,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.3,
+    "osrmDurationSeconds": 1657,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 11,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2126,
+    "observedDelaySeconds": 469
+  },
+  {
+    "distanceKm": 2.8,
+    "osrmDurationSeconds": 303,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 15,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 303,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.1,
+    "osrmDurationSeconds": 1167,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 0,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1167,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.5,
+    "osrmDurationSeconds": 471,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 12,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 473,
+    "observedDelaySeconds": 2
+  },
+  {
+    "distanceKm": 21.8,
+    "osrmDurationSeconds": 1791,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 15,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1841,
+    "observedDelaySeconds": 50
+  },
+  {
+    "distanceKm": 20.1,
+    "osrmDurationSeconds": 1782,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2377,
+    "observedDelaySeconds": 595
+  },
+  {
+    "distanceKm": 1.4,
+    "osrmDurationSeconds": 139,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 0,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 139,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 261,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 4,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 287,
+    "observedDelaySeconds": 26
+  },
+  {
+    "distanceKm": 18.7,
+    "osrmDurationSeconds": 1602,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 12,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1602,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 9.5,
+    "osrmDurationSeconds": 867,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 21,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 867,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 315,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 15,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 315,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.4,
+    "osrmDurationSeconds": 1061,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 22,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1061,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21,
+    "osrmDurationSeconds": 1829,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 8,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1944,
+    "observedDelaySeconds": 115
+  },
+  {
+    "distanceKm": 4.5,
+    "osrmDurationSeconds": 400,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 23,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 437,
+    "observedDelaySeconds": 37
+  },
+  {
+    "distanceKm": 18.8,
+    "osrmDurationSeconds": 1950,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 2,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 2055,
+    "observedDelaySeconds": 105
+  },
+  {
+    "distanceKm": 18.1,
+    "osrmDurationSeconds": 1705,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 20,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2131,
+    "observedDelaySeconds": 426
+  },
+  {
+    "distanceKm": 4.8,
+    "osrmDurationSeconds": 458,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 4,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 458,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.5,
+    "osrmDurationSeconds": 276,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 6,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 276,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 7.2,
+    "osrmDurationSeconds": 610,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 610,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.7,
+    "osrmDurationSeconds": 663,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 9,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 929,
+    "observedDelaySeconds": 266
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 266,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 9,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 527,
+    "observedDelaySeconds": 261
+  },
+  {
+    "distanceKm": 14.2,
+    "osrmDurationSeconds": 1515,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 3,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1725,
+    "observedDelaySeconds": 210
+  },
+  {
+    "distanceKm": 17.9,
+    "osrmDurationSeconds": 1503,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 10,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2110,
+    "observedDelaySeconds": 607
+  },
+  {
+    "distanceKm": 14.1,
+    "osrmDurationSeconds": 1410,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 9,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1677,
+    "observedDelaySeconds": 267
+  },
+  {
+    "distanceKm": 7.8,
+    "osrmDurationSeconds": 723,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 16,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 723,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.5,
+    "osrmDurationSeconds": 1209,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 16,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1414,
+    "observedDelaySeconds": 205
+  },
+  {
+    "distanceKm": 10.6,
+    "osrmDurationSeconds": 1077,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 4,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1194,
+    "observedDelaySeconds": 117
+  },
+  {
+    "distanceKm": 18.2,
+    "osrmDurationSeconds": 1620,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 12,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1620,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 19.8,
+    "osrmDurationSeconds": 2065,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 11,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2507,
+    "observedDelaySeconds": 442
+  },
+  {
+    "distanceKm": 13.4,
+    "osrmDurationSeconds": 1287,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 15,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1411,
+    "observedDelaySeconds": 124
+  },
+  {
+    "distanceKm": 5.1,
+    "osrmDurationSeconds": 437,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 22,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 437,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.7,
+    "osrmDurationSeconds": 898,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 11,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 898,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 19.9,
+    "osrmDurationSeconds": 1922,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 10,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2262,
+    "observedDelaySeconds": 340
+  },
+  {
+    "distanceKm": 21.5,
+    "osrmDurationSeconds": 1992,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 10,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 2731,
+    "observedDelaySeconds": 739
+  },
+  {
+    "distanceKm": 2.6,
+    "osrmDurationSeconds": 253,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 1,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 253,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.5,
+    "osrmDurationSeconds": 1127,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 19,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1605,
+    "observedDelaySeconds": 478
+  },
+  {
+    "distanceKm": 9.3,
+    "osrmDurationSeconds": 827,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 7,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 865,
+    "observedDelaySeconds": 38
+  },
+  {
+    "distanceKm": 7.1,
+    "osrmDurationSeconds": 654,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 16,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 654,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 7,
+    "osrmDurationSeconds": 675,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 7,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 675,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.2,
+    "osrmDurationSeconds": 684,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 7,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 684,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.5,
+    "osrmDurationSeconds": 1151,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 2,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1151,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.4,
+    "osrmDurationSeconds": 586,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 7,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 693,
+    "observedDelaySeconds": 107
+  },
+  {
+    "distanceKm": 13,
+    "osrmDurationSeconds": 1265,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 3,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1292,
+    "observedDelaySeconds": 27
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 285,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 22,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 369,
+    "observedDelaySeconds": 84
+  },
+  {
+    "distanceKm": 12.9,
+    "osrmDurationSeconds": 1134,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 7,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1264,
+    "observedDelaySeconds": 130
+  },
+  {
+    "distanceKm": 17,
+    "osrmDurationSeconds": 1824,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 22,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1970,
+    "observedDelaySeconds": 146
+  },
+  {
+    "distanceKm": 10.6,
+    "osrmDurationSeconds": 1148,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 18,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1561,
+    "observedDelaySeconds": 413
+  },
+  {
+    "distanceKm": 16.7,
+    "osrmDurationSeconds": 1367,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 13,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1367,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.1,
+    "osrmDurationSeconds": 1078,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 3,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1113,
+    "observedDelaySeconds": 35
+  },
+  {
+    "distanceKm": 10.2,
+    "osrmDurationSeconds": 1086,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 2,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1110,
+    "observedDelaySeconds": 24
+  },
+  {
+    "distanceKm": 21.9,
+    "osrmDurationSeconds": 1917,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 7,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1922,
+    "observedDelaySeconds": 5
+  },
+  {
+    "distanceKm": 14.8,
+    "osrmDurationSeconds": 1445,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 15,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1595,
+    "observedDelaySeconds": 150
+  },
+  {
+    "distanceKm": 3.2,
+    "osrmDurationSeconds": 277,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 14,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 277,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.6,
+    "osrmDurationSeconds": 552,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 4,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 552,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.7,
+    "osrmDurationSeconds": 1615,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 0,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1615,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.9,
+    "osrmDurationSeconds": 1804,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 15,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1804,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.7,
+    "osrmDurationSeconds": 917,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 23,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 917,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 20.3,
+    "osrmDurationSeconds": 2043,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 8,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2189,
+    "observedDelaySeconds": 146
+  },
+  {
+    "distanceKm": 21,
+    "osrmDurationSeconds": 1814,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 18,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2201,
+    "observedDelaySeconds": 387
+  },
+  {
+    "distanceKm": 21.2,
+    "osrmDurationSeconds": 1740,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 22,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1740,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.9,
+    "osrmDurationSeconds": 331,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 23,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 364,
+    "observedDelaySeconds": 33
+  },
+  {
+    "distanceKm": 21.7,
+    "osrmDurationSeconds": 2045,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 10,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2587,
+    "observedDelaySeconds": 542
+  },
+  {
+    "distanceKm": 13.2,
+    "osrmDurationSeconds": 1412,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 15,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1412,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.3,
+    "osrmDurationSeconds": 567,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 2,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 624,
+    "observedDelaySeconds": 57
+  },
+  {
+    "distanceKm": 1.6,
+    "osrmDurationSeconds": 149,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 4,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 149,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2,
+    "osrmDurationSeconds": 188,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 12,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 427,
+    "observedDelaySeconds": 239
+  },
+  {
+    "distanceKm": 19.7,
+    "osrmDurationSeconds": 1905,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 8,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2014,
+    "observedDelaySeconds": 109
+  },
+  {
+    "distanceKm": 6.2,
+    "osrmDurationSeconds": 678,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 6,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 678,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 12.2,
+    "osrmDurationSeconds": 1043,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 21,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1191,
+    "observedDelaySeconds": 148
+  },
+  {
+    "distanceKm": 9.5,
+    "osrmDurationSeconds": 823,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 11,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1227,
+    "observedDelaySeconds": 404
+  },
+  {
+    "distanceKm": 14.5,
+    "osrmDurationSeconds": 1418,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 18,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1933,
+    "observedDelaySeconds": 515
+  },
+  {
+    "distanceKm": 12.2,
+    "osrmDurationSeconds": 1346,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1665,
+    "observedDelaySeconds": 319
+  },
+  {
+    "distanceKm": 18.1,
+    "osrmDurationSeconds": 1915,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 14,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1998,
+    "observedDelaySeconds": 83
+  },
+  {
+    "distanceKm": 11.8,
+    "osrmDurationSeconds": 1240,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 18,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1983,
+    "observedDelaySeconds": 743
+  },
+  {
+    "distanceKm": 3.7,
+    "osrmDurationSeconds": 375,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 18,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 660,
+    "observedDelaySeconds": 285
+  },
+  {
+    "distanceKm": 13.7,
+    "osrmDurationSeconds": 1335,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 1,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1350,
+    "observedDelaySeconds": 15
+  },
+  {
+    "distanceKm": 19.7,
+    "osrmDurationSeconds": 1902,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 14,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1902,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 12,
+    "osrmDurationSeconds": 1345,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 20,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1616,
+    "observedDelaySeconds": 271
+  },
+  {
+    "distanceKm": 15.3,
+    "osrmDurationSeconds": 1369,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 22,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1369,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 1.7,
+    "osrmDurationSeconds": 179,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 3,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 179,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.3,
+    "osrmDurationSeconds": 951,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 2,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 951,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 10.1,
+    "osrmDurationSeconds": 855,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 855,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21,
+    "osrmDurationSeconds": 2232,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 3,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2296,
+    "observedDelaySeconds": 64
+  },
+  {
+    "distanceKm": 21.2,
+    "osrmDurationSeconds": 2143,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 8,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2143,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.8,
+    "osrmDurationSeconds": 298,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 515,
+    "observedDelaySeconds": 217
+  },
+  {
+    "distanceKm": 5.2,
+    "osrmDurationSeconds": 437,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 16,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 634,
+    "observedDelaySeconds": 197
+  },
+  {
+    "distanceKm": 21.4,
+    "osrmDurationSeconds": 2131,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 11,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2452,
+    "observedDelaySeconds": 321
+  },
+  {
+    "distanceKm": 4.3,
+    "osrmDurationSeconds": 451,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 9,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 787,
+    "observedDelaySeconds": 336
+  },
+  {
+    "distanceKm": 18.4,
+    "osrmDurationSeconds": 1838,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 23,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1838,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 19.3,
+    "osrmDurationSeconds": 1794,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 14,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1816,
+    "observedDelaySeconds": 22
+  },
+  {
+    "distanceKm": 4.5,
+    "osrmDurationSeconds": 450,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 9,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 693,
+    "observedDelaySeconds": 243
+  },
+  {
+    "distanceKm": 9.3,
+    "osrmDurationSeconds": 839,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 6,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 839,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.4,
+    "osrmDurationSeconds": 1749,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 0,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1749,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.7,
+    "osrmDurationSeconds": 576,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 9,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 932,
+    "observedDelaySeconds": 356
+  },
+  {
+    "distanceKm": 6.7,
+    "osrmDurationSeconds": 690,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 8,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 690,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.1,
+    "osrmDurationSeconds": 2263,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2368,
+    "observedDelaySeconds": 105
+  },
+  {
+    "distanceKm": 15.4,
+    "osrmDurationSeconds": 1500,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1745,
+    "observedDelaySeconds": 245
+  },
+  {
+    "distanceKm": 8.3,
+    "osrmDurationSeconds": 802,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1085,
+    "observedDelaySeconds": 283
+  },
+  {
+    "distanceKm": 2.7,
+    "osrmDurationSeconds": 274,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 23,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 413,
+    "observedDelaySeconds": 139
+  },
+  {
+    "distanceKm": 11.5,
+    "osrmDurationSeconds": 1166,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1320,
+    "observedDelaySeconds": 154
+  },
+  {
+    "distanceKm": 12.1,
+    "osrmDurationSeconds": 1051,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 14,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1051,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.7,
+    "osrmDurationSeconds": 855,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 21,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 855,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.9,
+    "osrmDurationSeconds": 2059,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 14,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2199,
+    "observedDelaySeconds": 140
+  },
+  {
+    "distanceKm": 3.3,
+    "osrmDurationSeconds": 347,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 15,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 442,
+    "observedDelaySeconds": 95
+  },
+  {
+    "distanceKm": 10.2,
+    "osrmDurationSeconds": 1058,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 17,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1545,
+    "observedDelaySeconds": 487
+  },
+  {
+    "distanceKm": 5.8,
+    "osrmDurationSeconds": 559,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 0,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 574,
+    "observedDelaySeconds": 15
+  },
+  {
+    "distanceKm": 12.8,
+    "osrmDurationSeconds": 1123,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1148,
+    "observedDelaySeconds": 25
+  },
+  {
+    "distanceKm": 12.1,
+    "osrmDurationSeconds": 1148,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 13,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1239,
+    "observedDelaySeconds": 91
+  },
+  {
+    "distanceKm": 20.7,
+    "osrmDurationSeconds": 2155,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 19,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2410,
+    "observedDelaySeconds": 255
+  },
+  {
+    "distanceKm": 21,
+    "osrmDurationSeconds": 2345,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 12,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2345,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 6.6,
+    "osrmDurationSeconds": 678,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 23,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 889,
+    "observedDelaySeconds": 211
+  },
+  {
+    "distanceKm": 2,
+    "osrmDurationSeconds": 181,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 4,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 181,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17,
+    "osrmDurationSeconds": 1708,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 17,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2057,
+    "observedDelaySeconds": 349
+  },
+  {
+    "distanceKm": 8,
+    "osrmDurationSeconds": 662,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 0,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 662,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.8,
+    "osrmDurationSeconds": 1318,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 0,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1318,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.9,
+    "osrmDurationSeconds": 1727,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 23,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1727,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1673,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 0,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1708,
+    "observedDelaySeconds": 35
+  },
+  {
+    "distanceKm": 15.2,
+    "osrmDurationSeconds": 1684,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 19,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2066,
+    "observedDelaySeconds": 382
+  },
+  {
+    "distanceKm": 5.9,
+    "osrmDurationSeconds": 593,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 4,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 593,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.2,
+    "osrmDurationSeconds": 761,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 22,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 761,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.2,
+    "osrmDurationSeconds": 986,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 11,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1225,
+    "observedDelaySeconds": 239
+  },
+  {
+    "distanceKm": 1.4,
+    "osrmDurationSeconds": 149,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 0,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 149,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1860,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 20,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2175,
+    "observedDelaySeconds": 315
+  },
+  {
+    "distanceKm": 1.9,
+    "osrmDurationSeconds": 205,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 10,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 486,
+    "observedDelaySeconds": 281
+  },
+  {
+    "distanceKm": 10.9,
+    "osrmDurationSeconds": 923,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 0,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1086,
+    "observedDelaySeconds": 163
+  },
+  {
+    "distanceKm": 13.7,
+    "osrmDurationSeconds": 1334,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 11,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1520,
+    "observedDelaySeconds": 186
+  },
+  {
+    "distanceKm": 1.6,
+    "osrmDurationSeconds": 146,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 146,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 22,
+    "osrmDurationSeconds": 2372,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 17,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2810,
+    "observedDelaySeconds": 438
+  },
+  {
+    "distanceKm": 9.5,
+    "osrmDurationSeconds": 814,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 2,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 823,
+    "observedDelaySeconds": 9
+  },
+  {
+    "distanceKm": 16.1,
+    "osrmDurationSeconds": 1696,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 21,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1722,
+    "observedDelaySeconds": 26
+  },
+  {
+    "distanceKm": 2.7,
+    "osrmDurationSeconds": 253,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 0,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 253,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 13.7,
+    "osrmDurationSeconds": 1342,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 13,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1451,
+    "observedDelaySeconds": 109
+  },
+  {
+    "distanceKm": 3.1,
+    "osrmDurationSeconds": 260,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 8,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 463,
+    "observedDelaySeconds": 203
+  },
+  {
+    "distanceKm": 7.2,
+    "osrmDurationSeconds": 630,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 2,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 630,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 1.4,
+    "osrmDurationSeconds": 122,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 8,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 263,
+    "observedDelaySeconds": 141
+  },
+  {
+    "distanceKm": 7.3,
+    "osrmDurationSeconds": 781,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 3,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 871,
+    "observedDelaySeconds": 90
+  },
+  {
+    "distanceKm": 2,
+    "osrmDurationSeconds": 185,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 8,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 185,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.9,
+    "osrmDurationSeconds": 1796,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 10,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2025,
+    "observedDelaySeconds": 229
+  },
+  {
+    "distanceKm": 16.4,
+    "osrmDurationSeconds": 1753,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2175,
+    "observedDelaySeconds": 422
+  },
+  {
+    "distanceKm": 17.8,
+    "osrmDurationSeconds": 1601,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1631,
+    "observedDelaySeconds": 30
+  },
+  {
+    "distanceKm": 11.2,
+    "osrmDurationSeconds": 986,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 2,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 986,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 18.9,
+    "osrmDurationSeconds": 1866,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 14,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2000,
+    "observedDelaySeconds": 134
+  },
+  {
+    "distanceKm": 5.1,
+    "osrmDurationSeconds": 464,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 17,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 893,
+    "observedDelaySeconds": 429
+  },
+  {
+    "distanceKm": 9.6,
+    "osrmDurationSeconds": 1058,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1330,
+    "observedDelaySeconds": 272
+  },
+  {
+    "distanceKm": 15.8,
+    "osrmDurationSeconds": 1673,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 20,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1870,
+    "observedDelaySeconds": 197
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 290,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 307,
+    "observedDelaySeconds": 17
+  },
+  {
+    "distanceKm": 21.6,
+    "osrmDurationSeconds": 1832,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 9,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2298,
+    "observedDelaySeconds": 466
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1643,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 20,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2065,
+    "observedDelaySeconds": 422
+  },
+  {
+    "distanceKm": 20.5,
+    "osrmDurationSeconds": 2083,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 15,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2083,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 15.4,
+    "osrmDurationSeconds": 1264,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 3,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1264,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 5.1,
+    "osrmDurationSeconds": 427,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 17,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 502,
+    "observedDelaySeconds": 75
+  },
+  {
+    "distanceKm": 13,
+    "osrmDurationSeconds": 1108,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 2,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1144,
+    "observedDelaySeconds": 36
+  },
+  {
+    "distanceKm": 19.2,
+    "osrmDurationSeconds": 1756,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 11,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2195,
+    "observedDelaySeconds": 439
+  },
+  {
+    "distanceKm": 18.7,
+    "osrmDurationSeconds": 1824,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 3,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1925,
+    "observedDelaySeconds": 101
+  },
+  {
+    "distanceKm": 22,
+    "osrmDurationSeconds": 1892,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 6,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1892,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.5,
+    "osrmDurationSeconds": 1221,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 14,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1221,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 16.7,
+    "osrmDurationSeconds": 1503,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 22,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1503,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 1.6,
+    "osrmDurationSeconds": 146,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 1,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 217,
+    "observedDelaySeconds": 71
+  },
+  {
+    "distanceKm": 5.1,
+    "osrmDurationSeconds": 558,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 17,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 894,
+    "observedDelaySeconds": 336
+  },
+  {
+    "distanceKm": 9.9,
+    "osrmDurationSeconds": 1026,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 16,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1026,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3.6,
+    "osrmDurationSeconds": 389,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 21,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 422,
+    "observedDelaySeconds": 33
+  },
+  {
+    "distanceKm": 5.4,
+    "osrmDurationSeconds": 484,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 21,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 627,
+    "observedDelaySeconds": 143
+  },
+  {
+    "distanceKm": 12.5,
+    "osrmDurationSeconds": 1150,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 14,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1150,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.8,
+    "osrmDurationSeconds": 2412,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 23,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2412,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 14.6,
+    "osrmDurationSeconds": 1573,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 14,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1573,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.3,
+    "osrmDurationSeconds": 1521,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 16,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1521,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 15.2,
+    "osrmDurationSeconds": 1481,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 8,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1481,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 2.4,
+    "osrmDurationSeconds": 244,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 14,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 244,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 11.6,
+    "osrmDurationSeconds": 1097,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 15,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1097,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 4.1,
+    "osrmDurationSeconds": 337,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 5,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 337,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 17.8,
+    "osrmDurationSeconds": 1879,
+    "emergencyCategory": "STROKE",
+    "hourOfDay": 13,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1970,
+    "observedDelaySeconds": 91
+  },
+  {
+    "distanceKm": 6,
+    "osrmDurationSeconds": 510,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 12,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 538,
+    "observedDelaySeconds": 28
+  },
+  {
+    "distanceKm": 16.2,
+    "osrmDurationSeconds": 1366,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 19,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1935,
+    "observedDelaySeconds": 569
+  },
+  {
+    "distanceKm": 21.6,
+    "osrmDurationSeconds": 2180,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 0,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2269,
+    "observedDelaySeconds": 89
+  },
+  {
+    "distanceKm": 21,
+    "osrmDurationSeconds": 2007,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 17,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2458,
+    "observedDelaySeconds": 451
+  },
+  {
+    "distanceKm": 18.5,
+    "osrmDurationSeconds": 1623,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 6,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1626,
+    "observedDelaySeconds": 3
+  },
+  {
+    "distanceKm": 10.2,
+    "osrmDurationSeconds": 1032,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 1,
+    "dayOfWeek": 6,
+    "activeBlockagesNearby": 2,
+    "actualTripDurationSeconds": 1469,
+    "observedDelaySeconds": 437
+  },
+  {
+    "distanceKm": 21.3,
+    "osrmDurationSeconds": 2307,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 20,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2576,
+    "observedDelaySeconds": 269
+  },
+  {
+    "distanceKm": 18.7,
+    "osrmDurationSeconds": 2015,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 9,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2492,
+    "observedDelaySeconds": 477
+  },
+  {
+    "distanceKm": 2.8,
+    "osrmDurationSeconds": 240,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 5,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 240,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 7.8,
+    "osrmDurationSeconds": 798,
+    "emergencyCategory": "RESPIRATORY_FAILURE",
+    "hourOfDay": 7,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 798,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 3,
+    "osrmDurationSeconds": 255,
+    "emergencyCategory": "MATERNITY_LABOR",
+    "hourOfDay": 8,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 406,
+    "observedDelaySeconds": 151
+  },
+  {
+    "distanceKm": 18.9,
+    "osrmDurationSeconds": 1752,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 20,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 2011,
+    "observedDelaySeconds": 259
+  },
+  {
+    "distanceKm": 3.2,
+    "osrmDurationSeconds": 297,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 16,
+    "dayOfWeek": 0,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 297,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 8.3,
+    "osrmDurationSeconds": 774,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 22,
+    "dayOfWeek": 2,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 774,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.6,
+    "osrmDurationSeconds": 2279,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 15,
+    "dayOfWeek": 5,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2342,
+    "observedDelaySeconds": 63
+  },
+  {
+    "distanceKm": 18.9,
+    "osrmDurationSeconds": 1779,
+    "emergencyCategory": "TRAUMA_ACCIDENT",
+    "hourOfDay": 18,
+    "dayOfWeek": 4,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 2314,
+    "observedDelaySeconds": 535
+  },
+  {
+    "distanceKm": 11.2,
+    "osrmDurationSeconds": 955,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 0,
+    "dayOfWeek": 3,
+    "activeBlockagesNearby": 1,
+    "actualTripDurationSeconds": 1003,
+    "observedDelaySeconds": 48
+  },
+  {
+    "distanceKm": 12.2,
+    "osrmDurationSeconds": 1056,
+    "emergencyCategory": "GENERAL_EMERGENCY",
+    "hourOfDay": 13,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1056,
+    "observedDelaySeconds": 0
+  },
+  {
+    "distanceKm": 21.4,
+    "osrmDurationSeconds": 1999,
+    "emergencyCategory": "CARDIAC_ARREST",
+    "hourOfDay": 15,
+    "dayOfWeek": 1,
+    "activeBlockagesNearby": 0,
+    "actualTripDurationSeconds": 1999,
+    "observedDelaySeconds": 0
+  }
+]

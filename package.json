@@ -1,0 +1,31 @@
+{
+  "name": "aurangabad-smart-ambulance-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aurangabad Smart Ambulance — Intelligent Emergency Dispatch & Traffic Coordination Platform",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -p \"[{name}]\" -n \"API,WEB\" -c \"cyan.bold,green.bold\" \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "npm --workspace=@aurangabad-ambulance/api run dev",
+    "dev:web": "npm --workspace=@aurangabad-ambulance/web run dev",
+    "dev:mobile": "npm --workspace=@aurangabad-ambulance/mobile run start",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:unit": "npm --workspace=@aurangabad-ambulance/api run test:unit",
+    "test:e2e": "npm --workspace=@aurangabad-ambulance/api run test:e2e",
+    "lint": "npm run lint --workspaces --if-present",
+    "db:generate": "npm --workspace=@aurangabad-ambulance/api run db:generate",
+    "db:migrate": "npm --workspace=@aurangabad-ambulance/api run db:migrate",
+    "db:seed": "npm --workspace=@aurangabad-ambulance/api run db:seed",
+    "db:studio": "npm --workspace=@aurangabad-ambulance/api run db:studio",
+    "ml:train": "npm --workspace=@aurangabad-ambulance/api run ml:train"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  }
+}

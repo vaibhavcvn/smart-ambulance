@@ -1,0 +1,30 @@
+{
+  "version": "v1.0.0-rf-aurangabad",
+  "algorithm": "RandomForestRegression (ml-random-forest)",
+  "trainedAt": "2026-10-16T17:35:05.316Z",
+  "hyperparameters": {
+    "seed": 42,
+    "maxFeatures": 5,
+    "replacement": true,
+    "nEstimators": 40
+  },
+  "features": [
+    "distanceKm",
+    "osrmDurationSeconds",
+    "priorityCode",
+    "hourOfDay",
+    "isPeakHour",
+    "isWeekend",
+    "activeBlockagesNearby"
+  ],
+  "metrics": {
+    "sampleCount": 120,
+    "maeSeconds": 61.54,
+    "rmseSeconds": 79.95,
+    "r2Score": 0.776,
+    "baselineMaeSeconds": 138.82
+  },
+  "isSynthetic": true,
+  "trainingSamplesCount": 480,
+  "testSamplesCount": 120
+}
