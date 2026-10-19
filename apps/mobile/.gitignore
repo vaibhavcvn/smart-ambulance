@@ -1,0 +1,12 @@
+# Expo temporary caches
+.expo/web/
+.expo/metro/
+web-build/
+dist/
+
+# Native builds (managed Expo workflow)
+/android/
+/ios/
+
+# Dependencies & temporary files
+*.orig.*
