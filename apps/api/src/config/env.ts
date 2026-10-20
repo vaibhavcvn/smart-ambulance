@@ -17,6 +17,7 @@ const EnvSchema = z.object({
   API_URL: z.string().default('http://localhost:4000'),
   FRONTEND_URL: z.string().default('http://localhost:5173'),
   DATABASE_URL: z.string().default('file:./dev.db'),
+  POSTGRES_DATABASE_URL: z.string().optional(),
   JWT_SECRET: z.string().min(16).default('aurangabad_ems_super_secret_jwt_key_2026_dev_min_32_chars!'),
   JWT_EXPIRES_IN: z.string().default('7d'),
   BCRYPT_ROUNDS: z.coerce.number().default(10),
@@ -40,7 +41,44 @@ const EnvSchema = z.object({
     .transform((val) => val === 'true')
     .default('false'),
   LOG_LEVEL: z.string().default('info'),
-});
+}).refine(
+  (data) => {
+    // 1. Conflict Prevention: If both DATABASE_URL and POSTGRES_DATABASE_URL are set to postgres URLs, ensure they match
+    const dbIsPostgres =
+      data.DATABASE_URL.startsWith('postgres://') || data.DATABASE_URL.startsWith('postgresql://');
+    const pgIsPostgres =
+      Boolean(data.POSTGRES_DATABASE_URL) &&
+      (data.POSTGRES_DATABASE_URL!.startsWith('postgres://') || data.POSTGRES_DATABASE_URL!.startsWith('postgresql://'));
+
+    if (pgIsPostgres && dbIsPostgres && data.POSTGRES_DATABASE_URL !== data.DATABASE_URL) {
+      return false;
+    }
+    return true;
+  },
+  {
+    message:
+      'Configuration conflict: Both DATABASE_URL and POSTGRES_DATABASE_URL are configured with conflicting PostgreSQL connection URLs. Provide only one PostgreSQL target to prevent ambiguous routing.',
+    path: ['POSTGRES_DATABASE_URL'],
+  }
+).refine(
+  (data) => {
+    // 2. Production Safety: Ephemeral SQLite is strictly forbidden in production
+    const isProduction = data.NODE_ENV === 'production' || process.env.VERCEL === '1';
+    if (!isProduction) return true;
+    const hasPostgres =
+      (Boolean(data.POSTGRES_DATABASE_URL) &&
+        (data.POSTGRES_DATABASE_URL!.startsWith('postgres://') ||
+          data.POSTGRES_DATABASE_URL!.startsWith('postgresql://'))) ||
+      data.DATABASE_URL.startsWith('postgres://') ||
+      data.DATABASE_URL.startsWith('postgresql://');
+    return hasPostgres;
+  },
+  {
+    message:
+      'Production requires a valid PostgreSQL connection string in DATABASE_URL or POSTGRES_DATABASE_URL (must start with postgresql:// or postgres://). Ephemeral SQLite databases are strictly prohibited in production to prevent silent data loss.',
+    path: ['DATABASE_URL'],
+  }
+);
 
 const parsedEnv = EnvSchema.safeParse(process.env);
 

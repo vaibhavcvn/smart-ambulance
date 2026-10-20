@@ -1,0 +1,352 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "./generated/client-postgres"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   // PATIENT, DRIVER, HOSPITAL_STAFF, TRAFFIC_POLICE, ADMIN
+  phone        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  driverProfile         DriverProfile?
+  hospitalStaff         HospitalStaff?
+  trafficPoliceProfile  TrafficPoliceProfile?
+  bookings              Booking[]        @relation("PatientBookings")
+  patientTrips          Trip[]           @relation("PatientTrips")
+  reportedBlockages     TrafficBlockage[] @relation("UserReportedBlockages")
+  auditLogs             AuditLog[]       @relation("UserAuditLogs")
+  notifications         Notification[]   @relation("UserNotifications")
+
+  @@index([role])
+}
+
+model DriverProfile {
+  id                            String   @id @default(uuid())
+  userId                        String   @unique
+  user                          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseNumber                 String
+  status                        String   @default("AVAILABLE") // AVAILABLE, ASSIGNED, BUSY, OFFLINE
+  applicationStatus             String   @default("APPROVED") // PENDING_REVIEW, APPROVED, REJECTED, SUSPENDED
+  vehicleTypeRequested          String?  // ALS, BLS, PATIENT_TRANSPORT
+  vehicleRegistrationRequested  String?
+  rejectionReason               String?
+  reviewedAt                    DateTime?
+  reviewedByUserId              String?
+  currentLatitude               Float    @default(19.8762)
+  currentLongitude              Float    @default(75.3433)
+  lastLocationUpdate            DateTime @default(now())
+  isSimulated                   Boolean  @default(false)
+  assignedAmbulanceId           String?  @unique
+  assignedAmbulance             Ambulance? @relation(fields: [assignedAmbulanceId], references: [id])
+  createdAt                     DateTime @default(now())
+  updatedAt                     DateTime @updatedAt
+
+  dispatchRequests              DispatchRequest[]
+  trips                         Trip[]           @relation("DriverTrips")
+  locationUpdates               LocationUpdate[]
+
+  @@index([status])
+  @@index([applicationStatus])
+}
+
+model Ambulance {
+  id                 String   @id @default(uuid())
+  registrationNumber String   @unique
+  type               String   @default("BLS") // ALS, BLS, PATIENT_TRANSPORT
+  status             String   @default("AVAILABLE") // AVAILABLE, DISPATCHED, BUSY, MAINTENANCE, OFFLINE
+  currentLatitude    Float    @default(19.8762)
+  currentLongitude   Float    @default(75.3433)
+  lastLocationUpdate DateTime @default(now())
+  isSimulated        Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  driverProfile      DriverProfile?
+  trips              Trip[]           @relation("AmbulanceTrips")
+  locationUpdates    LocationUpdate[]
+
+  @@index([status])
+  @@index([type])
+}
+
+model Hospital {
+  id                     String   @id @default(uuid())
+  name                   String
+  address                String
+  latitude               Float
+  longitude              Float
+  status                 String   @default("OPERATIONAL") // OPERATIONAL, HIGH_CAPACITY, DIVERTING, CLOSED
+  availableEmergencyBeds Int      @default(10)
+  availableIcuBeds       Int      @default(5)
+  availableGeneralBeds   Int      @default(20)
+  hasTraumaCenter        Boolean  @default(false)
+  hasCathLab             Boolean  @default(false)
+  hasStrokeUnit          Boolean  @default(false)
+  phone                  String   @default("+91-240-2334411")
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  staffMembers           HospitalStaff[]
+  inboundTrips           Trip[]          @relation("HospitalTrips")
+
+  @@index([status])
+}
+
+model HospitalStaff {
+  id         String   @id @default(uuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hospitalId String
+  hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+  roleTitle  String   @default("Emergency Coordinator")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([hospitalId])
+}
+
+model Booking {
+  id                String   @id @default(uuid())
+  patientId         String
+  patient           User     @relation("PatientBookings", fields: [patientId], references: [id])
+  pickupAddress     String
+  pickupLatitude    Float
+  pickupLongitude   Float
+  pickupLandmark    String?
+  emergencyCategory String   // CARDIAC_ARREST, TRAUMA_ACCIDENT, etc.
+  priority          String   // CRITICAL, URGENT, STANDARD
+  patientName       String?
+  patientPhone      String?
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  trip              Trip?
+
+  @@index([patientId])
+  @@index([createdAt])
+}
+
+model Trip {
+  id                       String   @id @default(uuid())
+  bookingId                String   @unique
+  booking                  Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  status                   String   @default("REQUESTED") // REQUESTED, DISPATCHING, DRIVER_REQUESTED, ACCEPTED, etc.
+  patientId                String
+  patient                  User     @relation("PatientTrips", fields: [patientId], references: [id])
+  driverId                 String?
+  driver                   DriverProfile? @relation("DriverTrips", fields: [driverId], references: [id])
+  ambulanceId              String?
+  ambulance                Ambulance?     @relation("AmbulanceTrips", fields: [ambulanceId], references: [id])
+  hospitalId               String?
+  hospital                 Hospital?      @relation("HospitalTrips", fields: [hospitalId], references: [id])
+  pickupAddress            String
+  pickupLatitude           Float
+  pickupLongitude          Float
+  pickupLandmark           String?
+  emergencyCategory        String
+  priority                 String
+  notes                    String?
+  requestedAt              DateTime @default(now())
+  acceptedAt               DateTime?
+  arrivedPickupAt          DateTime?
+  pickedUpAt               DateTime?
+  arrivedHospitalAt        DateTime?
+  completedAt              DateTime?
+  cancelledAt              DateTime?
+  cancellationReason       String?
+  predictedDelaySeconds    Float?
+  recommendedHospitalReason String?
+  routeDistanceKm          Float?
+  routeDurationSeconds     Float?
+  routePolyline            String? // Encoded string or JSON geometry
+  hospitalRouteDistanceKm  Float?
+  hospitalRouteDurationSeconds Float?
+  hospitalRoutePolyline    String?
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
+  dispatchRequests         DispatchRequest[]
+  statusHistory            TripStatusHistory[]
+  locationUpdates          LocationUpdate[]
+  trafficCorridor          TrafficCorridor?
+
+  @@index([status])
+  @@index([patientId])
+  @@index([driverId])
+  @@index([hospitalId])
+  @@index([requestedAt])
+}
+
+model DispatchRequest {
+  id            String   @id @default(uuid())
+  tripId        String
+  trip          Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  driverId      String
+  driver        DriverProfile @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  status        String   @default("PENDING") // PENDING, ACCEPTED, DECLINED, EXPIRED, CANCELLED
+  offeredAt     DateTime @default(now())
+  expiresAt     DateTime
+  respondedAt   DateTime?
+  declineReason String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tripId])
+  @@index([driverId])
+  @@index([status])
+  @@index([expiresAt])
+}
+
+model TripStatusHistory {
+  id              String   @id @default(uuid())
+  tripId          String
+  trip            Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  fromStatus      String
+  toStatus        String
+  changedByUserId String?
+  notes           String?
+  timestamp       DateTime @default(now())
+
+  @@index([tripId])
+  @@index([timestamp])
+}
+
+model LocationUpdate {
+  id          String   @id @default(uuid())
+  driverId    String
+  driver      DriverProfile @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  ambulanceId String?
+  ambulance   Ambulance?    @relation(fields: [ambulanceId], references: [id], onDelete: SetNull)
+  tripId      String?
+  trip        Trip?         @relation(fields: [tripId], references: [id], onDelete: SetNull)
+  latitude    Float
+  longitude   Float
+  speed       Float?
+  heading     Float?
+  accuracy    Float?
+  isSimulated Boolean  @default(false)
+  timestamp   DateTime @default(now())
+
+  @@index([driverId])
+  @@index([tripId])
+  @@index([timestamp])
+}
+
+model TrafficBlockage {
+  id                       String    @id @default(uuid())
+  title                    String
+  description              String?
+  roadName                 String
+  latitude                 Float
+  longitude                Float
+  severity                 String    @default("MEDIUM") // LOW, MEDIUM, HIGH, CRITICAL
+  reportedByUserId         String
+  reportedBy               User      @relation("UserReportedBlockages", fields: [reportedByUserId], references: [id])
+  reportedAt               DateTime  @default(now())
+  resolvedAt               DateTime?
+  isActive                 Boolean   @default(true)
+  estimatedDurationMinutes Int?
+
+  @@index([isActive])
+  @@index([severity])
+}
+
+model TrafficCorridor {
+  id                      String    @id @default(uuid())
+  tripId                  String    @unique
+  trip                    Trip      @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  status                  String    @default("REQUESTED") // REQUESTED, ACTIVE, CLEARED, CANCELLED
+  emergencyPriority       String
+  originLat               Float
+  originLng               Float
+  destLat                 Float
+  destLng                 Float
+  routeSummary            String?
+  jurisdictionZone        String?   // e.g. "CIDCO", "KRANTI_CHOWK", "CITY_CENTRAL", "WALUJ", "ALL"
+  upcomingSignalId        String?
+  upcomingSignalName      String?
+  signalEtaSeconds        Float?
+  corridorClearanceStatus String?   @default("NORMAL") // NORMAL, REQUESTED, CLEARED, BLOCKED, PASSED
+  acknowledgedByUserId    String?
+  activatedAt             DateTime?
+  clearedAt               DateTime?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  @@index([status])
+  @@index([jurisdictionZone])
+}
+
+model TrafficPoliceProfile {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeNumber      String
+  jurisdictionZone String   @default("ALL") // "CIDCO", "KRANTI_CHOWK", "CITY_CENTRAL", "WALUJ", "ALL"
+  assignedPost     String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([jurisdictionZone])
+}
+
+model TrafficSignal {
+  id                 String   @id @default(uuid())
+  code               String   @unique // e.g. "SIG-KRANTI-01"
+  name               String   // e.g. "Kranti Chowk Junction"
+  roadName           String   // e.g. "Jalna Road / Station Road"
+  latitude           Float
+  longitude          Float
+  jurisdictionZone   String   // e.g. "CITY_CENTRAL", "CIDCO", etc.
+  isVerified         Boolean  @default(false)
+  verificationSource String?  // "AURANGABAD_POLICE_REGISTRY", "OPENSTREETMAP_UNVERIFIED", "MANUAL_SURVEY"
+  isEnabled          Boolean  @default(true)
+  clearanceStatus    String   @default("NORMAL") // NORMAL, REQUESTED, CLEARED, BLOCKED, PASSED
+  currentCorridorId  String?
+  lastClearedAt      DateTime?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([jurisdictionZone])
+  @@index([isEnabled])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String   @default("INFO") // INFO, ALERT, TRIP, DISPATCH
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  userId       String?
+  user         User?    @relation("UserAuditLogs", fields: [userId], references: [id], onDelete: SetNull)
+  action       String
+  resourceType String
+  resourceId   String?
+  details      String?  // JSON string
+  ipAddress    String?
+  createdAt    DateTime @default(now())
+
+  @@index([action])
+  @@index([createdAt])
+}

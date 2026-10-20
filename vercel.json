@@ -1,0 +1,31 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build --workspace=@aurangabad-ambulance/shared && npm run db:generate --workspace=@aurangabad-ambulance/api && npm run db:postgres:generate --workspace=@aurangabad-ambulance/api && npm run build --workspace=@aurangabad-ambulance/web",
+  "outputDirectory": "apps/web/dist",
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": [
+        "data/**",
+        "apps/api/prisma/generated/**"
+      ]
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/api",
+      "destination": "/api"
+    },
+    {
+      "source": "/health",
+      "destination": "/api"
+    },
+    {
+      "source": "/((?!api|health).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -18,10 +18,13 @@
     "test:unit": "npm --workspace=@aurangabad-ambulance/api run test:unit",
     "test:e2e": "npm --workspace=@aurangabad-ambulance/api run test:e2e",
     "lint": "npm run lint --workspaces --if-present",
-    "db:generate": "npm --workspace=@aurangabad-ambulance/api run db:generate",
+    "db:generate": "npm --workspace=@aurangabad-ambulance/api run db:generate && npm --workspace=@aurangabad-ambulance/api run db:postgres:generate",
     "db:migrate": "npm --workspace=@aurangabad-ambulance/api run db:migrate",
     "db:seed": "npm --workspace=@aurangabad-ambulance/api run db:seed",
     "db:studio": "npm --workspace=@aurangabad-ambulance/api run db:studio",
+    "db:postgres:generate": "npm --workspace=@aurangabad-ambulance/api run db:postgres:generate",
+    "db:postgres:push": "npm --workspace=@aurangabad-ambulance/api run db:postgres:push",
+    "db:postgres:migrate-data": "npm --workspace=@aurangabad-ambulance/api run db:postgres:migrate-data",
     "ml:train": "npm --workspace=@aurangabad-ambulance/api run ml:train"
   },
   "devDependencies": {

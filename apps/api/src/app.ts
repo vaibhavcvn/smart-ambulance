@@ -64,13 +64,25 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(authPlugin);
 
   // 4. Initialize Machine Learning Model Store
-  const mlPath = path.resolve(__dirname, '../../../data/ml/aurangabad_delay_rf.json');
+  const candidateMlPaths = [
+    path.resolve(process.cwd(), 'data/ml/aurangabad_delay_rf.json'),
+    path.resolve(__dirname, '../../../data/ml/aurangabad_delay_rf.json'),
+    path.resolve(__dirname, '../../../../data/ml/aurangabad_delay_rf.json'),
+  ];
   const store = ModelStore.getInstance();
-  const loaded = store.loadModel(mlPath);
+  let loaded = false;
+  let activeMlPath = candidateMlPaths[0];
+  for (const p of candidateMlPaths) {
+    if (store.loadModel(p)) {
+      loaded = true;
+      activeMlPath = p;
+      break;
+    }
+  }
   if (loaded) {
     app.log.info('🧠 Pure TS/JS Random Forest ML model loaded successfully into memory.');
   } else {
-    app.log.warn(`⚠️ ML model at ${mlPath} not loaded yet. Predictions will use heuristic fallback.`);
+    app.log.warn(`⚠️ ML model at ${activeMlPath} not loaded. Predictions will use heuristic fallback.`);
   }
 
   // 5. Register Application Modules

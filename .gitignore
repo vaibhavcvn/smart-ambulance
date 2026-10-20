@@ -13,6 +13,7 @@ test-results/
 dist/
 build/
 .tsbuildinfo
+apps/api/prisma/generated/
 
 # SQLite databases
 *.db

@@ -4,7 +4,7 @@ import { isPointInAurangabad } from '../../integrations/maps/boundary.js';
 import { ModelStore } from '../../ml/inference/model-store.js';
 
 export async function healthRoutes(fastify: FastifyInstance) {
-  fastify.get('/health', async () => {
+  const healthHandler = async () => {
     let dbStatus = 'healthy';
     try {
       await prisma.$queryRaw`SELECT 1`;
@@ -32,5 +32,8 @@ export async function healthRoutes(fastify: FastifyInstance) {
         nodeVersion: process.version,
       },
     };
-  });
+  };
+
+  fastify.get('/health', healthHandler);
+  fastify.get('/api/health', healthHandler);
 }
