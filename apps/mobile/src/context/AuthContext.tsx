@@ -10,6 +10,7 @@ interface AuthContextType {
   role: UserRole | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string, phone?: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }
@@ -68,6 +69,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     await authStorage.saveUser(authUser);
   };
 
+  const register = async (name: string, email: string, password: string, phone?: string): Promise<void> => {
+    const res = await apiClient.post<{ user: AuthUser; token: string }>('/api/v1/auth/register', {
+      name,
+      email,
+      password,
+      phone: phone?.trim() || undefined,
+    });
+
+    const { user: authUser, token: authToken } = res.data;
+    setUser(authUser);
+    setToken(authToken);
+
+    await authStorage.saveToken(authToken);
+    await authStorage.saveUser(authUser);
+  };
+
   const logout = async (): Promise<void> => {
     disconnectMobileSocket();
     await authStorage.clear();
@@ -92,6 +109,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         role: user ? (user.role as UserRole) : null,
         isLoading,
         login,
+        register,
         logout,
         refreshUser,
       }}

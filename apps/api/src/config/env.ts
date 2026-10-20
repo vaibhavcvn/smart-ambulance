@@ -13,7 +13,7 @@ dotenv.config();
 const EnvSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.coerce.number().default(4000),
-  HOST: z.string().default('127.0.0.1'),
+  HOST: z.string().default('0.0.0.0'),
   API_URL: z.string().default('http://localhost:4000'),
   FRONTEND_URL: z.string().default('http://localhost:5173'),
   DATABASE_URL: z.string().default('file:./dev.db'),

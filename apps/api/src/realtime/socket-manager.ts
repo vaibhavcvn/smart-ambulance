@@ -2,6 +2,7 @@ import { Server as HttpServer } from 'http';
 import { Server, Socket } from 'socket.io';
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env.js';
+import { isAllowedOrigin } from '../config/cors.js';
 import {
   SOCKET_EVENTS,
   UserRole,
@@ -40,7 +41,13 @@ export class SocketManager {
   public initialize(httpServer: HttpServer): Server {
     this.io = new Server(httpServer, {
       cors: {
-        origin: env.ENABLE_CORS_ALL ? '*' : [env.FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+        origin: (origin, callback) => {
+          if (isAllowedOrigin(origin)) {
+            callback(null, true);
+          } else {
+            callback(new Error('Origin not allowed by CORS'));
+          }
+        },
         methods: ['GET', 'POST'],
         credentials: true,
       },

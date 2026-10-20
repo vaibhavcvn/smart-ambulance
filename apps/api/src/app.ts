@@ -4,6 +4,7 @@ import sensible from '@fastify/sensible';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { env } from './config/env.js';
+import { isAllowedOrigin } from './config/cors.js';
 import { AppError } from './common/errors/app-error.js';
 import { redactSensitiveData } from './common/logging/logger.js';
 import authPlugin from './plugins/auth.js';
@@ -50,7 +51,9 @@ export async function buildApp(): Promise<FastifyInstance> {
   // 1. Core plugins
   await app.register(sensible);
   await app.register(cors, {
-    origin: env.ENABLE_CORS_ALL ? true : [env.FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: (origin, cb) => {
+      cb(null, isAllowedOrigin(origin));
+    },
     credentials: true,
   });
 

@@ -13,6 +13,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#09090b"
     },
+    "platforms": [
+      "android",
+      "ios",
+      "web"
+    ],
+    "web": {
+      "bundler": "metro"
+    },
     "ios": {
       "supportsTablet": true
     },
@@ -38,7 +46,7 @@
       ]
     ],
     "extra": {
-      "defaultApiUrl": "http://10.0.2.2:4000",
+      "defaultApiUrl": "https://bull-emerging-knee-posted.trycloudflare.com",
       "eas": {
         "projectId": "1b783351-f478-43fc-a01f-15be369e1f16"
       }

@@ -54,3 +54,6 @@ Thumbs.db
 # ML models and artifacts
 data/ml/*.model.json
 data/ml/cache/
+
+# Expo local development state
+apps/mobile/.expo/
