@@ -25,6 +25,11 @@ export function isAllowedOrigin(origin?: string): boolean {
     return true;
   }
 
+  // Allow Vercel production and preview deployment origins
+  if (/^https:\/\/smart-ambulance(-[a-z0-9_-]+)?\.vercel\.app$/.test(origin)) {
+    return true;
+  }
+
   // Allow localhost and loopback with any port
   if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
     return true;

@@ -4,15 +4,24 @@ let socket: Socket | null = null;
 
 export function getSocket(): Socket {
   const token = localStorage.getItem('token');
+  const socketUrl = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL || undefined;
 
   if (!socket) {
-    socket = io('/', {
-      auth: { token },
-      autoConnect: true,
-      reconnection: true,
-      reconnectionAttempts: 15,
-      reconnectionDelay: 2000,
-    });
+    socket = socketUrl
+      ? io(socketUrl, {
+          auth: { token },
+          autoConnect: true,
+          reconnection: true,
+          reconnectionAttempts: 15,
+          reconnectionDelay: 2000,
+        })
+      : io('/', {
+          auth: { token },
+          autoConnect: true,
+          reconnection: true,
+          reconnectionAttempts: 15,
+          reconnectionDelay: 2000,
+        });
 
     socket.on('connect', () => {
       console.log('⚡ Socket.IO connected:', socket?.id);

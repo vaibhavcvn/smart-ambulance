@@ -17,6 +17,7 @@ import {
   TrafficBlockageDTO,
   TrafficSignalDTO,
 } from '@aurangabad-ambulance/shared';
+import { api } from '../../lib/api-client.js';
 import {
   Locate,
   Navigation,
@@ -598,15 +599,12 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
   useEffect(() => {
     async function loadBoundary() {
       try {
-        const res = await fetch('/api/v1/geo/boundary');
-        if (res.ok) {
-          const data = await res.json();
-          const rawCoords =
-            data?.geometry?.coordinates?.[0] || data?.features?.[0]?.geometry?.coordinates?.[0];
-          if (rawCoords) {
-            const converted: [number, number][] = rawCoords.map((c: [number, number]) => [c[1], c[0]]);
-            setBoundaryCoords(converted);
-          }
+        const data = await api.get<any>('/api/v1/geo/boundary');
+        const rawCoords =
+          data?.geometry?.coordinates?.[0] || data?.features?.[0]?.geometry?.coordinates?.[0];
+        if (rawCoords) {
+          const converted: [number, number][] = rawCoords.map((c: [number, number]) => [c[1], c[0]]);
+          setBoundaryCoords(converted);
         }
       } catch (err) {
         console.warn('Could not load boundary polygon:', err);
