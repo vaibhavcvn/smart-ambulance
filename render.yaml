@@ -1,0 +1,52 @@
+services:
+  - type: web
+    name: aurangabad-smart-ambulance-api
+    runtime: node
+    plan: starter
+    region: singapore
+    buildCommand: npm ci && npm run build --workspace=@aurangabad-ambulance/shared && npm run build --workspace=@aurangabad-ambulance/api
+    startCommand: node apps/api/dist/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: HOST
+        value: 0.0.0.0
+      - key: FRONTEND_URL
+        value: https://smart-ambulance-iota.vercel.app
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: BCRYPT_ROUNDS
+        value: "10"
+      - key: DISPATCH_TIMEOUT_SECONDS
+        value: "45"
+      - key: DISPATCH_SEARCH_RADIUS_KM
+        value: "25.0"
+      - key: MAX_DISPATCH_CANDIDATES
+        value: "5"
+      - key: OSRM_ROUTING_URL
+        value: https://router.project-osrm.org/route/v1/driving
+      - key: NOMINATIM_GEOCODING_URL
+        value: https://nominatim.openstreetmap.org
+      - key: GEOCODING_USER_AGENT
+        value: AurangabadSmartAmbulance/1.0
+      - key: ML_MODEL_PATH
+        value: ../../data/ml/aurangabad_delay_rf.json
+      - key: ENABLE_ML_PREDICTIONS
+        value: "true"
+      - key: ENABLE_DEMO_GPS_SIMULATOR
+        value: "true"
+      - key: ENABLE_CORS_ALL
+        value: "false"
+      - key: LOG_LEVEL
+        value: info
+    disk:
+      name: ambulance-data
+      mountPath: /var/data
+      sizeGB: 1
