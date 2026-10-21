@@ -105,7 +105,7 @@ export const PatientBookingPage: React.FC = () => {
       if (!isMounted || isPolling) return;
       isPolling = true;
       try {
-        const trip = await api.get<TripDTO | null>('/api/v1/trips/active');
+        const trip = await api.get<TripDTO | null>('/api/v1/bookings/active');
         if (isMounted) {
           if (trip) {
             setActiveTrip(trip);
