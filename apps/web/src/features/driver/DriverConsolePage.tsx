@@ -61,6 +61,8 @@ export const DriverConsolePage: React.FC = () => {
   const [lastGpsUpdate, setLastGpsUpdate] = useState<string | null>(null);
   const [gpsError, setGpsError] = useState<string | null>(null);
   const watchIdRef = useRef<number | null>(null);
+  const lastGpsSentTimeRef = useRef<number>(0);
+  const isSendingGpsRef = useRef<boolean>(false);
 
   // DEMO GPS SIMULATOR STATE
   const [isSimulatingGps, setIsSimulatingGps] = useState<boolean>(false);
@@ -100,8 +102,10 @@ export const DriverConsolePage: React.FC = () => {
   // 1a. Real-time polling fallback for serverless deployments (polls for new dispatch offers every 2.5s)
   useEffect(() => {
     let isMounted = true;
+    let isPolling = false;
     const pollInterval = setInterval(async () => {
-      if (!isMounted) return;
+      if (!isMounted || isPolling) return;
+      isPolling = true;
       try {
         if (!activeTrip) {
           const offer = await api.get<DispatchOfferDTO | null>('/api/v1/dispatch/pending');
@@ -126,6 +130,8 @@ export const DriverConsolePage: React.FC = () => {
         }
       } catch {
         // Silent catch for background polling
+      } finally {
+        isPolling = false;
       }
     }, 2500);
 
@@ -220,6 +226,15 @@ export const DriverConsolePage: React.FC = () => {
         setGpsPermissionState('granted');
         setGpsError(null);
 
+        const nowMs = Date.now();
+        // Throttle updates: send to backend at most once every 3s and prevent concurrent overlapping requests
+        if (nowMs - lastGpsSentTimeRef.current < 3000 || isSendingGpsRef.current) {
+          return;
+        }
+
+        isSendingGpsRef.current = true;
+        lastGpsSentTimeRef.current = nowMs;
+
         try {
           await api.post('/api/v1/tracking/location', {
             latitude: lat,
@@ -231,6 +246,8 @@ export const DriverConsolePage: React.FC = () => {
           });
         } catch (err: any) {
           console.warn('Real GPS submission error:', err);
+        } finally {
+          isSendingGpsRef.current = false;
         }
       },
       (err) => {

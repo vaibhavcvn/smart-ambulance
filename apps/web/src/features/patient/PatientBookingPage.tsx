@@ -100,8 +100,10 @@ export const PatientBookingPage: React.FC = () => {
   useEffect(() => {
     if (!activeTrip) return;
     let isMounted = true;
+    let isPolling = false;
     const pollInterval = setInterval(async () => {
-      if (!isMounted) return;
+      if (!isMounted || isPolling) return;
+      isPolling = true;
       try {
         const trip = await api.get<TripDTO | null>('/api/v1/trips/active');
         if (isMounted) {
@@ -113,6 +115,8 @@ export const PatientBookingPage: React.FC = () => {
         }
       } catch {
         // Silent catch for background polling
+      } finally {
+        isPolling = false;
       }
     }, 3000);
 

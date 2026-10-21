@@ -6,27 +6,32 @@ const require = createRequire(import.meta.url);
 
 /**
  * Normalizes PostgreSQL connection URLs for Supabase and connection poolers.
- * When connecting via Supabase Transaction Pooler (port 6543 or pooler.supabase.com) in serverless,
+ * When connecting via Supabase Transaction Pooler (port 6543) in serverless,
  * Prisma requires `pgbouncer=true` to disable prepared statements and prevent
  * `prepared statement "s0" already exists` errors.
- * Additionally sets `connection_limit=1` for serverless function efficiency if not specified.
+ * Sets a healthy connection limit (10) and timeout (20s) to allow concurrent Fastify queries
+ * and interactive transactions without connection pool exhaustion.
  */
 function normalizePostgresPoolerUrl(rawUrl: string, isServerless: boolean): string {
   try {
     const url = new URL(rawUrl);
-    const isPoolerPort = url.port === '6543';
-    const isSupabasePooler = url.hostname.includes('pooler.supabase.com');
+    const isTransactionPoolerPort = url.port === '6543';
 
-    if (isPoolerPort || isSupabasePooler || url.searchParams.has('pgbouncer')) {
+    if (isTransactionPoolerPort || url.searchParams.has('pgbouncer')) {
       if (!url.searchParams.has('pgbouncer')) {
         url.searchParams.set('pgbouncer', 'true');
       }
-      if (isServerless && !url.searchParams.has('connection_limit')) {
-        url.searchParams.set('connection_limit', '1');
-      }
-      return url.toString();
     }
-    return rawUrl;
+
+    // Set healthy connection limits and timeouts for concurrent serverless requests and transactions
+    if (!url.searchParams.has('connection_limit')) {
+      url.searchParams.set('connection_limit', '10');
+    }
+    if (!url.searchParams.has('pool_timeout')) {
+      url.searchParams.set('pool_timeout', '20');
+    }
+
+    return url.toString();
   } catch {
     return rawUrl;
   }
