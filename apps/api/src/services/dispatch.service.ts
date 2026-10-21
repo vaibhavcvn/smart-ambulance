@@ -170,7 +170,7 @@ export class DispatchService {
         });
 
         return req;
-      });
+      }, { maxWait: 10000, timeout: 20000 });
     } catch {
       return { success: false, message: 'Trip was concurrently modified or cancelled.' };
     }
@@ -448,7 +448,7 @@ export class DispatchService {
       });
 
       return committedTrip;
-    });
+    }, { maxWait: 10000, timeout: 20000 });
 
     // Notify all authorized subscribers of acceptance
     SocketManager.getInstance().emitTripUpdated(updatedTrip.id, updatedTrip);

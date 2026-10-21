@@ -140,7 +140,7 @@ export class BookingService {
       });
 
       return trip;
-    });
+    }, { maxWait: 10000, timeout: 20000 });
 
     // 6. Initiate Server-Side Dispatch Engine (await to ensure candidate offer is created before serverless freeze)
     try {

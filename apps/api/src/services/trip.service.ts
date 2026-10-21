@@ -142,107 +142,115 @@ export class TripService {
 
     const previousHospitalId = trip.hospitalId;
 
-    const updatedTrip = await prisma.$transaction(async (tx) => {
-      const updateData: any = {
-        status: targetStatus,
-      };
+    // Pre-calculate hospital recommendation and routing OUTSIDE of the database transaction
+    // to prevent transaction timeouts when external OSRM HTTP requests take > 5000ms
+    let preparedHospital: any = null;
+    let preparedRecommendationReason: string | null = null;
+    let preparedHospitalRouteDistanceKm: number | null = null;
+    let preparedHospitalRouteDurationSeconds: number | null = null;
+    let preparedHospitalRoutePolyline: string | null = null;
+    const preparedAmbLat = trip.driver?.currentLatitude || trip.ambulance?.currentLatitude || trip.pickupLatitude;
+    const preparedAmbLng = trip.driver?.currentLongitude || trip.ambulance?.currentLongitude || trip.pickupLongitude;
 
-      const now = new Date();
+    if (targetStatus === TripStatus.PATIENT_PICKED_UP) {
+      let chosenHospitalId = hospitalId || trip.hospitalId;
+      preparedRecommendationReason = trip.recommendedHospitalReason;
 
-      if (targetStatus === TripStatus.EN_ROUTE_TO_PICKUP) {
-        // Ambulance heading towards patient
-      } else if (targetStatus === TripStatus.ARRIVED_AT_PICKUP) {
-        updateData.arrivedPickupAt = now;
-      } else if (targetStatus === TripStatus.PATIENT_PICKED_UP) {
-        updateData.pickedUpAt = now;
+      if (!chosenHospitalId) {
+        const rec = await hospitalService.recommendHospital(
+          trip.pickupLatitude,
+          trip.pickupLongitude,
+          trip.emergencyCategory as any
+        );
+        chosenHospitalId = rec.hospital.id;
+        preparedRecommendationReason = rec.reason;
+      }
 
-        // Determine destination hospital (explicit or recommended)
-        let chosenHospitalId = hospitalId || trip.hospitalId;
-        let recommendationReason = trip.recommendedHospitalReason;
+      preparedHospital = await prisma.hospital.findUnique({
+        where: { id: chosenHospitalId },
+      });
 
-        if (!chosenHospitalId) {
-          const rec = await hospitalService.recommendHospital(
-            trip.pickupLatitude,
-            trip.pickupLongitude,
-            trip.emergencyCategory as any
-          );
-          chosenHospitalId = rec.hospital.id;
-          recommendationReason = rec.reason;
+      if (!preparedHospital) {
+        throw new BadRequestError(`Destination hospital with ID "${chosenHospitalId}" not found.`);
+      }
+
+      if (preparedHospital.status === HospitalStatus.CLOSED) {
+        throw new BadRequestError(`Destination hospital "${preparedHospital.name}" is currently CLOSED.`);
+      }
+
+      try {
+        const hospitalRoute = await getRoute(
+          preparedAmbLat,
+          preparedAmbLng,
+          preparedHospital.latitude,
+          preparedHospital.longitude
+        );
+        if (hospitalRoute.source === 'OSRM' && hospitalRoute.geometryGeoJson && hospitalRoute.isRoadGeometry) {
+          preparedHospitalRouteDistanceKm = hospitalRoute.distanceKm;
+          preparedHospitalRouteDurationSeconds = hospitalRoute.durationSeconds;
+          preparedHospitalRoutePolyline = JSON.stringify(hospitalRoute.geometryGeoJson);
+        } else {
+          preparedHospitalRouteDistanceKm = hospitalRoute.haversineDistanceKm || hospitalRoute.distanceKm;
+          preparedHospitalRouteDurationSeconds = null;
+          preparedHospitalRoutePolyline = null;
         }
+      } catch {
+        const fallbackKm = calculateHaversineDistanceKm(
+          preparedAmbLat,
+          preparedAmbLng,
+          preparedHospital.latitude,
+          preparedHospital.longitude
+        );
+        preparedHospitalRouteDistanceKm = Math.round(fallbackKm * 10) / 10;
+        preparedHospitalRouteDurationSeconds = null;
+        preparedHospitalRoutePolyline = null;
+      }
+    }
 
-        const chosenHospital = await tx.hospital.findUnique({
-          where: { id: chosenHospitalId },
-        });
+    const updatedTrip = await prisma.$transaction(
+      async (tx) => {
+        const updateData: any = {
+          status: targetStatus,
+        };
 
-        if (!chosenHospital) {
-          throw new BadRequestError(`Destination hospital with ID "${chosenHospitalId}" not found.`);
-        }
+        const now = new Date();
 
-        if (chosenHospital.status === HospitalStatus.CLOSED) {
-          throw new BadRequestError(`Destination hospital "${chosenHospital.name}" is currently CLOSED.`);
-        }
+        if (targetStatus === TripStatus.EN_ROUTE_TO_PICKUP) {
+          // Ambulance heading towards patient
+        } else if (targetStatus === TripStatus.ARRIVED_AT_PICKUP) {
+          updateData.arrivedPickupAt = now;
+        } else if (targetStatus === TripStatus.PATIENT_PICKED_UP) {
+          updateData.pickedUpAt = now;
+          updateData.hospitalId = preparedHospital.id;
+          updateData.recommendedHospitalReason = preparedRecommendationReason;
+          updateData.hospitalRouteDistanceKm = preparedHospitalRouteDistanceKm;
+          updateData.hospitalRouteDurationSeconds = preparedHospitalRouteDurationSeconds;
+          updateData.hospitalRoutePolyline = preparedHospitalRoutePolyline;
 
-        updateData.hospitalId = chosenHospital.id;
-        updateData.recommendedHospitalReason = recommendationReason;
-
-        // Latest ambulance position for route calculation
-        const ambLat = trip.driver?.currentLatitude || trip.ambulance?.currentLatitude || trip.pickupLatitude;
-        const ambLng = trip.driver?.currentLongitude || trip.ambulance?.currentLongitude || trip.pickupLongitude;
-
-        // Calculate route from ambulance location to hospital
-        try {
-          const hospitalRoute = await getRoute(
-            ambLat,
-            ambLng,
-            chosenHospital.latitude,
-            chosenHospital.longitude
-          );
-          if (hospitalRoute.source === 'OSRM' && hospitalRoute.geometryGeoJson && hospitalRoute.isRoadGeometry) {
-            updateData.hospitalRouteDistanceKm = hospitalRoute.distanceKm;
-            updateData.hospitalRouteDurationSeconds = hospitalRoute.durationSeconds;
-            updateData.hospitalRoutePolyline = JSON.stringify(hospitalRoute.geometryGeoJson);
-          } else {
-            updateData.hospitalRouteDistanceKm = hospitalRoute.haversineDistanceKm || hospitalRoute.distanceKm;
-            updateData.hospitalRouteDurationSeconds = null;
-            updateData.hospitalRoutePolyline = null;
-          }
-        } catch {
-          // Live OSRM failure: Truthful haversine fallback with clear labelling (no fake polyline)
-          const fallbackKm = calculateHaversineDistanceKm(
-            ambLat,
-            ambLng,
-            chosenHospital.latitude,
-            chosenHospital.longitude
-          );
-          updateData.hospitalRouteDistanceKm = Math.round(fallbackKm * 10) / 10;
-          updateData.hospitalRouteDurationSeconds = null;
-          updateData.hospitalRoutePolyline = null;
-        }
-
-        // Update Traffic Corridor destination to hospital
-        await tx.trafficCorridor.upsert({
-          where: { tripId: trip.id },
-          create: {
-            tripId: trip.id,
-            status: CorridorStatus.ACTIVE,
-            emergencyPriority: trip.priority,
-            originLat: ambLat,
-            originLng: ambLng,
-            destLat: chosenHospital.latitude,
-            destLng: chosenHospital.longitude,
-            routeSummary: `Emergency transit to ${chosenHospital.name}`,
-            activatedAt: now,
-          },
-          update: {
-            originLat: ambLat,
-            originLng: ambLng,
-            destLat: chosenHospital.latitude,
-            destLng: chosenHospital.longitude,
-            routeSummary: `Emergency transit to ${chosenHospital.name}`,
-            corridorClearanceStatus: 'REQUESTED',
-          },
-        });
-      } else if (targetStatus === TripStatus.EN_ROUTE_TO_HOSPITAL) {
+          // Update Traffic Corridor destination to hospital
+          await tx.trafficCorridor.upsert({
+            where: { tripId: trip.id },
+            create: {
+              tripId: trip.id,
+              status: CorridorStatus.ACTIVE,
+              emergencyPriority: trip.priority,
+              originLat: preparedAmbLat,
+              originLng: preparedAmbLng,
+              destLat: preparedHospital.latitude,
+              destLng: preparedHospital.longitude,
+              routeSummary: `Emergency transit to ${preparedHospital.name}`,
+              activatedAt: now,
+            },
+            update: {
+              originLat: preparedAmbLat,
+              originLng: preparedAmbLng,
+              destLat: preparedHospital.latitude,
+              destLng: preparedHospital.longitude,
+              routeSummary: `Emergency transit to ${preparedHospital.name}`,
+              corridorClearanceStatus: 'REQUESTED',
+            },
+          });
+        } else if (targetStatus === TripStatus.EN_ROUTE_TO_HOSPITAL) {
         // En route to hospital
       } else if (targetStatus === TripStatus.ARRIVED_AT_HOSPITAL) {
         updateData.arrivedHospitalAt = now;
@@ -316,7 +324,7 @@ export class TripService {
       });
 
       return committed;
-    });
+    }, { maxWait: 10000, timeout: 20000 });
 
     // Check if hospital assignment changed to notify previous and new hospital
     if (targetStatus === TripStatus.PATIENT_PICKED_UP && updatedTrip.hospitalId) {

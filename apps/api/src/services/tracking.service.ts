@@ -187,7 +187,7 @@ export class TrackingService {
           },
         });
       }
-    });
+    }, { maxWait: 10000, timeout: 20000 });
 
     // 3. Emit real-time telemetry to authorized subscribers
     SocketManager.getInstance().emitDriverLocation(driverProfileId, activeTrip?.id || null, {

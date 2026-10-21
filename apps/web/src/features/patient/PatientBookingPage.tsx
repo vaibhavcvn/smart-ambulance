@@ -88,7 +88,11 @@ export const PatientBookingPage: React.FC = () => {
       }
     }
 
-    loadActive();
+    if (user) {
+      loadActive();
+    } else {
+      setIsLoadingTrip(false);
+    }
     loadHospitals();
 
     return () => {
@@ -98,7 +102,7 @@ export const PatientBookingPage: React.FC = () => {
 
   // 2a. Serverless Polling Fallback: poll for trip updates every 3s when active
   useEffect(() => {
-    if (!activeTrip) return;
+    if (!activeTrip || !user) return;
     let isMounted = true;
     let isPolling = false;
     const pollInterval = setInterval(async () => {

@@ -96,11 +96,14 @@ export const DriverConsolePage: React.FC = () => {
       }
     }
 
-    loadDriverState();
+    if (user) {
+      loadDriverState();
+    }
   }, [user]);
 
   // 1a. Real-time polling fallback for serverless deployments (polls for new dispatch offers every 2.5s)
   useEffect(() => {
+    if (!user) return;
     let isMounted = true;
     let isPolling = false;
     const pollInterval = setInterval(async () => {
