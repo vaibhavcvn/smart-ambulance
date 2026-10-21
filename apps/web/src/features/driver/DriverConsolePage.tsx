@@ -26,6 +26,7 @@ import {
   ShieldAlert,
   UserCheck,
   Compass,
+  Loader2,
 } from 'lucide-react';
 
 interface ApplicationStatusInfo {
@@ -49,6 +50,12 @@ export const DriverConsolePage: React.FC = () => {
   const [pendingOffer, setPendingOffer] = useState<DispatchOfferDTO | null>(null);
   const [activeTrip, setActiveTrip] = useState<TripDTO | null>(null);
   const [countdown, setCountdown] = useState<number>(0);
+
+  // In-flight action loading states (instant UI feedback and double-click prevention)
+  const [isAccepting, setIsAccepting] = useState<boolean>(false);
+  const [isDeclining, setIsDeclining] = useState<boolean>(false);
+  const [transitioningTo, setTransitioningTo] = useState<TripStatus | null>(null);
+  const [isTogglingAvailability, setIsTogglingAvailability] = useState<boolean>(false);
 
   // Driver telemetry coordinates
   const [currentLat, setCurrentLat] = useState<number>(19.8762);
@@ -278,7 +285,8 @@ export const DriverConsolePage: React.FC = () => {
 
   // 5. Handle Accept Offer
   const handleAcceptOffer = async () => {
-    if (!pendingOffer) return;
+    if (!pendingOffer || isAccepting || isDeclining) return;
+    setIsAccepting(true);
     try {
       const res = await api.post<{ success: boolean; trip: TripDTO }>('/api/v1/dispatch/respond', {
         dispatchRequestId: pendingOffer.dispatchRequestId,
@@ -289,12 +297,15 @@ export const DriverConsolePage: React.FC = () => {
     } catch (err: any) {
       alert(err.message || 'Failed to accept dispatch offer.');
       setPendingOffer(null);
+    } finally {
+      setIsAccepting(false);
     }
   };
 
   // 6. Handle Decline Offer
   const handleDeclineOffer = async () => {
-    if (!pendingOffer) return;
+    if (!pendingOffer || isAccepting || isDeclining) return;
+    setIsDeclining(true);
     try {
       await api.post('/api/v1/dispatch/respond', {
         dispatchRequestId: pendingOffer.dispatchRequestId,
@@ -304,12 +315,15 @@ export const DriverConsolePage: React.FC = () => {
       setPendingOffer(null);
     } catch (err: any) {
       alert(err.message || 'Error declining offer.');
+    } finally {
+      setIsDeclining(false);
     }
   };
 
   // 7. Handle Trip Status Transition (PHASE 2 Route Switching)
   const handleTransitionStatus = async (targetStatus: TripStatus) => {
-    if (!activeTrip) return;
+    if (!activeTrip || transitioningTo !== null) return;
+    setTransitioningTo(targetStatus);
     try {
       const updated = await api.patch<TripDTO>(`/api/v1/trips/${activeTrip.id}/status`, {
         targetStatus,
@@ -323,6 +337,8 @@ export const DriverConsolePage: React.FC = () => {
       }
     } catch (err: any) {
       alert(err.message || 'Failed to update trip progression.');
+    } finally {
+      setTransitioningTo(null);
     }
   };
 
@@ -343,6 +359,8 @@ export const DriverConsolePage: React.FC = () => {
 
   // 9. Toggle Online Availability
   const handleToggleAvailability = async () => {
+    if (isTogglingAvailability) return;
+    setIsTogglingAvailability(true);
     const nextStatus =
       driverStatus === DriverStatus.AVAILABLE ? DriverStatus.OFFLINE : DriverStatus.AVAILABLE;
     try {
@@ -354,6 +372,8 @@ export const DriverConsolePage: React.FC = () => {
       setDriverStatus(nextStatus);
     } catch (err: any) {
       alert(err.message || 'Failed to change driver status.');
+    } finally {
+      setIsTogglingAvailability(false);
     }
   };
 
@@ -499,7 +519,8 @@ export const DriverConsolePage: React.FC = () => {
               {appStatusInfo?.applicationStatus === DriverApplicationStatus.APPROVED ? (
                 <button
                   onClick={handleToggleAvailability}
-                  className={`px-3 py-1.5 rounded-full text-xs font-extrabold border transition-all flex items-center gap-1.5 ${
+                  disabled={isTogglingAvailability}
+                  className={`px-3 py-1.5 rounded-full text-xs font-extrabold border transition-all flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed ${
                     driverStatus === DriverStatus.AVAILABLE
                       ? 'bg-emerald-950 text-emerald-300 border-emerald-700'
                       : 'bg-neutral-800 text-neutral-400 border-neutral-700'
@@ -510,7 +531,7 @@ export const DriverConsolePage: React.FC = () => {
                       driverStatus === DriverStatus.AVAILABLE ? 'bg-emerald-400 animate-pulse' : 'bg-neutral-500'
                     }`}
                   ></span>
-                  <span>{driverStatus}</span>
+                  <span>{isTogglingAvailability ? 'Updating...' : driverStatus}</span>
                 </button>
               ) : (
                 <span className="text-[10px] font-black uppercase px-2.5 py-1 bg-amber-950 text-amber-300 rounded-full border border-amber-800">
@@ -673,17 +694,37 @@ export const DriverConsolePage: React.FC = () => {
                 <div className="mt-4 grid grid-cols-2 gap-2">
                   <button
                     onClick={handleAcceptOffer}
-                    className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5"
+                    disabled={isAccepting || isDeclining}
+                    className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-black text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5"
                   >
-                    <CheckCircle className="w-4 h-4" />
-                    <span>ACCEPT ({countdown}s)</span>
+                    {isAccepting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>ACCEPTING...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle className="w-4 h-4" />
+                        <span>ACCEPT ({countdown}s)</span>
+                      </>
+                    )}
                   </button>
                   <button
                     onClick={handleDeclineOffer}
-                    className="py-2.5 px-4 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 border border-neutral-700"
+                    disabled={isAccepting || isDeclining}
+                    className="py-2.5 px-4 bg-neutral-800 hover:bg-neutral-700 disabled:opacity-60 disabled:cursor-not-allowed text-neutral-200 font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 border border-neutral-700"
                   >
-                    <XCircle className="w-4 h-4" />
-                    <span>DECLINE</span>
+                    {isDeclining ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>DECLINING...</span>
+                      </>
+                    ) : (
+                      <>
+                        <XCircle className="w-4 h-4" />
+                        <span>DECLINE</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
@@ -753,10 +794,15 @@ export const DriverConsolePage: React.FC = () => {
                   {/* Recalculate Route Option */}
                   <button
                     onClick={handleRecalculateRoute}
-                    className="mt-2 text-[11px] text-blue-400 hover:text-blue-300 font-bold flex items-center justify-center gap-1 w-full"
+                    disabled={isRecalculating}
+                    className="mt-2 text-[11px] text-blue-400 hover:text-blue-300 disabled:opacity-50 font-bold flex items-center justify-center gap-1 w-full"
                   >
-                    <RotateCw className="w-3 h-3" />
-                    <span>Recalculate Optimal Route</span>
+                    {isRecalculating ? (
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <RotateCw className="w-3 h-3" />
+                    )}
+                    <span>{isRecalculating ? 'Recalculating...' : 'Recalculate Optimal Route'}</span>
                   </button>
                 </div>
 
@@ -769,60 +815,120 @@ export const DriverConsolePage: React.FC = () => {
                   {activeTrip.status === TripStatus.ACCEPTED && (
                     <button
                       onClick={() => handleTransitionStatus(TripStatus.EN_ROUTE_TO_PICKUP)}
-                      className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                      disabled={transitioningTo !== null}
+                      className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
                     >
-                      <Navigation className="w-4 h-4" />
-                      <span>Start Driving to Patient (EN_ROUTE_TO_PICKUP)</span>
+                      {transitioningTo === TripStatus.EN_ROUTE_TO_PICKUP ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Updating: En Route to Patient...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Navigation className="w-4 h-4" />
+                          <span>Start Driving to Patient (EN_ROUTE_TO_PICKUP)</span>
+                        </>
+                      )}
                     </button>
                   )}
 
                   {activeTrip.status === TripStatus.EN_ROUTE_TO_PICKUP && (
                     <button
                       onClick={() => handleTransitionStatus(TripStatus.ARRIVED_AT_PICKUP)}
-                      className="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                      disabled={transitioningTo !== null}
+                      className="w-full py-3.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
                     >
-                      <CheckCircle className="w-4 h-4" />
-                      <span>Arrived at Pickup Scene (ARRIVED_AT_PICKUP)</span>
+                      {transitioningTo === TripStatus.ARRIVED_AT_PICKUP ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Updating: Arrived at Pickup...</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle className="w-4 h-4" />
+                          <span>Arrived at Pickup Scene (ARRIVED_AT_PICKUP)</span>
+                        </>
+                      )}
                     </button>
                   )}
 
                   {activeTrip.status === TripStatus.ARRIVED_AT_PICKUP && (
                     <button
                       onClick={() => handleTransitionStatus(TripStatus.PATIENT_PICKED_UP)}
-                      className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                      disabled={transitioningTo !== null}
+                      className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
                     >
-                      <Building2 className="w-4 h-4" />
-                      <span>Patient Picked Up & Switch Route to Hospital</span>
+                      {transitioningTo === TripStatus.PATIENT_PICKED_UP ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Updating: Patient Picked Up & Routing...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Building2 className="w-4 h-4" />
+                          <span>Patient Picked Up & Switch Route to Hospital</span>
+                        </>
+                      )}
                     </button>
                   )}
 
                   {activeTrip.status === TripStatus.PATIENT_PICKED_UP && (
                     <button
                       onClick={() => handleTransitionStatus(TripStatus.EN_ROUTE_TO_HOSPITAL)}
-                      className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                      disabled={transitioningTo !== null}
+                      className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
                     >
-                      <Navigation className="w-4 h-4" />
-                      <span>Start Driving to Hospital ER (EN_ROUTE_TO_HOSPITAL)</span>
+                      {transitioningTo === TripStatus.EN_ROUTE_TO_HOSPITAL ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Updating: En Route to Hospital...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Navigation className="w-4 h-4" />
+                          <span>Start Driving to Hospital ER (EN_ROUTE_TO_HOSPITAL)</span>
+                        </>
+                      )}
                     </button>
                   )}
 
                   {activeTrip.status === TripStatus.EN_ROUTE_TO_HOSPITAL && (
                     <button
                       onClick={() => handleTransitionStatus(TripStatus.ARRIVED_AT_HOSPITAL)}
-                      className="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                      disabled={transitioningTo !== null}
+                      className="w-full py-3.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
                     >
-                      <Building2 className="w-4 h-4" />
-                      <span>Arrived at Hospital Emergency Dept (ARRIVED_AT_HOSPITAL)</span>
+                      {transitioningTo === TripStatus.ARRIVED_AT_HOSPITAL ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Updating: Arrived at Hospital...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Building2 className="w-4 h-4" />
+                          <span>Arrived at Hospital Emergency Dept (ARRIVED_AT_HOSPITAL)</span>
+                        </>
+                      )}
                     </button>
                   )}
 
                   {activeTrip.status === TripStatus.ARRIVED_AT_HOSPITAL && (
                     <button
                       onClick={() => handleTransitionStatus(TripStatus.COMPLETED)}
-                      className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                      disabled={transitioningTo !== null}
+                      className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
                     >
-                      <CheckCircle className="w-4 h-4" />
-                      <span>Complete Handover & Restore Fleet (COMPLETED)</span>
+                      {transitioningTo === TripStatus.COMPLETED ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Completing Handover...</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle className="w-4 h-4" />
+                          <span>Complete Handover & Restore Fleet (COMPLETED)</span>
+                        </>
+                      )}
                     </button>
                   )}
                 </div>

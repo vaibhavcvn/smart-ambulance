@@ -48,7 +48,7 @@ export async function getRoute(
     const url = `${env.OSRM_ROUTING_URL}/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson&steps=true`;
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000); // Bounded 8s timeout
+    const timeoutId = setTimeout(() => controller.abort(), 2500); // Snappy 2.5s timeout for real-time responsiveness
 
     const res = await fetch(url, {
       signal: controller.signal,
@@ -106,7 +106,7 @@ export async function getRoute(
     }
   } catch (err: any) {
     if (err.name === 'AbortError') {
-      failureReason = 'OSRM routing request timed out after 8 seconds';
+      failureReason = 'OSRM routing request timed out after 2.5 seconds';
     } else {
       failureReason = err?.message || 'Network error reaching OSRM service';
     }

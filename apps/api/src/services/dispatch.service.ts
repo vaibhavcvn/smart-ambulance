@@ -192,6 +192,26 @@ export class DispatchService {
       // Ignored, fallback to Haversine
     }
 
+    if (routeInfo && routeInfo.source === 'OSRM' && routeInfo.geometryGeoJson && routeInfo.isRoadGeometry) {
+      await prisma.trip.update({
+        where: { id: tripId },
+        data: {
+          routeDistanceKm: routeInfo.distanceKm,
+          routeDurationSeconds: routeInfo.durationSeconds,
+          routePolyline: JSON.stringify(routeInfo.geometryGeoJson),
+        },
+      }).catch(console.warn);
+    } else {
+      await prisma.trip.update({
+        where: { id: tripId },
+        data: {
+          routeDistanceKm: chosen.distKm,
+          routeDurationSeconds: null,
+          routePolyline: null,
+        },
+      }).catch(console.warn);
+    }
+
     const offerDto: DispatchOfferDTO = {
       dispatchRequestId: dispatchRequest.id,
       tripId: trip.id,
@@ -298,6 +318,18 @@ export class DispatchService {
     }
 
     if (request.status !== DispatchRequestStatus.PENDING) {
+      if (request.status === DispatchRequestStatus.ACCEPTED && action === 'ACCEPT') {
+        const existingTrip = await prisma.trip.findUnique({
+          where: { id: request.tripId },
+          include: {
+            driver: { include: { user: true } },
+            ambulance: true,
+            hospital: true,
+            booking: true,
+          },
+        });
+        return { success: true, action: 'ACCEPTED', trip: existingTrip };
+      }
       throw new ConflictError(`This dispatch offer has already been marked as ${request.status}.`);
     }
 
@@ -329,37 +361,39 @@ export class DispatchService {
     }
 
     // Precalculate route to pickup BEFORE entering database transaction
-    // to avoid holding SQLite locks during external HTTP requests
-    let routeDistanceKm: number | null = null;
-    let routeDurationSeconds: number | null = null;
-    let routePolyline: string | null = null;
+    // Check if trip already has precomputed route from dispatch generation (instant 0ms reuse)
+    let routeDistanceKm: number | null = request.trip.routeDistanceKm;
+    let routeDurationSeconds: number | null = request.trip.routeDurationSeconds;
+    let routePolyline: string | null = request.trip.routePolyline;
 
-    try {
-      const route = await getRoute(
-        request.driver.currentLatitude,
-        request.driver.currentLongitude,
-        request.trip.pickupLatitude,
-        request.trip.pickupLongitude
-      );
-      if (route.source === 'OSRM' && route.geometryGeoJson && route.isRoadGeometry) {
-        routeDistanceKm = route.distanceKm;
-        routeDurationSeconds = route.durationSeconds;
-        routePolyline = JSON.stringify(route.geometryGeoJson);
-      } else {
-        routeDistanceKm = route.haversineDistanceKm || route.distanceKm;
+    if (!routeDistanceKm && !routePolyline) {
+      try {
+        const route = await getRoute(
+          request.driver.currentLatitude,
+          request.driver.currentLongitude,
+          request.trip.pickupLatitude,
+          request.trip.pickupLongitude
+        );
+        if (route.source === 'OSRM' && route.geometryGeoJson && route.isRoadGeometry) {
+          routeDistanceKm = route.distanceKm;
+          routeDurationSeconds = route.durationSeconds;
+          routePolyline = JSON.stringify(route.geometryGeoJson);
+        } else {
+          routeDistanceKm = route.haversineDistanceKm || route.distanceKm;
+          routeDurationSeconds = null;
+          routePolyline = null;
+        }
+      } catch {
+        // Fallback calculation: honest direct distance, no fake polyline or invented road ETA
+        routeDistanceKm = calculateHaversineDistanceKm(
+          request.driver.currentLatitude,
+          request.driver.currentLongitude,
+          request.trip.pickupLatitude,
+          request.trip.pickupLongitude
+        );
         routeDurationSeconds = null;
         routePolyline = null;
       }
-    } catch {
-      // Fallback calculation: honest direct distance, no fake polyline or invented road ETA
-      routeDistanceKm = calculateHaversineDistanceKm(
-        request.driver.currentLatitude,
-        request.driver.currentLongitude,
-        request.trip.pickupLatitude,
-        request.trip.pickupLongitude
-      );
-      routeDurationSeconds = null;
-      routePolyline = null;
     }
 
     // ATOMIC TRANSACTION: Driver accepts offer
@@ -376,10 +410,26 @@ export class DispatchService {
 
       if (
         currentTrip.status === TripStatus.ACCEPTED ||
-        currentTrip.driverId !== null ||
-        currentTrip.status === TripStatus.CANCELLED
+        currentTrip.driverId !== null
       ) {
-        throw new ConflictError('Trip has already been assigned or cancelled.');
+        if (currentTrip.driverId === driverProfileId) {
+          // Idempotent acceptance retry by the same driver
+          const existingAssignedTrip = await tx.trip.findUnique({
+            where: { id: request.tripId },
+            include: {
+              driver: { include: { user: true } },
+              ambulance: true,
+              hospital: true,
+              booking: true,
+            },
+          });
+          return existingAssignedTrip!;
+        }
+        throw new ConflictError('Trip has already been assigned to another responder.');
+      }
+
+      if (currentTrip.status === TripStatus.CANCELLED) {
+        throw new ConflictError('Trip has already been cancelled.');
       }
 
       // 2. Mark request as ACCEPTED

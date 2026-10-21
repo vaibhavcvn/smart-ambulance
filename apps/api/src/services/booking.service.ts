@@ -13,7 +13,7 @@ import {
 import { isPointInAurangabad } from '../integrations/maps/boundary.js';
 import { dispatchService } from './dispatch.service.js';
 import { MLPredictor } from '../ml/inference/predictor.js';
-import { getRoute } from '../integrations/routing/osrm.js';
+import { getRoute, calculateHaversineDistanceKm } from '../integrations/routing/osrm.js';
 import { AURANGABAD_BOUNDS } from '@aurangabad-ambulance/shared';
 
 const mlPredictor = new MLPredictor();
@@ -56,21 +56,16 @@ export class BookingService {
     const categoryMeta = EMERGENCY_CATEGORIES_META[input.emergencyCategory];
     const priority = categoryMeta.priority;
 
-    // 3. Baseline route calculation from city center for initial estimate
-    let osrmDuration = 600;
-    let distKm = 5.0;
-    try {
-      const initialRoute = await getRoute(
-        AURANGABAD_BOUNDS.center.latitude,
-        AURANGABAD_BOUNDS.center.longitude,
-        input.pickupLatitude,
-        input.pickupLongitude
-      );
-      distKm = initialRoute.distanceKm;
-      osrmDuration = initialRoute.durationSeconds;
-    } catch {
-      // Fallback
-    }
+    // 3. Fast baseline route calculation from city center for initial ML delay prediction
+    // Use direct urban road approximation to guarantee instant sub-millisecond response without blocking
+    const directKm = calculateHaversineDistanceKm(
+      AURANGABAD_BOUNDS.center.latitude,
+      AURANGABAD_BOUNDS.center.longitude,
+      input.pickupLatitude,
+      input.pickupLongitude
+    );
+    const distKm = Math.max(1.0, Math.round(directKm * 1.3 * 100) / 100);
+    const osrmDuration = Math.max(120, Math.round((distKm / 35) * 3600));
 
     // 4. ML Prediction: Predict expected transit delay
     let predictedDelaySeconds: number | null = null;

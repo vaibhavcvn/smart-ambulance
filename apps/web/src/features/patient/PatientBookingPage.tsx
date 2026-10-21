@@ -31,6 +31,7 @@ import {
   ArrowRight,
   UserCheck,
   Compass,
+  Loader2,
 } from 'lucide-react';
 
 export const PatientBookingPage: React.FC = () => {
@@ -48,6 +49,8 @@ export const PatientBookingPage: React.FC = () => {
   );
   const [notes, setNotes] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isCancelling, setIsCancelling] = useState<boolean>(false);
+  const [isRetryingRouting, setIsRetryingRouting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Search autocomplete state
@@ -292,10 +295,11 @@ export const PatientBookingPage: React.FC = () => {
 
   // Handle Cancel Trip
   const handleCancelTrip = async () => {
-    if (!activeTrip) return;
+    if (!activeTrip || isCancelling) return;
     const confirm = window.confirm('Are you sure you want to cancel this emergency ambulance request?');
     if (!confirm) return;
 
+    setIsCancelling(true);
     try {
       const updated = await api.patch<TripDTO>(`/api/v1/trips/${activeTrip.id}/status`, {
         targetStatus: TripStatus.CANCELLED,
@@ -304,17 +308,22 @@ export const PatientBookingPage: React.FC = () => {
       setActiveTrip(updated);
     } catch (err: any) {
       alert(err.message || 'Failed to cancel trip.');
+    } finally {
+      setIsCancelling(false);
     }
   };
 
   // Handle route recalculation retry
   const handleRetryRouting = async () => {
-    if (!activeTrip) return;
+    if (!activeTrip || isRetryingRouting) return;
+    setIsRetryingRouting(true);
     try {
       const updated = await api.post<TripDTO>(`/api/v1/trips/${activeTrip.id}/recalculate-route`, {});
       setActiveTrip(updated);
     } catch (err: any) {
       alert(err.message || 'Failed to recalculate route.');
+    } finally {
+      setIsRetryingRouting(false);
     }
   };
 
@@ -624,9 +633,13 @@ export const PatientBookingPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 px-4 bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm rounded-xl shadow-lg shadow-red-900/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.99]"
+                  className="w-full py-3.5 px-4 bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm rounded-xl shadow-lg shadow-red-900/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.99]"
                 >
-                  <Activity className="w-5 h-5 animate-pulse text-white" />
+                  {isSubmitting ? (
+                    <Loader2 className="w-5 h-5 animate-spin text-white" />
+                  ) : (
+                    <Activity className="w-5 h-5 animate-pulse text-white" />
+                  )}
                   <span>
                     {isSubmitting
                       ? 'Dispatching Emergency Unit...'
@@ -861,9 +874,11 @@ export const PatientBookingPage: React.FC = () => {
                   <span>{activeTrip.routingError}</span>
                   <button
                     onClick={handleRetryRouting}
-                    className="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 text-white font-bold text-[11px] rounded transition-colors"
+                    disabled={isRetryingRouting}
+                    className="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-bold text-[11px] rounded transition-colors flex items-center gap-1"
                   >
-                    Retry Route
+                    {isRetryingRouting && <Loader2 className="w-3 h-3 animate-spin" />}
+                    <span>{isRetryingRouting ? 'Retrying...' : 'Retry Route'}</span>
                   </button>
                 </div>
               )}
@@ -874,9 +889,17 @@ export const PatientBookingPage: React.FC = () => {
               {!isPostPickup && (
                 <button
                   onClick={handleCancelTrip}
-                  className="w-full py-2.5 px-4 bg-neutral-950 hover:bg-red-950 text-neutral-400 hover:text-red-400 border border-neutral-800 hover:border-red-800 text-xs font-bold rounded-xl transition-all"
+                  disabled={isCancelling}
+                  className="w-full py-2.5 px-4 bg-neutral-950 hover:bg-red-950 disabled:opacity-50 disabled:cursor-not-allowed text-neutral-400 hover:text-red-400 border border-neutral-800 hover:border-red-800 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2"
                 >
-                  Cancel Ambulance Request
+                  {isCancelling ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-red-400" />
+                      <span>Cancelling Request...</span>
+                    </>
+                  ) : (
+                    <span>Cancel Ambulance Request</span>
+                  )}
                 </button>
               )}
             </div>
