@@ -5,6 +5,7 @@ import {
   DriverApplicationSchema,
   UserRole,
   DriverApplicationStatus,
+  DriverStatus,
 } from '@aurangabad-ambulance/shared';
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../common/errors/app-error.js';
 import { authService } from '../../services/auth.service.js';
