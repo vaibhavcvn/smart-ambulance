@@ -13,6 +13,7 @@
     "dev:web": "npm --workspace=@aurangabad-ambulance/web run dev",
     "dev:mobile": "npm --workspace=@aurangabad-ambulance/mobile run start",
     "build": "npm run build --workspaces --if-present",
+    "build:vercel": "npm run build --workspace=@aurangabad-ambulance/shared && npm run db:generate && npm run build --workspace=@aurangabad-ambulance/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "test:unit": "npm --workspace=@aurangabad-ambulance/api run test:unit",

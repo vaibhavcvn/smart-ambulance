@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "prebuild": "npm run build --workspace=@aurangabad-ambulance/shared",
+    "build": "npm run build --workspace=@aurangabad-ambulance/shared && tsc && vite build",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest run"

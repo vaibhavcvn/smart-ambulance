@@ -36,4 +36,5 @@ export async function healthRoutes(fastify: FastifyInstance) {
 
   fastify.get('/health', healthHandler);
   fastify.get('/api/health', healthHandler);
+  fastify.get('/api/v1/health', healthHandler);
 }

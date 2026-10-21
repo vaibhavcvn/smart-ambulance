@@ -27,6 +27,13 @@ async function getFastifyApp(): Promise<FastifyInstance> {
   return fastifyApp;
 }
 
+// Disable Vercel's default body parser so Fastify's raw stream parser handles payloads safely
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 /**
  * Vercel Serverless Function entry point.
  * Normalizes rewrite paths from Vercel's edge network and bridges incoming
@@ -34,14 +41,31 @@ async function getFastifyApp(): Promise<FastifyInstance> {
  */
 export default async function handler(req: any, res: any) {
   try {
-    // Normalize request URL from Vercel rewrite headers
-    // When Vercel rewrites /api/(.*) -> /api, the original request path is in 'x-matched-path'
-    const matchedPath = req.headers?.['x-matched-path'] || req.headers?.['x-forwarded-uri'];
-    if (typeof matchedPath === 'string' && matchedPath.length > 0) {
-      const rawUrl = req.url || '';
-      const queryIndex = rawUrl.indexOf('?');
-      const queryString = queryIndex !== -1 ? rawUrl.slice(queryIndex) : '';
-      req.url = matchedPath.includes('?') ? matchedPath : `${matchedPath}${queryString}`;
+    // Normalize request URL from query __path or Vercel routing headers
+    const rawUrl = req.url || '';
+    const queryIndex = rawUrl.indexOf('?');
+    const searchParams = new URLSearchParams(queryIndex !== -1 ? rawUrl.slice(queryIndex + 1) : '');
+
+    const queryPath = searchParams.get('__path');
+    if (queryPath) {
+      searchParams.delete('__path');
+      const cleanQuery = searchParams.toString();
+      const normalizedPath = queryPath.startsWith('/') ? queryPath : `/${queryPath}`;
+      const fullPath = normalizedPath.startsWith('/api') ? normalizedPath : `/api${normalizedPath}`;
+      req.url = `${fullPath}${cleanQuery ? `?${cleanQuery}` : ''}`;
+    } else {
+      const matchedPath = req.headers?.['x-matched-path'] || req.headers?.['x-forwarded-uri'];
+      if (
+        typeof matchedPath === 'string' &&
+        matchedPath.length > 0 &&
+        !matchedPath.includes('(') &&
+        !matchedPath.includes('*') &&
+        matchedPath !== '/api' &&
+        matchedPath !== '/api/'
+      ) {
+        const queryString = queryIndex !== -1 ? rawUrl.slice(queryIndex) : '';
+        req.url = matchedPath.includes('?') ? matchedPath : `${matchedPath}${queryString}`;
+      }
     }
 
     const app = await getFastifyApp();
@@ -59,3 +83,4 @@ export default async function handler(req: any, res: any) {
     }
   }
 }
+
