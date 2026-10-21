@@ -2,6 +2,7 @@
   "name": "aurangabad-smart-ambulance-monorepo",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Aurangabad Smart Ambulance — Intelligent Emergency Dispatch & Traffic Coordination Platform",
   "workspaces": [
     "packages/*",

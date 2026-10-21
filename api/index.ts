@@ -1,19 +1,19 @@
 import type { FastifyInstance } from 'fastify';
-import { buildApp } from '../apps/api/src/app.js';
-import { AdminBootstrapService } from '../apps/api/src/services/admin-bootstrap.service.js';
-import { trafficService } from '../apps/api/src/services/traffic.service.js';
 
 let fastifyApp: FastifyInstance | null = null;
 let isBootstrapped = false;
 
 async function getFastifyApp(): Promise<FastifyInstance> {
   if (!fastifyApp) {
+    const { buildApp } = await import('../apps/api/src/app.js');
     fastifyApp = await buildApp();
     await fastifyApp.ready();
   }
 
   if (!isBootstrapped) {
     try {
+      const { AdminBootstrapService } = await import('../apps/api/src/services/admin-bootstrap.service.js');
+      const { trafficService } = await import('../apps/api/src/services/traffic.service.js');
       await AdminBootstrapService.ensureCanonicalAdmin();
       await trafficService.ensureSignalsSeeded();
       isBootstrapped = true;
