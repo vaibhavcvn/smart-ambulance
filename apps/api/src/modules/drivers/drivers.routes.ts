@@ -135,6 +135,13 @@ export async function driverRoutes(fastify: FastifyInstance) {
         include: { user: true, assignedAmbulance: true },
       });
 
+      if (parsed.data.status === DriverStatus.AVAILABLE && driver.assignedAmbulanceId) {
+        await prisma.ambulance.update({
+          where: { id: driver.assignedAmbulanceId },
+          data: { status: 'AVAILABLE' },
+        });
+      }
+
       return {
         id: updated.id,
         status: updated.status,
