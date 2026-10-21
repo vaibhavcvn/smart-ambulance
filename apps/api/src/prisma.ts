@@ -4,6 +4,34 @@ import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
 
+/**
+ * Normalizes PostgreSQL connection URLs for Supabase and connection poolers.
+ * When connecting via Supabase Transaction Pooler (port 6543 or pooler.supabase.com) in serverless,
+ * Prisma requires `pgbouncer=true` to disable prepared statements and prevent
+ * `prepared statement "s0" already exists` errors.
+ * Additionally sets `connection_limit=1` for serverless function efficiency if not specified.
+ */
+function normalizePostgresPoolerUrl(rawUrl: string, isServerless: boolean): string {
+  try {
+    const url = new URL(rawUrl);
+    const isPoolerPort = url.port === '6543';
+    const isSupabasePooler = url.hostname.includes('pooler.supabase.com');
+
+    if (isPoolerPort || isSupabasePooler || url.searchParams.has('pgbouncer')) {
+      if (!url.searchParams.has('pgbouncer')) {
+        url.searchParams.set('pgbouncer', 'true');
+      }
+      if (isServerless && !url.searchParams.has('connection_limit')) {
+        url.searchParams.set('connection_limit', '1');
+      }
+      return url.toString();
+    }
+    return rawUrl;
+  } catch {
+    return rawUrl;
+  }
+}
+
 function initializePrismaClient() {
   const isProduction = env.NODE_ENV === 'production' || process.env.VERCEL === '1';
 
@@ -28,12 +56,13 @@ function initializePrismaClient() {
 
   // 2. PostgreSQL Mode (Production or explicitly configured)
   if (postgresUrl) {
+    const poolerUrl = normalizePostgresPoolerUrl(postgresUrl, isProduction);
     try {
       const { PrismaClient: PostgresClient } = require('../prisma/generated/client-postgres/index.js');
       return new PostgresClient({
         datasources: {
           db: {
-            url: postgresUrl,
+            url: poolerUrl,
           },
         },
         log: logLevels,

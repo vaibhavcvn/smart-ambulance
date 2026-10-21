@@ -43,26 +43,8 @@ const EnvSchema = z.object({
   LOG_LEVEL: z.string().default('info'),
 }).refine(
   (data) => {
-    // 1. Conflict Prevention: If both DATABASE_URL and POSTGRES_DATABASE_URL are set to postgres URLs, ensure they match
-    const dbIsPostgres =
-      data.DATABASE_URL.startsWith('postgres://') || data.DATABASE_URL.startsWith('postgresql://');
-    const pgIsPostgres =
-      Boolean(data.POSTGRES_DATABASE_URL) &&
-      (data.POSTGRES_DATABASE_URL!.startsWith('postgres://') || data.POSTGRES_DATABASE_URL!.startsWith('postgresql://'));
-
-    if (pgIsPostgres && dbIsPostgres && data.POSTGRES_DATABASE_URL !== data.DATABASE_URL) {
-      return false;
-    }
-    return true;
-  },
-  {
-    message:
-      'Configuration conflict: Both DATABASE_URL and POSTGRES_DATABASE_URL are configured with conflicting PostgreSQL connection URLs. Provide only one PostgreSQL target to prevent ambiguous routing.',
-    path: ['POSTGRES_DATABASE_URL'],
-  }
-).refine(
-  (data) => {
-    // 2. Production Safety: Ephemeral SQLite is strictly forbidden in production
+    // Production Safety: Ephemeral SQLite is strictly forbidden in production.
+    // At least one valid PostgreSQL URL must be configured (POSTGRES_DATABASE_URL takes precedence).
     const isProduction = data.NODE_ENV === 'production' || process.env.VERCEL === '1';
     if (!isProduction) return true;
     const hasPostgres =
