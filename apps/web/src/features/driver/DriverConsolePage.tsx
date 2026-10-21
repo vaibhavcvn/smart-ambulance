@@ -30,6 +30,7 @@ import {
 
 interface ApplicationStatusInfo {
   applicationStatus: DriverApplicationStatus;
+  status?: DriverStatus | string;
   licenseNumber: string;
   vehicleTypeRequested?: string;
   vehicleRegistrationRequested?: string;
@@ -74,6 +75,9 @@ export const DriverConsolePage: React.FC = () => {
       try {
         const appStatus = await api.get<ApplicationStatusInfo>('/api/v1/drivers/application-status');
         setAppStatusInfo(appStatus);
+        if (appStatus.status) {
+          setDriverStatus(appStatus.status as DriverStatus);
+        }
 
         const trip = await api.get<TripDTO | null>('/api/v1/trips/driver/active');
         setActiveTrip(trip);
@@ -92,6 +96,44 @@ export const DriverConsolePage: React.FC = () => {
 
     loadDriverState();
   }, [user]);
+
+  // 1a. Real-time polling fallback for serverless deployments (polls for new dispatch offers every 2.5s)
+  useEffect(() => {
+    let isMounted = true;
+    const pollInterval = setInterval(async () => {
+      if (!isMounted) return;
+      try {
+        if (!activeTrip) {
+          const offer = await api.get<DispatchOfferDTO | null>('/api/v1/dispatch/pending');
+          if (isMounted) {
+            if (offer && offer.secondsRemaining > 0) {
+              setPendingOffer((prev) => {
+                if (!prev || prev.dispatchRequestId !== offer.dispatchRequestId) {
+                  setCountdown(offer.secondsRemaining);
+                  return offer;
+                }
+                return prev;
+              });
+            } else if (!offer) {
+              setPendingOffer(null);
+            }
+          }
+        } else {
+          const trip = await api.get<TripDTO | null>('/api/v1/trips/driver/active');
+          if (isMounted && trip) {
+            setActiveTrip(trip);
+          }
+        }
+      } catch {
+        // Silent catch for background polling
+      }
+    }, 2500);
+
+    return () => {
+      isMounted = false;
+      clearInterval(pollInterval);
+    };
+  }, [activeTrip?.id]);
 
   // 2. Countdown timer for pending offer
   useEffect(() => {

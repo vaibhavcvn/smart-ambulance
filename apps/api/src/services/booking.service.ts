@@ -142,10 +142,12 @@ export class BookingService {
       return trip;
     });
 
-    // 6. Initiate Server-Side Dispatch Engine asynchronously
-    dispatchService.startDispatch(result.id).catch((err) => {
+    // 6. Initiate Server-Side Dispatch Engine (await to ensure candidate offer is created before serverless freeze)
+    try {
+      await dispatchService.startDispatch(result.id);
+    } catch (err) {
       console.error(`Error launching dispatch for trip ${result.id}:`, err);
-    });
+    }
 
     return this.mapToDTO(result);
   }

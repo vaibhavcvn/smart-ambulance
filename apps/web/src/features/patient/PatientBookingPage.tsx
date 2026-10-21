@@ -96,6 +96,32 @@ export const PatientBookingPage: React.FC = () => {
     };
   }, [user]);
 
+  // 2a. Serverless Polling Fallback: poll for trip updates every 3s when active
+  useEffect(() => {
+    if (!activeTrip) return;
+    let isMounted = true;
+    const pollInterval = setInterval(async () => {
+      if (!isMounted) return;
+      try {
+        const trip = await api.get<TripDTO | null>('/api/v1/trips/active');
+        if (isMounted) {
+          if (trip) {
+            setActiveTrip(trip);
+          } else {
+            setActiveTrip(null);
+          }
+        }
+      } catch {
+        // Silent catch for background polling
+      }
+    }, 3000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(pollInterval);
+    };
+  }, [activeTrip?.id, activeTrip?.status]);
+
   // 2. Real-time Socket.IO listener for active trip
   useEffect(() => {
     if (!activeTrip) return;
