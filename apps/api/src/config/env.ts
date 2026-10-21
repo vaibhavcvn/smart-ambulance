@@ -10,14 +10,18 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 dotenv.config();
 
+const cleanUrl = (val: unknown) => (typeof val === 'string' ? val.trim().replace(/^['"]|['"]$/g, '') : val);
+
 const EnvSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.coerce.number().default(4000),
   HOST: z.string().default('0.0.0.0'),
   API_URL: z.string().default('http://localhost:4000'),
   FRONTEND_URL: z.string().default('http://localhost:5173'),
-  DATABASE_URL: z.string().default('file:./dev.db'),
-  POSTGRES_DATABASE_URL: z.string().optional(),
+  DATABASE_URL: z.preprocess(cleanUrl, z.string().default('file:./dev.db')),
+  POSTGRES_DATABASE_URL: z.preprocess(cleanUrl, z.string().optional()),
+  POSTGRES_URL: z.preprocess(cleanUrl, z.string().optional()),
+  SUPABASE_DATABASE_URL: z.preprocess(cleanUrl, z.string().optional()),
   JWT_SECRET: z.string().min(16).default('aurangabad_ems_super_secret_jwt_key_2026_dev_min_32_chars!'),
   JWT_EXPIRES_IN: z.string().default('7d'),
   BCRYPT_ROUNDS: z.coerce.number().default(10),
@@ -44,20 +48,22 @@ const EnvSchema = z.object({
 }).refine(
   (data) => {
     // Production Safety: Ephemeral SQLite is strictly forbidden in production.
-    // At least one valid PostgreSQL URL must be configured (POSTGRES_DATABASE_URL takes precedence).
+    // At least one valid PostgreSQL URL must be configured (POSTGRES_DATABASE_URL / POSTGRES_URL takes precedence).
     const isProduction = data.NODE_ENV === 'production' || process.env.VERCEL === '1';
     if (!isProduction) return true;
-    const hasPostgres =
-      (Boolean(data.POSTGRES_DATABASE_URL) &&
-        (data.POSTGRES_DATABASE_URL!.startsWith('postgres://') ||
-          data.POSTGRES_DATABASE_URL!.startsWith('postgresql://'))) ||
-      data.DATABASE_URL.startsWith('postgres://') ||
-      data.DATABASE_URL.startsWith('postgresql://');
-    return hasPostgres;
+    const candidates = [
+      data.POSTGRES_DATABASE_URL,
+      data.POSTGRES_URL,
+      data.SUPABASE_DATABASE_URL,
+      data.DATABASE_URL,
+    ];
+    return candidates.some(
+      (c) => typeof c === 'string' && (c.startsWith('postgres://') || c.startsWith('postgresql://'))
+    );
   },
   {
     message:
-      'Production requires a valid PostgreSQL connection string in DATABASE_URL or POSTGRES_DATABASE_URL (must start with postgresql:// or postgres://). Ephemeral SQLite databases are strictly prohibited in production to prevent silent data loss.',
+      'Production requires a valid PostgreSQL connection string in POSTGRES_DATABASE_URL, POSTGRES_URL, or DATABASE_URL (must start with postgresql:// or postgres://). Ephemeral SQLite databases are strictly prohibited in production to prevent silent data loss.',
     path: ['DATABASE_URL'],
   }
 );
@@ -65,9 +71,9 @@ const EnvSchema = z.object({
 const parsedEnv = EnvSchema.safeParse(process.env);
 
 if (!parsedEnv.success) {
-  console.error('❌ Invalid Environment Variables Configuration:');
-  console.error(parsedEnv.error.format());
-  process.exit(1);
+  const errorDetails = JSON.stringify(parsedEnv.error.format(), null, 2);
+  console.error('❌ Invalid Environment Variables Configuration:\n', errorDetails);
+  throw new Error(`Invalid Environment Variables: ${errorDetails}`);
 }
 
 export const env = parsedEnv.data;

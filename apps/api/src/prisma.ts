@@ -35,14 +35,22 @@ function normalizePostgresPoolerUrl(rawUrl: string, isServerless: boolean): stri
 function initializePrismaClient() {
   const isProduction = env.NODE_ENV === 'production' || process.env.VERCEL === '1';
 
-  // Detect PostgreSQL connection URL from POSTGRES_DATABASE_URL or postgres-prefixed DATABASE_URL
-  const postgresUrl =
+  // Detect PostgreSQL connection URL from POSTGRES_DATABASE_URL, POSTGRES_URL, or postgres-prefixed DATABASE_URL
+  const rawPostgres =
     (env.POSTGRES_DATABASE_URL?.startsWith('postgres://') || env.POSTGRES_DATABASE_URL?.startsWith('postgresql://')
       ? env.POSTGRES_DATABASE_URL
+      : undefined) ||
+    ((env as any).POSTGRES_URL?.startsWith('postgres://') || (env as any).POSTGRES_URL?.startsWith('postgresql://')
+      ? (env as any).POSTGRES_URL
+      : undefined) ||
+    ((env as any).SUPABASE_DATABASE_URL?.startsWith('postgres://') || (env as any).SUPABASE_DATABASE_URL?.startsWith('postgresql://')
+      ? (env as any).SUPABASE_DATABASE_URL
       : undefined) ||
     (env.DATABASE_URL?.startsWith('postgres://') || env.DATABASE_URL?.startsWith('postgresql://')
       ? env.DATABASE_URL
       : undefined);
+
+  const postgresUrl = rawPostgres;
 
   // 1. Production Safety Check: Never allow production or Vercel serverless to silently run on ephemeral SQLite
   if (isProduction && !postgresUrl) {

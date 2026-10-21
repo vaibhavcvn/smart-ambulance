@@ -11,42 +11,54 @@ export class AdminBootstrapService {
    * Never overwrites or resets an existing admin's password.
    */
   public static async ensureCanonicalAdmin(): Promise<void> {
-    const existingAdmin = await prisma.user.findFirst({
-      where: { role: UserRole.ADMIN },
+    const adminEmail = (process.env.ADMIN_EMAIL || 'admin@aurangabad-ems.gov.in').toLowerCase().trim();
+
+    // Check if canonical admin already exists by email or role
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ email: adminEmail }, { role: UserRole.ADMIN }],
+      },
     });
 
-    if (existingAdmin) {
+    if (existingUser) {
       // Canonical admin identity already established; do not overwrite password or recreate
       return;
     }
 
-    const adminEmail = (process.env.ADMIN_EMAIL || 'admin@aurangabad-ems.gov.in').toLowerCase().trim();
     const initialPassword = process.env.ADMIN_INITIAL_PASSWORD || 'Admin@12345';
 
     const salt = await bcrypt.genSalt(env.BCRYPT_ROUNDS);
     const passwordHash = await bcrypt.hash(initialPassword, salt);
 
-    await prisma.user.create({
-      data: {
-        email: adminEmail,
-        passwordHash,
-        name: 'Dr. Anand Deshmukh (Admin)',
-        role: UserRole.ADMIN,
-        phone: '+91-240-2244100',
-      },
-    });
+    try {
+      await prisma.user.create({
+        data: {
+          email: adminEmail,
+          passwordHash,
+          name: 'Dr. Anand Deshmukh (Admin)',
+          role: UserRole.ADMIN,
+          phone: '+91-240-2244100',
+        },
+      });
 
-    // Record bootstrap audit log
-    await prisma.auditLog.create({
-      data: {
-        action: 'ADMIN_BOOTSTRAP_INITIALIZED',
-        resourceType: 'USER',
-        details: JSON.stringify({
-          adminEmail,
-          note: 'Canonical administrator identity initialized idempotently from secure environment config.',
-        }),
-      },
-    });
+      // Record bootstrap audit log
+      await prisma.auditLog.create({
+        data: {
+          action: 'ADMIN_BOOTSTRAP_INITIALIZED',
+          resourceType: 'USER',
+          details: JSON.stringify({
+            adminEmail,
+            note: 'Canonical administrator identity initialized idempotently from secure environment config.',
+          }),
+        },
+      });
+    } catch (err: any) {
+      // Gracefully ignore unique constraint conflicts from concurrent serverless cold starts
+      if (err.code === 'P2002' || err.message?.includes('Unique constraint')) {
+        return;
+      }
+      throw err;
+    }
   }
 
   /**
