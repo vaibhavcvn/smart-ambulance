@@ -27,6 +27,7 @@
     "db:postgres:generate": "npm --workspace=@aurangabad-ambulance/api run db:postgres:generate",
     "db:postgres:push": "npm --workspace=@aurangabad-ambulance/api run db:postgres:push",
     "db:postgres:migrate-data": "npm --workspace=@aurangabad-ambulance/api run db:postgres:migrate-data",
+    "db:postgres:migrate-data:clean": "npm --workspace=@aurangabad-ambulance/api run db:postgres:migrate-data:clean",
     "ml:train": "npm --workspace=@aurangabad-ambulance/api run ml:train"
   },
   "devDependencies": {

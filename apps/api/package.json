@@ -17,6 +17,7 @@
     "db:postgres:generate": "prisma generate --schema=./prisma/schema.postgres.prisma",
     "db:postgres:push": "prisma db push --schema=./prisma/schema.postgres.prisma",
     "db:postgres:migrate-data": "tsx prisma/migrate-sqlite-to-postgres.ts",
+    "db:postgres:migrate-data:clean": "tsx prisma/migrate-sqlite-to-postgres.ts --clean",
     "ml:train": "tsx src/ml/training/train.ts",
     "test": "vitest run",
     "test:unit": "vitest run src/tests/unit",

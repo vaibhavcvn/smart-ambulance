@@ -86,6 +86,7 @@ type ModelName = (typeof MODEL_MIGRATION_ORDER)[number]['name'];
 
 async function runMigration() {
   const isDryRun = process.argv.includes('--dry-run');
+  const isCleanTarget = process.argv.includes('--clean') || process.argv.includes('--force');
   const postgresUrl =
     process.env.POSTGRES_DATABASE_URL ||
     process.env.MIGRATION_TARGET_DATABASE_URL ||
@@ -96,7 +97,7 @@ async function runMigration() {
   console.log('\n==============================================================================');
   console.log('🚑 Aurangabad Smart Ambulance — SQLite to PostgreSQL Migration');
   console.log('==============================================================================');
-  console.log(`Execution Mode : ${isDryRun ? '🔍 DRY RUN (Simulation only, no data written)' : '🚀 LIVE TRANSFER'}`);
+  console.log(`Execution Mode : ${isDryRun ? '🔍 DRY RUN (Simulation only, no data written)' : isCleanTarget ? '🚀 LIVE TRANSFER (WITH --clean)' : '🚀 LIVE TRANSFER'}`);
   console.log(`Target DB URL  : ${sanitizeUrl(postgresUrl)}`);
 
   if (!postgresUrl && !isDryRun) {
@@ -170,18 +171,24 @@ async function runMigration() {
       }
 
       if (targetHasData) {
-        console.warn('\n  ⚠️ Warning: Destination PostgreSQL database already contains data:');
+        console.warn('\n  ⚠️ Warning: Destination PostgreSQL database contains existing records:');
         for (const [m, c] of Object.entries(destinationCounts)) {
           if (c > 0) {
             console.warn(`    - ${m}: ${c} records`);
           }
         }
 
-        if (!isDryRun) {
+        if (isCleanTarget) {
+          console.log('\n  🧹 Cleaning destination tables for full data synchronization (--clean requested)...');
+          const reverseOrder = [...MODEL_MIGRATION_ORDER].reverse();
+          for (const { name } of reverseOrder) {
+            await (postgres[name as keyof typeof postgres] as any).deleteMany();
+          }
+          console.log('  ✔ Destination tables cleaned successfully.');
+        } else if (!isDryRun) {
           console.error('\n  ❌ MIGRATION ABORTED: Destination database is not empty.');
-          console.error('  To ensure absolute data integrity and prevent primary-key collisions,');
-          console.error('  the destination database must be clean prior to migration.');
-          console.error('  Existing records cannot be safely merged or overwritten automatically.\n');
+          console.error('  To safely overwrite destination tables with full SQLite source data, pass --clean:');
+          console.error('  npm run db:postgres:migrate-data -- --clean\n');
           process.exit(1);
         }
       } else {
