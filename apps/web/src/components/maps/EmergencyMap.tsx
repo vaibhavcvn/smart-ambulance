@@ -45,7 +45,7 @@ try {
 }
 
 // Bearing calculation utility
-function calculateBearing(lat1: number, lon1: number, lat2: number, lon2: number): number {
+export function calculateBearing(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const y = Math.sin(dLon) * Math.cos((lat2 * Math.PI) / 180);
   const x =
@@ -56,7 +56,7 @@ function calculateBearing(lat1: number, lon1: number, lat2: number, lon2: number
 }
 
 // Distance calculation utility in meters
-function getDistanceMeters(lat1: number, lon1: number, lat2: number, lon2: number): number {
+export function getDistanceMeters(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371e3; // metres
   const φ1 = (lat1 * Math.PI) / 180;
   const φ2 = (lat2 * Math.PI) / 180;
@@ -339,21 +339,29 @@ function MapInvalidator({
     };
   }, [map, invalidateTrigger]);
 
-  // Automatically fit bounds whenever route coordinates are provided
+  // Automatically fit bounds once on initial route establishment or invalidateTrigger change
+  const hasFittedRef = useRef<string | null>(null);
   useEffect(() => {
     if (routeCoordinates && routeCoordinates.length >= 2) {
-      try {
-        const bounds = L.latLngBounds(routeCoordinates);
-        map.fitBounds(bounds, {
-          padding: [35, 35],
-          maxZoom: 16,
-          animate: true,
-        });
-      } catch {
-        // Safe catch
+      const startPt = routeCoordinates[0];
+      const endPt = routeCoordinates[routeCoordinates.length - 1];
+      const routeKey = `${startPt?.[0]?.toFixed(3)},${startPt?.[1]?.toFixed(3)}->${endPt?.[0]?.toFixed(3)},${endPt?.[1]?.toFixed(3)}:${invalidateTrigger}`;
+
+      if (hasFittedRef.current !== routeKey) {
+        try {
+          const bounds = L.latLngBounds(routeCoordinates);
+          map.fitBounds(bounds, {
+            padding: [45, 45],
+            maxZoom: 16,
+            animate: true,
+          });
+          hasFittedRef.current = routeKey;
+        } catch {
+          // Safe catch
+        }
       }
     }
-  }, [map, routeCoordinates?.length]);
+  }, [map, routeCoordinates, invalidateTrigger]);
 
   return null;
 }
@@ -457,11 +465,14 @@ const SmoothAmbulanceMarker: React.FC<SmoothAmbulanceMarkerProps> = ({ ambulance
   const [position, setPosition] = useState<[number, number]>(
     isValidInitial ? [rawLat, rawLng] : [0, 0]
   );
-  const [heading, setHeading] = useState<number>(0);
+  const [heading, setHeading] = useState<number>(ambulance.heading ?? 0);
   const [isMoving, setIsMoving] = useState<boolean>(false);
-  const prevCoordRef = useRef<[number, number]>(
+
+  // Maintain precise live visual coordinate and heading references across frames
+  const currentPosRef = useRef<[number, number]>(
     isValidInitial ? [rawLat, rawLng] : [0, 0]
   );
+  const currentHeadingRef = useRef<number>(ambulance.heading ?? 0);
   const animFrameRef = useRef<number | null>(null);
 
   // Smoothly interpolate coordinate movements using requestAnimationFrame
@@ -480,42 +491,54 @@ const SmoothAmbulanceMarker: React.FC<SmoothAmbulanceMarkerProps> = ({ ambulance
       return;
     }
 
-    const [startLat, startLng] = prevCoordRef.current;
+    const [startLat, startLng] = currentPosRef.current;
     if (isNaN(startLat) || isNaN(startLng) || startLat === 0 || startLng === 0) {
-      prevCoordRef.current = [targetLat, targetLng];
+      currentPosRef.current = [targetLat, targetLng];
       setPosition([targetLat, targetLng]);
       return;
     }
 
     const distMeters = getDistanceMeters(startLat, startLng, targetLat, targetLng);
 
-    // If coordinates shifted significantly, compute heading direction
-    if (distMeters > 1.5) {
-      const calculatedHeading = calculateBearing(startLat, startLng, targetLat, targetLng);
-      setHeading(calculatedHeading);
-      setIsMoving(true);
-    } else {
-      setIsMoving(false);
+    // If movement is negligible (< 0.2 meters), don't trigger new animation cycle
+    if (distMeters < 0.2) {
+      return;
     }
 
-    const duration = 850; // Smooth 850ms interpolation
+    // Determine target heading direction: prioritize telemetry heading or compute bearing
+    const targetHeading =
+      typeof ambulance.heading === 'number' && !isNaN(ambulance.heading) && ambulance.heading >= 0
+        ? ambulance.heading
+        : calculateBearing(startLat, startLng, targetLat, targetLng);
+
+    setIsMoving(true);
+
+    const startHeading = currentHeadingRef.current;
+    // Calculate shortest angular difference (handling 359° -> 1° without spinning backwards)
+    const headingDiff = ((targetHeading - startHeading + 540) % 360) - 180;
+
+    // Smooth duration matching 1-second update cadence for continuous glide
+    const duration = 960;
     const startTime = performance.now();
 
     const animate = (time: number) => {
       const elapsed = time - startTime;
       const progress = Math.min(1, elapsed / duration);
-      // Ease-out cubic curve
-      const ease = 1 - Math.pow(1 - progress, 3);
 
-      const nextLat = startLat + (targetLat - startLat) * ease;
-      const nextLng = startLng + (targetLng - startLng) * ease;
+      // Smooth linear glide along the road segment ensures steady road speed without jerky stops
+      const nextLat = startLat + (targetLat - startLat) * progress;
+      const nextLng = startLng + (targetLng - startLng) * progress;
+      const nextHeading = (startHeading + headingDiff * progress + 360) % 360;
+
+      currentPosRef.current = [nextLat, nextLng];
+      currentHeadingRef.current = nextHeading;
 
       setPosition([nextLat, nextLng]);
+      setHeading(nextHeading);
 
       if (progress < 1) {
         animFrameRef.current = requestAnimationFrame(animate);
       } else {
-        prevCoordRef.current = [targetLat, targetLng];
         setIsMoving(false);
       }
     };
@@ -529,6 +552,7 @@ const SmoothAmbulanceMarker: React.FC<SmoothAmbulanceMarkerProps> = ({ ambulance
   }, [
     ambulance.currentLatitude,
     ambulance.currentLongitude,
+    ambulance.heading,
     (ambulance as any).latitude,
     (ambulance as any).longitude,
   ]);
@@ -705,6 +729,35 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
   const resolvedRouteColor =
     routeColor || (destinationType === 'HOSPITAL' ? '#059669' : '#2563eb');
 
+  // Dynamic Route Anchoring: anchor path to ambulance and trim completed road segments behind it
+  const dynamicRouteCoordinates = useMemo(() => {
+    if (!routeCoordinates || routeCoordinates.length < 2) return routeCoordinates;
+    if (!ambulancePos) return routeCoordinates;
+
+    const [aLat, aLng] = ambulancePos;
+    let minDistance = Infinity;
+    let closestIndex = 0;
+
+    for (let i = 0; i < routeCoordinates.length; i++) {
+      const [ptLat, ptLng] = routeCoordinates[i];
+      const d = getDistanceMeters(aLat, aLng, ptLat, ptLng);
+      if (d < minDistance) {
+        minDistance = d;
+        closestIndex = i;
+      }
+    }
+
+    // If within 300 meters of planned route, anchor dynamically to ambulance and trim path behind
+    if (minDistance <= 300) {
+      const nextIndex = Math.min(routeCoordinates.length - 1, closestIndex + 1);
+      const remainingWaypoints = routeCoordinates.slice(nextIndex);
+      return [[aLat, aLng], ...remainingWaypoints] as [number, number][];
+    }
+
+    // If deviated, return route coordinates as-is until fresh recalculated path arrives
+    return routeCoordinates;
+  }, [routeCoordinates, ambulancePos]);
+
   return (
     <div className={`relative ${className} overflow-hidden min-h-[260px] sm:min-h-[350px]`}>
       {/* FLOATING TOP HUD STATUS PILL (Uber-Inspired Live Overlay) */}
@@ -781,7 +834,7 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
         <MapControlsWidget
           center={[AURANGABAD_BOUNDS.center.latitude, AURANGABAD_BOUNDS.center.longitude]}
           ambulancePosition={ambulancePos}
-          routeBounds={routeCoordinates.length > 1 ? routeCoordinates : undefined}
+          routeBounds={dynamicRouteCoordinates.length > 1 ? dynamicRouteCoordinates : undefined}
         />
 
         {/* Aurangabad EMS City Boundary Polygon */}
@@ -798,12 +851,12 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
           />
         )}
 
-        {/* Uber-Style Layered Route Polyline */}
-        {routeCoordinates.length > 0 && (
+        {/* Uber-Style Layered Dynamic Route Polyline (Originates at Ambulance) */}
+        {dynamicRouteCoordinates.length > 0 && (
           <>
             {/* Outer shadow casing line */}
             <Polyline
-              positions={routeCoordinates}
+              positions={dynamicRouteCoordinates}
               pathOptions={{
                 color: '#0f172a',
                 weight: 8,
@@ -814,7 +867,7 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
             />
             {/* Inner primary route line */}
             <Polyline
-              positions={routeCoordinates}
+              positions={dynamicRouteCoordinates}
               pathOptions={{
                 color: resolvedRouteColor,
                 weight: 5,

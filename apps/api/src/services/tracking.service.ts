@@ -10,8 +10,11 @@ import { env } from '../config/env.js';
 import { trafficService } from './traffic.service.js';
 import { calculateHaversineDistanceKm } from '../integrations/routing/osrm.js';
 import { evaluateProximityAlerts } from './proximity-alert.service.js';
+import { tripService } from './trip.service.js';
 
 export class TrackingService {
+  private lastRouteCalcMap = new Map<string, { lat: number; lng: number; time: number; inFlight?: boolean }>();
+
   public async updateDriverLocation(
     driverProfileId: string,
     input: DriverLocationUpdateInput
@@ -211,6 +214,51 @@ export class TrackingService {
 
       // Proximity-based route-aware traffic police alerting (5-min lead time, jurisdiction-filtered)
       evaluateProximityAlerts(activeTrip.id, input.latitude, input.longitude).catch(console.warn);
+
+      // 5. Dynamic route auto-recalculation: update shortest path as ambulance advances or takes alternative route
+      if (
+        activeTrip.status === TripStatus.EN_ROUTE_TO_PICKUP ||
+        activeTrip.status === TripStatus.EN_ROUTE_TO_HOSPITAL
+      ) {
+        const lastCalc = this.lastRouteCalcMap.get(activeTrip.id);
+        const nowMs = now.getTime();
+        let shouldRecalc = false;
+
+        if (!lastCalc) {
+          shouldRecalc = true;
+        } else if (!lastCalc.inFlight) {
+          const distKm = calculateHaversineDistanceKm(
+            lastCalc.lat,
+            lastCalc.lng,
+            input.latitude,
+            input.longitude
+          );
+          const timeElapsed = (nowMs - lastCalc.time) / 1000;
+          // Recalculate if vehicle has moved >= 60 meters, or after 10 seconds if displaced >= 20 meters
+          if (distKm >= 0.06 || (timeElapsed >= 10 && distKm >= 0.02)) {
+            shouldRecalc = true;
+          }
+        }
+
+        if (shouldRecalc) {
+          this.lastRouteCalcMap.set(activeTrip.id, {
+            lat: input.latitude,
+            lng: input.longitude,
+            time: nowMs,
+            inFlight: true,
+          });
+
+          tripService
+            .recalculateRoute(activeTrip.id)
+            .catch((err) => {
+              console.warn(`[RouteAutoRecalc] Trip ${activeTrip.id} route update:`, err?.message);
+            })
+            .finally(() => {
+              const entry = this.lastRouteCalcMap.get(activeTrip.id);
+              if (entry) entry.inFlight = false;
+            });
+        }
+      }
     }
 
     return { success: true, timestamp: now.toISOString() };

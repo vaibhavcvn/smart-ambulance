@@ -184,7 +184,7 @@ export const TrafficPolicePage: React.FC = () => {
     socket.on('connect', onConn); socket.on('disconnect', onDisconn); socket.on('connect_error', onDisconn);
     socket.on('traffic:corridor:updated', () => fetchData());
     socket.on('traffic:blockage:reported', (b: TrafficBlockageDTO) => setBlockages(p => [b, ...p.filter(x => x.id !== b.id)]));
-    socket.on('driver:location:changed', (loc: any) => setAmbulances(p => p.map(a => a.id === loc.ambulanceId ? { ...a, latitude: loc.latitude, longitude: loc.longitude, currentLatitude: loc.latitude, currentLongitude: loc.longitude, isSimulated: loc.isSimulated } : a)));
+    socket.on('driver:location:changed', (loc: any) => setAmbulances(p => p.map(a => a.id === loc.ambulanceId ? { ...a, latitude: loc.latitude, longitude: loc.longitude, currentLatitude: loc.latitude, currentLongitude: loc.longitude, heading: loc.heading ?? a.heading, isSimulated: loc.isSimulated } : a)));
     socket.on('traffic:signal:proximity_alert', (alert: ProximityAlert) => {
       const myZone = (user as any)?.jurisdictionZone;
       if (myZone && myZone !== 'ALL' && alert.jurisdictionZone !== myZone) return;

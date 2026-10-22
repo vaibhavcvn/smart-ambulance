@@ -9,7 +9,7 @@ import {
 import { api } from '../../lib/api-client.js';
 import { getSocket } from '../../lib/socket-client.js';
 import { useAuth } from '../../hooks/use-auth.js';
-import { EmergencyMap } from '../../components/maps/EmergencyMap.js';
+import { EmergencyMap, calculateBearing } from '../../components/maps/EmergencyMap.js';
 import {
   Ambulance,
   CheckCircle,
@@ -76,6 +76,7 @@ export const DriverConsolePage: React.FC = () => {
   // DEMO GPS SIMULATOR STATE
   const [isSimulatingGps, setIsSimulatingGps] = useState<boolean>(false);
   const simIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const simWaypointIndexRef = useRef<number>(0);
 
   // Mobile layout sheet mode: 'peek' (minimal HUD) | 'half' (standard) | 'full' (expanded)
   const [mobileSheetMode, setMobileSheetMode] = useState<'peek' | 'half' | 'full'>('peek');
@@ -200,14 +201,24 @@ export const DriverConsolePage: React.FC = () => {
       }
     };
 
+    const handleDriverLocation = (loc: any) => {
+      if (activeTrip && activeTrip.driver && loc.driverId === activeTrip.driver.id) {
+        setCurrentLat(loc.latitude);
+        setCurrentLng(loc.longitude);
+        setLastGpsUpdate(new Date().toLocaleTimeString());
+      }
+    };
+
     socket.on('dispatch:offer', handleOffer);
     socket.on('dispatch:expired', handleExpired);
     socket.on('trip:updated', handleTripUpdate);
+    socket.on('driver:location:changed', handleDriverLocation);
 
     return () => {
       socket.off('dispatch:offer', handleOffer);
       socket.off('dispatch:expired', handleExpired);
       socket.off('trip:updated', handleTripUpdate);
+      socket.off('driver:location:changed', handleDriverLocation);
     };
   }, [activeTrip?.id]);
 
@@ -425,53 +436,6 @@ export const DriverConsolePage: React.FC = () => {
     }
   };
 
-  // 10. DEMO GPS Simulator Implementation
-  useEffect(() => {
-    if (!isSimulatingGps || !activeTrip) {
-      if (simIntervalRef.current) clearInterval(simIntervalRef.current);
-      return;
-    }
-
-    const isHospitalPhase =
-      activeTrip.status === TripStatus.PATIENT_PICKED_UP ||
-      activeTrip.status === TripStatus.EN_ROUTE_TO_HOSPITAL ||
-      activeTrip.status === TripStatus.ARRIVED_AT_HOSPITAL;
-
-    const targetLat = isHospitalPhase && activeTrip.hospital
-      ? activeTrip.hospital.latitude
-      : activeTrip.pickupLatitude;
-
-    const targetLng = isHospitalPhase && activeTrip.hospital
-      ? activeTrip.hospital.longitude
-      : activeTrip.pickupLongitude;
-
-    simIntervalRef.current = setInterval(async () => {
-      setCurrentLat((prevLat) => {
-        const stepLat = (targetLat - prevLat) * 0.12;
-        return prevLat + stepLat;
-      });
-
-      setCurrentLng((prevLng) => {
-        const stepLng = (targetLng - prevLng) * 0.12;
-        const newLng = prevLng + stepLng;
-
-        api.post('/api/v1/tracking/location', {
-          latitude: currentLat,
-          longitude: newLng,
-          speed: 48,
-          accuracy: 10,
-          isSimulated: true,
-        }).catch(console.warn);
-
-        return newLng;
-      });
-    }, 3000);
-
-    return () => {
-      if (simIntervalRef.current) clearInterval(simIntervalRef.current);
-    };
-  }, [isSimulatingGps, activeTrip?.status, activeTrip?.hospital?.id]);
-
   // Phase 2 Route Transition
   const isPostPickup =
     activeTrip?.status === TripStatus.PATIENT_PICKED_UP ||
@@ -495,6 +459,88 @@ export const DriverConsolePage: React.FC = () => {
       }
     }
   }
+
+  // Reset simulator waypoint progression whenever trip status changes
+  useEffect(() => {
+    simWaypointIndexRef.current = 0;
+  }, [activeTrip?.status, activeTrip?.id]);
+
+  // 10. DEMO GPS Simulator Implementation: follows verified road waypoints smoothly
+  useEffect(() => {
+    if (!isSimulatingGps || !activeTrip) {
+      if (simIntervalRef.current) clearInterval(simIntervalRef.current);
+      return;
+    }
+
+    const isHospital =
+      activeTrip.status === TripStatus.PATIENT_PICKED_UP ||
+      activeTrip.status === TripStatus.EN_ROUTE_TO_HOSPITAL ||
+      activeTrip.status === TripStatus.ARRIVED_AT_HOSPITAL;
+
+    const targetLat = isHospital && activeTrip.hospital
+      ? activeTrip.hospital.latitude
+      : activeTrip.pickupLatitude;
+
+    const targetLng = isHospital && activeTrip.hospital
+      ? activeTrip.hospital.longitude
+      : activeTrip.pickupLongitude;
+
+    simIntervalRef.current = setInterval(async () => {
+      let nextLat = targetLat;
+      let nextLng = targetLng;
+      let nextHeading: number | undefined;
+
+      if (routeCoords.length >= 2) {
+        if (simWaypointIndexRef.current < routeCoords.length - 1) {
+          simWaypointIndexRef.current += 1;
+          const [nLat, nLng] = routeCoords[simWaypointIndexRef.current];
+          const [pLat, pLng] = routeCoords[simWaypointIndexRef.current - 1];
+          nextLat = nLat;
+          nextLng = nLng;
+          nextHeading = Math.round(calculateBearing(pLat, pLng, nLat, nLng));
+        } else {
+          // Reached the destination waypoint
+          const [lastLat, lastLng] = routeCoords[routeCoords.length - 1];
+          nextLat = lastLat;
+          nextLng = lastLng;
+
+          if (activeTrip.status === TripStatus.ACCEPTED || activeTrip.status === TripStatus.EN_ROUTE_TO_PICKUP) {
+            handleTransitionStatus(TripStatus.ARRIVED_AT_PICKUP);
+          } else if (activeTrip.status === TripStatus.EN_ROUTE_TO_HOSPITAL) {
+            handleTransitionStatus(TripStatus.ARRIVED_AT_HOSPITAL);
+          }
+        }
+      } else {
+        // Fallback step towards destination
+        setCurrentLat((prevLat) => {
+          nextLat = prevLat + (targetLat - prevLat) * 0.08;
+          return nextLat;
+        });
+        setCurrentLng((prevLng) => {
+          nextLng = prevLng + (targetLng - prevLng) * 0.08;
+          return nextLng;
+        });
+        nextHeading = Math.round(calculateBearing(currentLat, currentLng, targetLat, targetLng));
+      }
+
+      setCurrentLat(nextLat);
+      setCurrentLng(nextLng);
+      setLastGpsUpdate(new Date().toLocaleTimeString());
+
+      api.post('/api/v1/tracking/location', {
+        latitude: nextLat,
+        longitude: nextLng,
+        heading: nextHeading,
+        speed: 42,
+        accuracy: 6,
+        isSimulated: true,
+      }).catch(console.warn);
+    }, 1000);
+
+    return () => {
+      if (simIntervalRef.current) clearInterval(simIntervalRef.current);
+    };
+  }, [isSimulatingGps, activeTrip?.status, activeTrip?.hospital?.id, routeCoords.length]);
 
   // Active ambulance representation
   const activeAmbulances = activeTrip?.ambulance

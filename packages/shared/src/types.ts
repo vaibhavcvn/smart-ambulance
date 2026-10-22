@@ -63,6 +63,8 @@ export interface AmbulanceDTO {
   currentLatitude: number;
   currentLongitude: number;
   lastLocationUpdate: string;
+  heading?: number;
+  speed?: number;
   isSimulated?: boolean;
 }
 

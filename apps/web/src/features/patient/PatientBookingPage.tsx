@@ -176,6 +176,7 @@ export const PatientBookingPage: React.FC = () => {
                   ...prev.ambulance,
                   currentLatitude: loc.latitude,
                   currentLongitude: loc.longitude,
+                  heading: loc.heading ?? (prev.ambulance as any).heading,
                   isSimulated: loc.isSimulated ?? prev.ambulance.isSimulated,
                 }
               : null,

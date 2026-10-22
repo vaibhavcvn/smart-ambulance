@@ -38,7 +38,7 @@ export interface ActiveSimulation {
 }
 
 const DEFAULT_CONFIG: SimulatorConfig = {
-  speedKmh: 90,
+  speedKmh: 42,
   tickIntervalMs: 1000,
   proximityAlertRadiusKm: 0.8,
   alertLeadTimeSeconds: 300,
@@ -233,6 +233,8 @@ export class DemoGpsSimulatorService {
     let remainingMeters = speedMs * elapsedSeconds;
     sim.lastTickAt = now;
 
+    const prevPoint = sim.routeWaypoints[sim.currentWaypointIndex];
+
     while (remainingMeters > 0 && sim.currentWaypointIndex < sim.routeWaypoints.length - 1) {
       const [fromLng, fromLat] = sim.routeWaypoints[sim.currentWaypointIndex];
       const [toLng, toLat] = sim.routeWaypoints[sim.currentWaypointIndex + 1];
@@ -252,11 +254,14 @@ export class DemoGpsSimulatorService {
     }
 
     const [currentLng, currentLat] = sim.routeWaypoints[sim.currentWaypointIndex];
+    const bearing = this.calculateBearing(prevPoint[1], prevPoint[0], currentLat, currentLng);
 
     try {
       await trackingService.updateDriverLocation(sim.driverProfileId, {
         latitude: currentLat,
         longitude: currentLng,
+        heading: !isNaN(bearing) && bearing > 0 ? Math.round(bearing) : undefined,
+        speed: Math.round(this.config.speedKmh),
         isSimulated: true,
         timestamp: new Date().toISOString(),
       });
@@ -297,6 +302,16 @@ export class DemoGpsSimulatorService {
     const dLon = ((lon2 - lon1) * Math.PI) / 180;
     const a = Math.sin(dLat / 2) ** 2 + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2;
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  private calculateBearing(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const toRad = (d: number) => (d * Math.PI) / 180;
+    const toDeg = (r: number) => (r * 180) / Math.PI;
+    const y = Math.sin(toRad(lon2 - lon1)) * Math.cos(toRad(lat2));
+    const x =
+      Math.cos(toRad(lat1)) * Math.sin(toRad(lat2)) -
+      Math.sin(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.cos(toRad(lon2 - lon1));
+    return (toDeg(Math.atan2(y, x)) + 360) % 360;
   }
 }
 
