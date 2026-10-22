@@ -25,8 +25,8 @@ export interface MobileEmergencyMapProps {
   style?: object;
 }
 
-// CARTO Dark Matter tile (OpenStreetMap data, permitted for web & mobile app usage with attribution)
-const CARTO_AURANGABAD_TILE_URI = 'https://a.basemaps.cartocdn.com/dark_all/13/5809/3698.png';
+// OpenStreetMap tile (free, permitted with attribution)
+const OSM_AURANGABAD_TILE_URI = 'https://tile.openstreetmap.org/13/5809/3698.png';
 
 export const MobileEmergencyMap: React.FC<MobileEmergencyMapProps> = ({
   pickupLat = 19.8762,
@@ -105,10 +105,10 @@ export const MobileEmergencyMap: React.FC<MobileEmergencyMapProps> = ({
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={[styles.container, style]} onLayout={onLayout}>
-        {/* OpenStreetMap Raster Background from CARTO Basemaps */}
+        {/* OpenStreetMap Raster Background */}
         {!tileFailed ? (
           <Image
-            source={{ uri: CARTO_AURANGABAD_TILE_URI }}
+            source={{ uri: OSM_AURANGABAD_TILE_URI }}
             style={styles.tileBackground}
             resizeMode="cover"
             onError={() => setTileFailed(true)}
