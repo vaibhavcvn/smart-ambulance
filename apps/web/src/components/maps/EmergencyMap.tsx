@@ -32,6 +32,18 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 
+// Safely patch Leaflet default icon URLs for production Vite/Vercel bundles
+try {
+  delete (L.Icon.Default.prototype as any)._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  });
+} catch {
+  // Silent fallback
+}
+
 // Bearing calculation utility
 function calculateBearing(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
@@ -274,6 +286,78 @@ function MapClickHandler({ onSelectLocation }: { onSelectLocation?: (lat: number
   return null;
 }
 
+// Authoritative Map Invalidation & Mobile Layout Synchronization
+function MapInvalidator({
+  invalidateTrigger,
+  routeCoordinates,
+}: {
+  invalidateTrigger?: any;
+  routeCoordinates?: [number, number][];
+}) {
+  const map = useMap();
+
+  // Handle container resizing and visibility transitions
+  useEffect(() => {
+    const doResize = () => {
+      try {
+        map.invalidateSize({ pan: false, animate: false });
+      } catch {
+        // Safe catch
+      }
+    };
+
+    // Staggered triggers to catch mobile CSS transitions, drawer expansions, and browser chrome bar
+    doResize();
+    const t1 = setTimeout(doResize, 60);
+    const t2 = setTimeout(doResize, 180);
+    const t3 = setTimeout(doResize, 400);
+    const t4 = setTimeout(doResize, 800);
+    const t5 = setTimeout(doResize, 1500);
+
+    // Modern ResizeObserver on map container element
+    let ro: ResizeObserver | null = null;
+    const container = map.getContainer();
+    if (typeof ResizeObserver !== 'undefined' && container) {
+      ro = new ResizeObserver(() => {
+        doResize();
+      });
+      ro.observe(container);
+    }
+
+    window.addEventListener('resize', doResize);
+    window.addEventListener('orientationchange', doResize);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+      clearTimeout(t5);
+      if (ro) ro.disconnect();
+      window.removeEventListener('resize', doResize);
+      window.removeEventListener('orientationchange', doResize);
+    };
+  }, [map, invalidateTrigger]);
+
+  // Automatically fit bounds whenever route coordinates are provided
+  useEffect(() => {
+    if (routeCoordinates && routeCoordinates.length >= 2) {
+      try {
+        const bounds = L.latLngBounds(routeCoordinates);
+        map.fitBounds(bounds, {
+          padding: [35, 35],
+          maxZoom: 16,
+          animate: true,
+        });
+      } catch {
+        // Safe catch
+      }
+    }
+  }, [map, routeCoordinates?.length]);
+
+  return null;
+}
+
 // Recenter and Map Controls Component
 function MapControlsWidget({
   center,
@@ -299,16 +383,16 @@ function MapControlsWidget({
   const handleFitRoute = () => {
     if (routeBounds && routeBounds.length > 1) {
       const bounds = L.latLngBounds(routeBounds);
-      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 17 });
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 17 });
     }
   };
 
   return (
-    <div className="absolute bottom-5 right-5 z-[400] flex flex-col gap-2">
+    <div className="absolute bottom-28 sm:bottom-5 right-3 sm:right-5 z-[400] flex flex-col gap-1.5 sm:gap-2 pointer-events-auto">
       {ambulancePosition && (
         <button
           onClick={handleRecenterAmbulance}
-          className="bg-neutral-900 hover:bg-neutral-800 text-white p-3 rounded-xl shadow-xl border border-neutral-700 transition-all flex items-center justify-center group"
+          className="bg-neutral-900/90 hover:bg-neutral-800 text-white p-2.5 sm:p-3 rounded-xl shadow-xl border border-neutral-700/80 backdrop-blur transition-all flex items-center justify-center group"
           title="Center on Ambulance"
         >
           <Navigation className="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform" />
@@ -318,7 +402,7 @@ function MapControlsWidget({
       {routeBounds && routeBounds.length > 1 && (
         <button
           onClick={handleFitRoute}
-          className="bg-neutral-900 hover:bg-neutral-800 text-white p-3 rounded-xl shadow-xl border border-neutral-700 transition-all flex items-center justify-center group"
+          className="bg-neutral-900/90 hover:bg-neutral-800 text-white p-2.5 sm:p-3 rounded-xl shadow-xl border border-neutral-700/80 backdrop-blur transition-all flex items-center justify-center group"
           title="Fit Full Route"
         >
           <Maximize2 className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
@@ -327,23 +411,23 @@ function MapControlsWidget({
 
       <button
         onClick={handleRecenterCity}
-        className="bg-neutral-900 hover:bg-neutral-800 text-white p-3 rounded-xl shadow-xl border border-neutral-700 transition-all flex items-center justify-center group"
+        className="bg-neutral-900/90 hover:bg-neutral-800 text-white p-2.5 sm:p-3 rounded-xl shadow-xl border border-neutral-700/80 backdrop-blur transition-all flex items-center justify-center group"
         title="Recenter to Aurangabad"
       >
         <Locate className="w-4 h-4 text-neutral-300 group-hover:scale-110 transition-transform" />
       </button>
 
-      <div className="flex flex-col bg-neutral-900 rounded-xl shadow-xl border border-neutral-700 overflow-hidden">
+      <div className="flex flex-col bg-neutral-900/90 rounded-xl shadow-xl border border-neutral-700/80 backdrop-blur overflow-hidden">
         <button
           onClick={() => map.zoomIn()}
-          className="p-2.5 hover:bg-neutral-800 text-neutral-300 hover:text-white transition-colors border-b border-neutral-800 flex items-center justify-center"
+          className="p-2 sm:p-2.5 hover:bg-neutral-800 text-neutral-300 hover:text-white transition-colors border-b border-neutral-800 flex items-center justify-center"
           title="Zoom In"
         >
           <ZoomIn className="w-4 h-4" />
         </button>
         <button
           onClick={() => map.zoomOut()}
-          className="p-2.5 hover:bg-neutral-800 text-neutral-300 hover:text-white transition-colors flex items-center justify-center"
+          className="p-2 sm:p-2.5 hover:bg-neutral-800 text-neutral-300 hover:text-white transition-colors flex items-center justify-center"
           title="Zoom Out"
         >
           <ZoomOut className="w-4 h-4" />
@@ -539,6 +623,7 @@ export interface EmergencyMapProps {
   isRoadGeometry?: boolean;
   routePointCount?: number;
   onRetryRouting?: () => void;
+  invalidateTrigger?: any;
 }
 
 export const EmergencyMap: React.FC<EmergencyMapProps> = ({
@@ -566,6 +651,7 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
   isRoadGeometry = true,
   routePointCount,
   onRetryRouting,
+  invalidateTrigger,
 }) => {
   const [boundaryCoords, setBoundaryCoords] = useState<[number, number][]>([]);
 
@@ -620,31 +706,32 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
     routeColor || (destinationType === 'HOSPITAL' ? '#059669' : '#2563eb');
 
   return (
-    <div className={`relative ${className} overflow-hidden min-h-[350px]`}>
+    <div className={`relative ${className} overflow-hidden min-h-[260px] sm:min-h-[350px]`}>
       {/* FLOATING TOP HUD STATUS PILL (Uber-Inspired Live Overlay) */}
       {(activeEta || activeDistance || isRoutingLoading || routingError || routeSource) && (
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[400] max-w-lg w-full px-4 pointer-events-none">
-          <div className="bg-neutral-900/90 backdrop-blur-md border border-neutral-700/80 text-white rounded-full px-4 py-2 shadow-2xl flex items-center justify-between gap-3 pointer-events-auto">
+        <div className="absolute top-3 sm:top-4 left-1/2 -translate-x-1/2 z-[400] max-w-lg w-full px-3 sm:px-4 pointer-events-none">
+          <div className="bg-neutral-900/90 backdrop-blur-md border border-neutral-700/80 text-white rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 shadow-2xl flex items-center justify-between gap-2.5 sm:gap-3 pointer-events-auto">
             <div className="flex items-center gap-2">
               <span
-                className={`w-2.5 h-2.5 rounded-full ${
+                className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${
                   isRoadGeometry && routeSource === 'OSRM'
                     ? 'bg-emerald-400 animate-pulse'
                     : 'bg-amber-400'
                 }`}
               ></span>
-              <span className="text-xs font-bold text-neutral-200">
+              <span className="text-[11px] sm:text-xs font-bold text-neutral-200 truncate">
                 {destinationType === 'HOSPITAL' ? 'Transit to Hospital ER' : 'Ambulance En Route'}
               </span>
             </div>
 
             {isRoutingLoading ? (
-              <span className="text-xs text-neutral-400 animate-pulse font-medium">Calculating road route...</span>
+              <span className="text-[11px] sm:text-xs text-neutral-400 animate-pulse font-medium">Calculating road route...</span>
             ) : !isRoadGeometry || routeSource === 'FALLBACK_HAVERSINE' || routingError ? (
               <div className="flex items-center gap-2">
-                <span className="text-xs text-amber-400 font-semibold flex items-center gap-1">
-                  <AlertTriangle className="w-3.5 h-3.5" />
-                  <span>Road Route Unavailable (Direct Line Distance)</span>
+                <span className="text-[11px] sm:text-xs text-amber-400 font-semibold flex items-center gap-1">
+                  <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                  <span className="hidden sm:inline">Road Route Unavailable (Direct Line Distance)</span>
+                  <span className="sm:hidden">Direct Line</span>
                 </span>
                 {onRetryRouting && (
                   <button
@@ -656,14 +743,14 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
                 )}
               </div>
             ) : (
-              <div className="flex items-center gap-2 text-xs font-extrabold text-white">
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs font-extrabold text-white shrink-0">
                 {routePointCount && routePointCount > 0 && (
-                  <span className="text-[10px] text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800/60 hidden sm:inline-block">
+                  <span className="text-[10px] text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800/60 hidden md:inline-block">
                     OSRM ({routePointCount} pts)
                   </span>
                 )}
-                {activeEta && <span className="bg-neutral-800 px-2 py-0.5 rounded text-emerald-400">{activeEta}</span>}
-                {activeDistance && <span className="text-neutral-300 font-semibold">{activeDistance}</span>}
+                {activeEta && <span className="bg-neutral-800 px-2 py-0.5 rounded text-emerald-400 text-[11px] sm:text-xs">{activeEta}</span>}
+                {activeDistance && <span className="text-neutral-300 font-semibold text-[11px] sm:text-xs">{activeDistance}</span>}
               </div>
             )}
           </div>
@@ -678,10 +765,16 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
         className="h-full w-full"
         zoomControl={false}
       >
+        <MapInvalidator invalidateTrigger={invalidateTrigger} routeCoordinates={routeCoordinates} />
+
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          maxZoom={19}
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          subdomains={['a', 'b', 'c', 'd']}
+          maxZoom={20}
+          keepBuffer={6}
+          updateWhenIdle={false}
+          updateWhenZooming={true}
         />
 
         <MapClickHandler onSelectLocation={onSelectLocation} />

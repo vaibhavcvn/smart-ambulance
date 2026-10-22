@@ -13,6 +13,7 @@ import {
   Phone,
   HelpCircle,
   X,
+  Menu,
   ExternalLink,
   ChevronDown,
   BedDouble,
@@ -80,6 +81,7 @@ export const Navbar: React.FC = () => {
   const [showHospitalsModal, setShowHospitalsModal] = useState(false);
   const [showSupportModal, setShowSupportModal] = useState(false);
   const [showRoleDropdown, setShowRoleDropdown] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const getRoleBadge = (role?: UserRole) => {
     switch (role) {
@@ -100,35 +102,34 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Top Academic Disclosure Banner - Sleek Minimalist Bar */}
-      <div className="bg-neutral-900 border-b border-neutral-800 text-neutral-400 text-[11px] py-1 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
-        <span>
-          <strong className="text-amber-300">ACADEMIC / DEVELOPMENT PROTOTYPE:</strong> Aurangabad EMS
-          Intelligent Dispatch Platform. Not connected to physical traffic lights or real 112/108 hardware.
+      {/* Top Academic Disclosure Banner - Responsive Minimalist Bar */}
+      <div className="hidden sm:flex bg-neutral-900 border-b border-neutral-800 text-neutral-400 text-[10px] sm:text-[11px] py-1 px-3 sm:px-4 text-center font-medium tracking-wide items-center justify-center gap-1.5 sm:gap-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping shrink-0"></span>
+        <span className="truncate">
+          <strong className="text-amber-300 font-bold">ACADEMIC PROTOTYPE:</strong> Aurangabad EMS Smart Dispatch. Not connected to real 112/108 hardware.
         </span>
       </div>
 
-      {/* Main Uber-Inspired Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-neutral-950 border-b border-neutral-800 shadow-md backdrop-blur-md bg-opacity-95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+      {/* Main Navigation Bar - Optimized for Mobile Chrome & Touch */}
+      <header className="sticky top-0 z-40 bg-neutral-950/98 border-b border-neutral-800 shadow-md backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-12 sm:h-16">
             {/* Left: Brand / Logo */}
-            <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-9 h-9 rounded-xl bg-red-600 flex items-center justify-center text-white shadow-lg shadow-red-900/40 group-hover:bg-red-500 transition-all">
-                <Ambulance className="w-5 h-5 text-white" />
+            <Link to="/" className="flex items-center space-x-2 sm:space-x-3 group">
+              <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-red-600 flex items-center justify-center text-white shadow-lg shadow-red-900/40 group-hover:bg-red-500 transition-all shrink-0">
+                <Ambulance className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-white" />
               </div>
               <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm sm:text-base font-extrabold text-white tracking-tight leading-none group-hover:text-red-400 transition-colors">
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <span className="text-xs sm:text-base font-extrabold text-white tracking-tight leading-none group-hover:text-red-400 transition-colors">
                     Aurangabad EMS
                   </span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 bg-red-950 text-red-400 border border-red-800/80 rounded">
+                  <span className="hidden sm:inline-block text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 bg-red-950 text-red-400 border border-red-800/80 rounded">
                     Smart Dispatch
                   </span>
                 </div>
-                <span className="text-[11px] text-neutral-400 font-medium tracking-wide mt-0.5">
-                  Chhatrapati Sambhajinagar Rapid Response
+                <span className="text-[9px] sm:text-[11px] text-neutral-400 font-medium tracking-wide truncate max-w-[150px] sm:max-w-none">
+                  Chhatrapati Sambhajinagar
                 </span>
               </div>
             </Link>
@@ -150,7 +151,6 @@ export const Navbar: React.FC = () => {
               <Link
                 to="/"
                 onClick={() => {
-                  // Smoothly scroll to tracking card or trigger focus
                   const el = document.getElementById('tracking-card');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
@@ -242,9 +242,9 @@ export const Navbar: React.FC = () => {
             </nav>
 
             {/* Right: Authenticated User Menu or Sign In */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               {user ? (
-                <div className="flex items-center space-x-2.5">
+                <div className="flex items-center space-x-2">
                   <div className="flex flex-col text-right hidden sm:block">
                     <span className="text-xs font-bold text-white leading-tight">
                       {user.name}
@@ -261,7 +261,7 @@ export const Navbar: React.FC = () => {
                   <button
                     onClick={logout}
                     title="Sign Out"
-                    className="p-2 text-neutral-400 hover:text-red-400 hover:bg-neutral-900 rounded-lg transition-colors border border-neutral-800"
+                    className="p-1.5 sm:p-2 text-neutral-400 hover:text-red-400 hover:bg-neutral-900 rounded-lg transition-colors border border-neutral-800"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
@@ -269,16 +269,117 @@ export const Navbar: React.FC = () => {
               ) : (
                 <Link
                   to="/login"
-                  className="inline-flex items-center px-3.5 py-1.5 text-xs font-bold text-white bg-red-600 hover:bg-red-500 rounded-lg shadow-sm transition-all shadow-red-900/30"
+                  className="inline-flex items-center px-2.5 sm:px-3.5 py-1.5 text-xs font-bold text-white bg-red-600 hover:bg-red-500 rounded-lg shadow-sm transition-all shadow-red-900/30"
                 >
-                  <UserIcon className="w-3.5 h-3.5 mr-1.5" />
+                  <UserIcon className="w-3.5 h-3.5 mr-1" />
                   <span>Sign In</span>
                 </Link>
               )}
+
+              {/* Quick 108 Emergency Dial for Mobile Chrome Users */}
+              <a
+                href="tel:108"
+                className="md:hidden flex items-center gap-1 px-2.5 py-1 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-black shadow-md shadow-red-900/40 active:scale-95 transition-transform"
+                title="Dial Emergency 108"
+              >
+                <Phone className="w-3 h-3 animate-pulse" />
+                <span>108</span>
+              </a>
+
+              {/* Mobile Hamburger Button */}
+              <button
+                type="button"
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                className="md:hidden p-1.5 text-neutral-300 hover:text-white hover:bg-neutral-800 rounded-lg border border-neutral-800 transition-colors"
+                aria-label="Toggle navigation menu"
+              >
+                {showMobileMenu ? <X className="w-5 h-5 text-red-400" /> : <Menu className="w-5 h-5" />}
+              </button>
             </div>
           </div>
         </div>
       </header>
+
+      {/* Mobile Slide-Down Navigation Menu */}
+      {showMobileMenu && (
+        <div className="md:hidden z-40 bg-neutral-950/98 backdrop-blur-xl border-b border-neutral-800 px-4 py-3 space-y-2 shadow-2xl">
+          <div className="grid grid-cols-2 gap-2 pb-2 border-b border-neutral-800/80">
+            <Link
+              to="/"
+              onClick={() => setShowMobileMenu(false)}
+              className="p-2.5 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center gap-2 text-xs font-bold text-white hover:border-red-600 transition-colors"
+            >
+              <Navigation className="w-4 h-4 text-red-500 shrink-0" />
+              <span>Book Ambulance</span>
+            </Link>
+            <Link
+              to="/driver"
+              onClick={() => setShowMobileMenu(false)}
+              className="p-2.5 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center gap-2 text-xs font-bold text-white hover:border-blue-600 transition-colors"
+            >
+              <Ambulance className="w-4 h-4 text-blue-400 shrink-0" />
+              <span>Driver Console</span>
+            </Link>
+            <Link
+              to="/hospital"
+              onClick={() => setShowMobileMenu(false)}
+              className="p-2.5 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center gap-2 text-xs font-bold text-white hover:border-emerald-600 transition-colors"
+            >
+              <Building2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Hospital ER</span>
+            </Link>
+            <Link
+              to="/police"
+              onClick={() => setShowMobileMenu(false)}
+              className="p-2.5 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center gap-2 text-xs font-bold text-white hover:border-amber-600 transition-colors"
+            >
+              <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>Traffic Police</span>
+            </Link>
+          </div>
+
+          <div className="flex items-center justify-between pt-1 text-xs">
+            <button
+              onClick={() => {
+                setShowMobileMenu(false);
+                setShowHospitalsModal(true);
+              }}
+              className="flex items-center gap-1.5 py-1.5 px-2 text-neutral-300 hover:text-white font-medium"
+            >
+              <Building2 className="w-3.5 h-3.5 text-blue-400" />
+              <span>Hospitals ({AURANGABAD_HOSPITALS_LIST.length})</span>
+            </button>
+            <button
+              onClick={() => {
+                setShowMobileMenu(false);
+                setShowSupportModal(true);
+              }}
+              className="flex items-center gap-1.5 py-1.5 px-2 text-neutral-300 hover:text-white font-medium"
+            >
+              <Phone className="w-3.5 h-3.5 text-red-400" />
+              <span>Helplines (108/112)</span>
+            </button>
+          </div>
+
+          {user && (
+            <div className="pt-2 border-t border-neutral-800 flex items-center justify-between text-xs">
+              <span className="text-neutral-400 truncate max-w-[200px]">
+                Signed in as <strong className="text-white">{user.name}</strong> ({user.role})
+              </span>
+              <button
+                onClick={() => {
+                  setShowMobileMenu(false);
+                  logout();
+                }}
+                className="text-red-400 hover:text-red-300 font-bold flex items-center gap-1 py-1 px-2 rounded bg-neutral-900 border border-neutral-800"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Sign Out</span>
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* AURANGABAD HOSPITALS DIRECTORY MODAL */}
       {showHospitalsModal && (
@@ -461,6 +562,63 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Mobile Bottom Navigation Dock (Visible on mobile screens) */}
+      <nav
+        aria-label="Mobile Navigation"
+        className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-neutral-950/95 backdrop-blur-xl border-t border-neutral-800 shadow-2xl pb-safe"
+      >
+        <div className="grid grid-cols-5 h-14 items-center">
+          <Link
+            to="/"
+            className={`flex flex-col items-center justify-center py-1 transition-colors ${
+              isActive('/') ? 'text-red-500 font-bold' : 'text-neutral-400 hover:text-neutral-200'
+            }`}
+          >
+            <Navigation className={`w-5 h-5 ${isActive('/') ? 'text-red-500 scale-110' : ''}`} />
+            <span className="text-[10px] mt-0.5 tracking-tight">Book</span>
+          </Link>
+
+          <Link
+            to="/driver"
+            className={`flex flex-col items-center justify-center py-1 transition-colors ${
+              isActive('/driver') ? 'text-blue-400 font-bold' : 'text-neutral-400 hover:text-neutral-200'
+            }`}
+          >
+            <Ambulance className={`w-5 h-5 ${isActive('/driver') ? 'text-blue-400 scale-110' : ''}`} />
+            <span className="text-[10px] mt-0.5 tracking-tight">Driver</span>
+          </Link>
+
+          <Link
+            to="/police"
+            className={`flex flex-col items-center justify-center py-1 transition-colors ${
+              isActive('/police') ? 'text-amber-400 font-bold' : 'text-neutral-400 hover:text-neutral-200'
+            }`}
+          >
+            <ShieldAlert className={`w-5 h-5 ${isActive('/police') ? 'text-amber-400 scale-110' : ''}`} />
+            <span className="text-[10px] mt-0.5 tracking-tight">Police</span>
+          </Link>
+
+          <Link
+            to="/hospital"
+            className={`flex flex-col items-center justify-center py-1 transition-colors ${
+              isActive('/hospital') ? 'text-emerald-400 font-bold' : 'text-neutral-400 hover:text-neutral-200'
+            }`}
+          >
+            <Building2 className={`w-5 h-5 ${isActive('/hospital') ? 'text-emerald-400 scale-110' : ''}`} />
+            <span className="text-[10px] mt-0.5 tracking-tight">Hospital</span>
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setShowHospitalsModal(true)}
+            className="flex flex-col items-center justify-center py-1 text-neutral-400 hover:text-neutral-200 transition-colors"
+          >
+            <BedDouble className="w-5 h-5 text-indigo-400" />
+            <span className="text-[10px] mt-0.5 tracking-tight">ER Beds</span>
+          </button>
+        </div>
+      </nav>
     </>
   );
 };

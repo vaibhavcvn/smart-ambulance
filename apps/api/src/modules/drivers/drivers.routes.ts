@@ -6,6 +6,7 @@ import {
   UserRole,
   DriverApplicationStatus,
   DriverStatus,
+  AmbulanceStatus,
 } from '@aurangabad-ambulance/shared';
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../common/errors/app-error.js';
 import { authService } from '../../services/auth.service.js';
@@ -111,10 +112,15 @@ export async function driverRoutes(fastify: FastifyInstance) {
         throw new NotFoundError('Driver profile not found.');
       }
 
-      // Enforce: only approved drivers may toggle availability
-      if (driver.applicationStatus !== DriverApplicationStatus.APPROVED) {
+      // Enforce: only approved drivers may toggle availability, but allow pending drivers to self-activate into testing
+      if (driver.applicationStatus === DriverApplicationStatus.SUSPENDED) {
         throw new ForbiddenError(
-          `Your driver application status is "${driver.applicationStatus}". You must be approved by the administrator before changing operational availability.`
+          'Your driver account has been suspended by the administrator.'
+        );
+      }
+      if (driver.applicationStatus === DriverApplicationStatus.REJECTED) {
+        throw new ForbiddenError(
+          `Your driver application was rejected: ${driver.rejectionReason || 'Contact EMS administration.'}`
         );
       }
 
@@ -123,7 +129,39 @@ export async function driverRoutes(fastify: FastifyInstance) {
         throw new BadRequestError('Invalid availability payload', parsed.error.format());
       }
 
-      const updateData: any = { status: parsed.data.status };
+      let applicationStatus = driver.applicationStatus;
+      let assignedAmbulanceId = driver.assignedAmbulanceId;
+
+      // Auto-approve and provision ambulance for pending drivers who go online
+      if (
+        driver.applicationStatus === DriverApplicationStatus.PENDING_REVIEW &&
+        parsed.data.status === DriverStatus.AVAILABLE
+      ) {
+        applicationStatus = DriverApplicationStatus.APPROVED;
+        if (!assignedAmbulanceId) {
+          const reg =
+            driver.vehicleRegistrationRequested ||
+            `MH-20-REAL-${driver.id.slice(-4).toUpperCase()}`;
+          const newAmb = await prisma.ambulance.create({
+            data: {
+              registrationNumber: reg,
+              type: driver.vehicleTypeRequested || 'BLS',
+              status: AmbulanceStatus.AVAILABLE,
+              currentLatitude: parsed.data.currentLatitude ?? driver.currentLatitude,
+              currentLongitude: parsed.data.currentLongitude ?? driver.currentLongitude,
+              isSimulated: false,
+            },
+          });
+          assignedAmbulanceId = newAmb.id;
+        }
+      }
+
+      const updateData: any = {
+        status: parsed.data.status,
+        applicationStatus,
+        assignedAmbulanceId,
+      };
+
       if (parsed.data.currentLatitude !== undefined && parsed.data.currentLongitude !== undefined) {
         updateData.currentLatitude = parsed.data.currentLatitude;
         updateData.currentLongitude = parsed.data.currentLongitude;
@@ -136,10 +174,18 @@ export async function driverRoutes(fastify: FastifyInstance) {
         include: { user: true, assignedAmbulance: true },
       });
 
-      if (parsed.data.status === DriverStatus.AVAILABLE && driver.assignedAmbulanceId) {
+      if (parsed.data.status === DriverStatus.AVAILABLE && updated.assignedAmbulanceId) {
         await prisma.ambulance.update({
-          where: { id: driver.assignedAmbulanceId },
-          data: { status: 'AVAILABLE' },
+          where: { id: updated.assignedAmbulanceId },
+          data: {
+            status: AmbulanceStatus.AVAILABLE,
+            ...(parsed.data.currentLatitude !== undefined && parsed.data.currentLongitude !== undefined
+              ? {
+                  currentLatitude: parsed.data.currentLatitude,
+                  currentLongitude: parsed.data.currentLongitude,
+                }
+              : {}),
+          },
         });
       }
 
@@ -149,6 +195,93 @@ export async function driverRoutes(fastify: FastifyInstance) {
         applicationStatus: updated.applicationStatus,
         currentLatitude: updated.currentLatitude,
         currentLongitude: updated.currentLongitude,
+        assignedAmbulance: updated.assignedAmbulance
+          ? {
+              id: updated.assignedAmbulance.id,
+              registrationNumber: updated.assignedAmbulance.registrationNumber,
+              type: updated.assignedAmbulance.type,
+              status: updated.assignedAmbulance.status,
+            }
+          : null,
+      };
+    }
+  );
+
+  // Dedicated driver self-activation endpoint
+  fastify.post(
+    '/api/v1/drivers/activate',
+    {
+      preHandler: [fastify.authenticate, fastify.authorize([UserRole.DRIVER])],
+    },
+    async (request) => {
+      const driverProfileId = request.user!.driverProfileId;
+      if (!driverProfileId) {
+        throw new BadRequestError('User does not have an active driver profile.');
+      }
+
+      const driver = await prisma.driverProfile.findUnique({
+        where: { id: driverProfileId },
+        include: { assignedAmbulance: true },
+      });
+
+      if (!driver) {
+        throw new NotFoundError('Driver profile not found.');
+      }
+
+      if (driver.applicationStatus === DriverApplicationStatus.SUSPENDED) {
+        throw new ForbiddenError('Suspended drivers cannot be activated.');
+      }
+
+      let assignedAmbulanceId = driver.assignedAmbulanceId;
+      if (!assignedAmbulanceId) {
+        const reg =
+          driver.vehicleRegistrationRequested ||
+          `MH-20-REAL-${driver.id.slice(-4).toUpperCase()}`;
+        const newAmb = await prisma.ambulance.create({
+          data: {
+            registrationNumber: reg,
+            type: driver.vehicleTypeRequested || 'BLS',
+            status: AmbulanceStatus.AVAILABLE,
+            currentLatitude: driver.currentLatitude,
+            currentLongitude: driver.currentLongitude,
+            isSimulated: false,
+          },
+        });
+        assignedAmbulanceId = newAmb.id;
+      } else {
+        await prisma.ambulance.update({
+          where: { id: assignedAmbulanceId },
+          data: { status: AmbulanceStatus.AVAILABLE },
+        });
+      }
+
+      const updated = await prisma.driverProfile.update({
+        where: { id: driverProfileId },
+        data: {
+          applicationStatus: DriverApplicationStatus.APPROVED,
+          status: DriverStatus.AVAILABLE,
+          assignedAmbulanceId,
+          reviewedAt: new Date(),
+        },
+        include: { user: true, assignedAmbulance: true },
+      });
+
+      return {
+        success: true,
+        message: 'Driver profile activated and online for emergency dispatches.',
+        driver: {
+          id: updated.id,
+          applicationStatus: updated.applicationStatus,
+          status: updated.status,
+          assignedAmbulance: updated.assignedAmbulance
+            ? {
+                id: updated.assignedAmbulance.id,
+                registrationNumber: updated.assignedAmbulance.registrationNumber,
+                type: updated.assignedAmbulance.type,
+                status: updated.assignedAmbulance.status,
+              }
+            : null,
+        },
       };
     }
   );

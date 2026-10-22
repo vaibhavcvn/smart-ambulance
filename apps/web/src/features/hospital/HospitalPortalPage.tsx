@@ -143,7 +143,7 @@ export const HospitalPortalPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-88px)] bg-neutral-950 text-neutral-100 font-sans py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[calc(100dvh-48px)] sm:min-h-[calc(100vh-88px)] bg-neutral-950 text-neutral-100 font-sans pt-4 sm:pt-8 pb-24 sm:pb-8 px-3.5 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Top Header Bar */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-800">

@@ -88,7 +88,7 @@ function initializePrismaClient() {
   }
 
   // 3. SQLite Mode (Local development and test environments)
-  return new SqliteClient({
+  const client = new SqliteClient({
     datasources: env.DATABASE_URL
       ? {
           db: {
@@ -98,6 +98,15 @@ function initializePrismaClient() {
       : undefined,
     log: logLevels,
   });
+
+  // Optimize SQLite PRAGMAs for instantaneous I/O, concurrent reads/writes and zero OneDrive locking stalls
+  client.$queryRawUnsafe('PRAGMA journal_mode = WAL;').catch(() => {});
+  client.$queryRawUnsafe('PRAGMA synchronous = NORMAL;').catch(() => {});
+  client.$queryRawUnsafe('PRAGMA busy_timeout = 10000;').catch(() => {});
+  client.$queryRawUnsafe('PRAGMA temp_store = MEMORY;').catch(() => {});
+  client.$queryRawUnsafe('PRAGMA cache_size = -32000;').catch(() => {});
+
+  return client;
 }
 export type AppPrismaClient = SqliteClient;
 

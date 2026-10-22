@@ -11,7 +11,7 @@ import {
   ShieldAlert, AlertOctagon, CheckCircle, Plus, Radio, RefreshCw,
   EyeOff, Info, X, Compass, Wifi, WifiOff, AlertTriangle, MapPin,
   Activity, Bell, History, Navigation, ArrowRight, XCircle,
-  LocateFixed,
+  LocateFixed, ChevronUp, ChevronDown,
 } from 'lucide-react';
 
 interface ProximityAlert {
@@ -72,7 +72,16 @@ export const TrafficPolicePage: React.FC = () => {
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<'alerts' | 'corridors' | 'blockages' | 'history'>('alerts');
-  const [mobileView, setMobileView] = useState<'panel' | 'map'>('panel');
+  const [mobileSheetMode, setMobileSheetMode] = useState<'peek' | 'half' | 'full'>('half');
+
+  const cycleSheetMode = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(25);
+    setMobileSheetMode((prev) => {
+      if (prev === 'peek') return 'half';
+      if (prev === 'half') return 'full';
+      return 'peek';
+    });
+  };
   const [showModal, setShowModal] = useState<boolean>(false);
   const [blockageTitle, setBlockageTitle] = useState('');
   const [roadName, setRoadName] = useState('Jalna Road');
@@ -206,16 +215,41 @@ export const TrafficPolicePage: React.FC = () => {
   const priBg = (p: string) => p === 'CRITICAL' ? 'bg-red-600 text-white' : p === 'URGENT' ? 'bg-amber-600 text-white' : 'bg-blue-700 text-white';
 
   return (
-    <div className="relative h-[calc(100vh-88px)] w-full flex flex-col md:flex-row overflow-hidden bg-neutral-950 font-sans text-neutral-100">
-      <div className="md:hidden z-30 flex border-b border-neutral-800 bg-neutral-900 text-xs font-bold">
-        {[{ id: 'panel', label: 'Traffic Console', Icon: ShieldAlert, c: 'text-amber-500' }, { id: 'map', label: 'City Map', Icon: Compass, c: 'text-emerald-400' }].map(t => (
-          <button key={t.id} onClick={() => setMobileView(t.id as any)} className={'flex-1 py-3 flex items-center justify-center gap-1.5 transition-colors ' + (mobileView === t.id ? 'text-white border-b-2 border-amber-500 bg-neutral-800' : 'text-neutral-400')}>
-            <t.Icon className={'w-4 h-4 ' + t.c} /><span>{t.label}</span>
-          </button>
-        ))}
-      </div>
-
-      <div className={'z-20 w-full md:w-[480px] lg:w-[520px] h-full bg-neutral-900 border-r border-neutral-800 shadow-2xl flex flex-col overflow-hidden ' + (mobileView === 'map' ? 'hidden md:flex' : 'flex')}>
+    <div className="relative h-[calc(100dvh-48px)] sm:h-[calc(100vh-88px)] w-full flex flex-col md:flex-row overflow-hidden bg-neutral-950 font-sans text-neutral-100">
+      {/* 1. POLICE CONSOLE BOTTOM SHEET / DESKTOP SIDEBAR */}
+      <div
+        className={`z-20 w-full md:w-[480px] lg:w-[520px] bg-neutral-900 md:border-r border-t md:border-t-0 border-neutral-800 shadow-2xl flex flex-col transition-all duration-300 order-1
+          fixed inset-x-0 bottom-14 md:relative md:bottom-auto md:h-full mobile-bottom-sheet md:rounded-none
+          ${
+            mobileSheetMode === 'peek'
+              ? 'max-h-[175px] md:max-h-none'
+              : mobileSheetMode === 'half'
+              ? 'max-h-[58dvh] md:max-h-none'
+              : 'max-h-[85dvh] md:max-h-none'
+          }
+        `}
+      >
+        {/* Mobile Drag Handle & Sheet Height Toggle */}
+        <div
+          onClick={cycleSheetMode}
+          className="md:hidden flex flex-col items-center pt-2 pb-1.5 cursor-pointer select-none bg-neutral-900 border-b border-neutral-800/80 active:bg-neutral-800/80 transition-colors"
+        >
+          <div className="sheet-drag-handle" />
+          <div className="flex items-center gap-1.5 text-[10px] font-black uppercase text-neutral-400 tracking-wider">
+            <span>
+              {mobileSheetMode === 'peek'
+                ? '▲ Tap to view alerts & signals'
+                : mobileSheetMode === 'half'
+                ? 'Tap for full console or map'
+                : '▼ Tap to minimize sheet'}
+            </span>
+            <ChevronUp
+              className={`w-3.5 h-3.5 transition-transform ${
+                mobileSheetMode === 'full' ? 'rotate-180' : ''
+              }`}
+            />
+          </div>
+        </div>
         <div className="px-5 pt-5 pb-3 border-b border-neutral-800 space-y-3 shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -397,7 +431,8 @@ export const TrafficPolicePage: React.FC = () => {
         <div className="px-4 py-2 border-t border-neutral-800 text-[10px] text-neutral-600 text-center shrink-0 flex items-center justify-center gap-1"><Info className="w-3 h-3" />Aurangabad Smart Mobility &bull; Police Terminal &bull; No physical override</div>
       </div>
 
-      <div className={'flex-1 h-full w-full relative min-h-[400px] ' + (mobileView === 'panel' ? 'hidden md:block' : 'block')}>
+      {/* 2. FULLSCREEN INTERACTIVE TRAFFIC MAP (Always mounted and active) */}
+      <div className="absolute inset-0 md:relative md:flex-1 h-full w-full z-0 order-2">
         <ErrorBoundary title="Traffic Map Temporarily Unavailable" message="Signal controls remain active." onReset={fetchData}>
           <EmergencyMap
             ambulances={ambulances}
@@ -407,7 +442,8 @@ export const TrafficPolicePage: React.FC = () => {
             pickupLng={isLocationSharing ? officerLng : undefined}
             pickupLabel={isLocationSharing ? (gpsMode === 'REAL' ? 'Officer Position (Real GPS)' : `Patrol Post: ${demoStation}`) : undefined}
             showBoundary={true}
-            className="h-full w-full min-h-[400px]"
+            invalidateTrigger={mobileSheetMode}
+            className="h-full w-full"
           />
         </ErrorBoundary>
       </div>

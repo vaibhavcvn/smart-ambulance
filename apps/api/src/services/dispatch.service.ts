@@ -46,6 +46,51 @@ export class DispatchService {
       return { success: false, message: `Trip is already in status "${trip.status}".` };
     }
 
+    // Auto-heal: Ensure any approved driver has an assigned ambulance with status AVAILABLE
+    const approvedWithoutAmbulance = await prisma.driverProfile.findMany({
+      where: {
+        applicationStatus: 'APPROVED',
+        assignedAmbulanceId: null,
+      },
+    });
+    for (const d of approvedWithoutAmbulance) {
+      const newAmb = await prisma.ambulance.create({
+        data: {
+          registrationNumber: d.vehicleRegistrationRequested || `MH-20-AM-${Math.floor(1000 + Math.random() * 9000)}`,
+          type: d.vehicleTypeRequested || 'BLS',
+          status: AmbulanceStatus.AVAILABLE,
+          currentLatitude: d.currentLatitude,
+          currentLongitude: d.currentLongitude,
+          isSimulated: d.isSimulated || false,
+        },
+      });
+      await prisma.driverProfile.update({
+        where: { id: d.id },
+        data: { assignedAmbulanceId: newAmb.id },
+      });
+    }
+
+    // Auto-heal: Ensure available drivers have their assigned ambulance status in sync
+    const staleAmbulances = await prisma.driverProfile.findMany({
+      where: {
+        applicationStatus: 'APPROVED',
+        status: DriverStatus.AVAILABLE,
+        assignedAmbulanceId: { not: null },
+        assignedAmbulance: {
+          status: { not: AmbulanceStatus.AVAILABLE },
+        },
+      },
+      select: { assignedAmbulanceId: true },
+    });
+    for (const d of staleAmbulances) {
+      if (d.assignedAmbulanceId) {
+        await prisma.ambulance.update({
+          where: { id: d.assignedAmbulanceId },
+          data: { status: AmbulanceStatus.AVAILABLE },
+        }).catch(console.warn);
+      }
+    }
+
     // Find previous candidates who declined or expired for this trip
     const contactedDriverIds = trip.dispatchRequests.map((r) => r.driverId);
 
@@ -71,6 +116,19 @@ export class DispatchService {
     });
 
     if (eligibleDrivers.length === 0) {
+      // Check if there are still active pending offers for this trip
+      const activeOffersCount = await prisma.dispatchRequest.count({
+        where: {
+          tripId,
+          status: DispatchRequestStatus.PENDING,
+          expiresAt: { gt: new Date() },
+        },
+      });
+
+      if (activeOffersCount > 0) {
+        return { success: true, message: 'Existing dispatch offers are currently pending acceptance.' };
+      }
+
       // No more drivers available!
       await prisma.trip.update({
         where: { id: tripId },
@@ -99,9 +157,8 @@ export class DispatchService {
       };
     }
 
-    // Rank candidates:
-    // 1. Ambulance capability match (ALS prioritized for CRITICAL emergencies)
-    // 2. Distance to patient pickup location
+    // Calculate distance and priority score for each candidate:
+    // Prioritize actual (non-demo) drivers and ALS capability for critical emergencies
     const scoredCandidates = eligibleDrivers.map((driver) => {
       const distKm = calculateHaversineDistanceKm(
         driver.currentLatitude,
@@ -110,28 +167,44 @@ export class DispatchService {
         trip.pickupLongitude
       );
 
+      // Prioritize real drivers over simulated drivers so actual entered drivers get fast response
+      const realDriverBonus = driver.isSimulated ? 0 : 2;
+
       let capabilityBonus = 0;
       if (
         trip.priority === EmergencyPriority.CRITICAL &&
         driver.assignedAmbulance?.type === AmbulanceType.ALS
       ) {
-        capabilityBonus = 5; // Prioritize ALS
+        capabilityBonus = 1;
       }
 
-      const score = distKm - capabilityBonus;
+      const score = distKm - realDriverBonus - capabilityBonus;
       return { driver, distKm, score };
     });
 
     scoredCandidates.sort((a, b) => a.score - b.score);
-    const chosen = scoredCandidates[0];
+
+    // Multi-candidate broadcast: Select ALL nearby drivers within 5km!
+    const nearbyCandidates = scoredCandidates.filter((c) => c.distKm <= 5.0);
+    const chosenCandidates =
+      nearbyCandidates.length > 0
+        ? nearbyCandidates.slice(0, 10) // All nearby drivers within 5km (up to 10)
+        : scoredCandidates.filter((c) => c.distKm <= env.DISPATCH_SEARCH_RADIUS_KM).slice(0, 3); // Fallback to top 3 within 25km
+
+    if (chosenCandidates.length === 0) {
+      return {
+        success: false,
+        message: 'No drivers within operating dispatch radius.',
+      };
+    }
 
     const expiryMs = env.DISPATCH_TIMEOUT_SECONDS * 1000;
     const expiresAt = new Date(Date.now() + expiryMs);
 
-    // Re-verify trip is still active and atomically create offer and status history
-    let dispatchRequest: any;
+    // Atomically create dispatch requests for all chosen candidates
+    let createdRequests: { candidate: typeof chosenCandidates[0]; req: any }[] = [];
     try {
-      dispatchRequest = await prisma.$transaction(async (tx) => {
+      createdRequests = await prisma.$transaction(async (tx) => {
         const liveTrip = await tx.trip.findUnique({
           where: { id: tripId },
           select: { status: true },
@@ -143,105 +216,123 @@ export class DispatchService {
           liveTrip.status === TripStatus.COMPLETED ||
           liveTrip.status === TripStatus.ACCEPTED
         ) {
-          return null;
+          return [];
         }
 
-        const req = await tx.dispatchRequest.create({
-          data: {
-            tripId,
-            driverId: chosen.driver.id,
-            status: DispatchRequestStatus.PENDING,
-            expiresAt,
-          },
-        });
+        const list: { candidate: typeof chosenCandidates[0]; req: any }[] = [];
+        for (const candidate of chosenCandidates) {
+          const req = await tx.dispatchRequest.create({
+            data: {
+              tripId,
+              driverId: candidate.driver.id,
+              status: DispatchRequestStatus.PENDING,
+              expiresAt,
+            },
+          });
+          list.push({ candidate, req });
+        }
 
         await tx.trip.update({
           where: { id: tripId },
           data: { status: TripStatus.DRIVER_REQUESTED },
         });
 
+        const driverNames = chosenCandidates
+          .map((c) => `${c.driver.user.name} (${c.distKm.toFixed(1)} km${c.driver.isSimulated ? ', demo' : ', real'})`)
+          .join(', ');
+
         await tx.tripStatusHistory.create({
           data: {
             tripId,
             fromStatus: liveTrip.status,
             toStatus: TripStatus.DRIVER_REQUESTED,
-            notes: `Dispatch offer emitted to driver ${chosen.driver.user.name} (${chosen.distKm} km away). Expiry: 45s.`,
+            notes: `Emergency dispatch offer broadcast to ${chosenCandidates.length} nearby driver(s) within 5km: ${driverNames}. Expiry: ${env.DISPATCH_TIMEOUT_SECONDS}s.`,
           },
         });
 
-        return req;
+        return list;
       }, { maxWait: 10000, timeout: 20000 });
     } catch {
       return { success: false, message: 'Trip was concurrently modified or cancelled.' };
     }
 
-    if (!dispatchRequest) {
+    if (createdRequests.length === 0) {
       return { success: false, message: 'Trip is no longer in a dispatchable state.' };
     }
 
-    // Fetch routing info from driver to pickup
-    let routeInfo: any = null;
-    try {
-      routeInfo = await getRoute(
-        chosen.driver.currentLatitude,
-        chosen.driver.currentLongitude,
-        trip.pickupLatitude,
-        trip.pickupLongitude
-      );
-    } catch {
-      // Ignored, fallback to Haversine
+    // Emit private offers to each candidate driver and schedule server-side timers
+    let primaryRouteInfo: any = null;
+
+    for (const { candidate, req } of createdRequests) {
+      let routeInfo: any = null;
+      try {
+        routeInfo = await getRoute(
+          candidate.driver.currentLatitude,
+          candidate.driver.currentLongitude,
+          trip.pickupLatitude,
+          trip.pickupLongitude
+        );
+        if (!primaryRouteInfo) primaryRouteInfo = routeInfo;
+      } catch {
+        // Fallback to Haversine
+      }
+
+      const offerDto: DispatchOfferDTO = {
+        dispatchRequestId: req.id,
+        tripId: trip.id,
+        emergencyCategory: trip.emergencyCategory as any,
+        priority: trip.priority as any,
+        pickupAddress: trip.pickupAddress,
+        pickupLatitude: trip.pickupLatitude,
+        pickupLongitude: trip.pickupLongitude,
+        pickupLandmark: trip.pickupLandmark,
+        notes: trip.notes,
+        expiresAt: expiresAt.toISOString(),
+        secondsRemaining: env.DISPATCH_TIMEOUT_SECONDS,
+        estimatedDistanceKm: routeInfo?.distanceKm || candidate.distKm,
+        estimatedDurationSeconds: routeInfo?.durationSeconds,
+      };
+
+      // Emit private offer to each candidate driver
+      SocketManager.getInstance().emitDispatchOffer(candidate.driver.id, offerDto);
+
+      // Schedule authoritative server-side expiry timer for this offer
+      const timer = setTimeout(async () => {
+        await this.handleDispatchExpiry(req.id);
+      }, expiryMs);
+      if (typeof timer.unref === 'function') {
+        timer.unref();
+      }
+
+      this.activeTimers.set(req.id, timer);
     }
 
-    if (routeInfo && routeInfo.source === 'OSRM' && routeInfo.geometryGeoJson && routeInfo.isRoadGeometry) {
+    // Persist baseline route info from closest candidate
+    const topCandidate = chosenCandidates[0];
+    if (primaryRouteInfo && primaryRouteInfo.source === 'OSRM' && primaryRouteInfo.geometryGeoJson && primaryRouteInfo.isRoadGeometry) {
       await prisma.trip.update({
         where: { id: tripId },
         data: {
-          routeDistanceKm: routeInfo.distanceKm,
-          routeDurationSeconds: routeInfo.durationSeconds,
-          routePolyline: JSON.stringify(routeInfo.geometryGeoJson),
+          routeDistanceKm: primaryRouteInfo.distanceKm,
+          routeDurationSeconds: primaryRouteInfo.durationSeconds,
+          routePolyline: JSON.stringify(primaryRouteInfo.geometryGeoJson),
         },
       }).catch(console.warn);
     } else {
       await prisma.trip.update({
         where: { id: tripId },
         data: {
-          routeDistanceKm: chosen.distKm,
+          routeDistanceKm: topCandidate.distKm,
           routeDurationSeconds: null,
           routePolyline: null,
         },
       }).catch(console.warn);
     }
 
-    const offerDto: DispatchOfferDTO = {
-      dispatchRequestId: dispatchRequest.id,
-      tripId: trip.id,
-      emergencyCategory: trip.emergencyCategory as any,
-      priority: trip.priority as any,
-      pickupAddress: trip.pickupAddress,
-      pickupLatitude: trip.pickupLatitude,
-      pickupLongitude: trip.pickupLongitude,
-      pickupLandmark: trip.pickupLandmark,
-      notes: trip.notes,
-      expiresAt: expiresAt.toISOString(),
-      secondsRemaining: env.DISPATCH_TIMEOUT_SECONDS,
-      estimatedDistanceKm: routeInfo?.distanceKm || chosen.distKm,
-      estimatedDurationSeconds: routeInfo?.durationSeconds,
+    return {
+      success: true,
+      message: `Dispatch offer broadcast to ${chosenCandidates.length} nearby driver(s).`,
     };
-
-    // Emit private offer to the candidate driver
-    SocketManager.getInstance().emitDispatchOffer(chosen.driver.id, offerDto);
-
-    // Schedule authoritative server-side expiry timer
-    const timer = setTimeout(async () => {
-      await this.handleDispatchExpiry(dispatchRequest.id);
-    }, expiryMs);
-    if (typeof timer.unref === 'function') {
-      timer.unref();
-    }
-
-    this.activeTimers.set(dispatchRequest.id, timer);
-
-    return { success: true, message: `Dispatch offer sent to driver ${chosen.driver.user.name}.` };
   }
 
   /**
@@ -274,11 +365,22 @@ export class DispatchService {
       SocketManager.getInstance().emitDispatchExpired(request.driverId, {
         dispatchRequestId,
         tripId: request.tripId,
-        message: 'The 45-second dispatch window expired.',
+        message: 'The dispatch offer window expired.',
       });
 
-      // Advance dispatch engine to the next eligible candidate
-      await this.startDispatch(request.tripId);
+      // Check if any other pending offers remain for this trip
+      const remainingPending = await prisma.dispatchRequest.count({
+        where: {
+          tripId: request.tripId,
+          status: DispatchRequestStatus.PENDING,
+          expiresAt: { gt: new Date() },
+        },
+      });
+
+      // Advance dispatch engine to the next ring only if all contacted drivers have expired
+      if (remainingPending === 0) {
+        await this.startDispatch(request.tripId);
+      }
     } catch (err) {
       console.error('Error handling dispatch expiry:', err);
     }
@@ -339,9 +441,18 @@ export class DispatchService {
         where: { id: dispatchRequestId },
         data: { status: DispatchRequestStatus.EXPIRED, respondedAt: new Date() },
       });
-      // Fallback to next candidate
-      this.startDispatch(request.tripId).catch(console.error);
-      throw new ConflictError('The 45-second acceptance window has elapsed.');
+
+      const remainingPending = await prisma.dispatchRequest.count({
+        where: {
+          tripId: request.tripId,
+          status: DispatchRequestStatus.PENDING,
+          expiresAt: { gt: new Date() },
+        },
+      });
+      if (remainingPending === 0) {
+        this.startDispatch(request.tripId).catch(console.error);
+      }
+      throw new ConflictError('The dispatch acceptance window has elapsed.');
     }
 
     if (action === 'DECLINE') {
@@ -354,8 +465,19 @@ export class DispatchService {
         },
       });
 
-      // Immediately seek next candidate
-      this.startDispatch(request.tripId).catch(console.error);
+      // Check if any other pending offers remain for this trip
+      const remainingPending = await prisma.dispatchRequest.count({
+        where: {
+          tripId: request.tripId,
+          status: DispatchRequestStatus.PENDING,
+          expiresAt: { gt: new Date() },
+        },
+      });
+
+      // Only seek next ring if all contacted drivers have declined/expired
+      if (remainingPending === 0) {
+        this.startDispatch(request.tripId).catch(console.error);
+      }
 
       return { success: true, action: 'DECLINED' };
     }
@@ -398,7 +520,7 @@ export class DispatchService {
 
     // ATOMIC TRANSACTION: Driver accepts offer
     // Guarantee that two drivers can NEVER accept the same trip simultaneously
-    const updatedTrip = await prisma.$transaction(async (tx) => {
+    const { committedTrip, siblingOffers } = await prisma.$transaction(async (tx) => {
       // 1. Check trip status atomically inside transaction
       const currentTrip = await tx.trip.findUnique({
         where: { id: request.tripId },
@@ -423,7 +545,7 @@ export class DispatchService {
               booking: true,
             },
           });
-          return existingAssignedTrip!;
+          return { committedTrip: existingAssignedTrip!, siblingOffers: [] };
         }
         throw new ConflictError('Trip has already been assigned to another responder.');
       }
@@ -437,6 +559,31 @@ export class DispatchService {
         where: { id: dispatchRequestId },
         data: { status: DispatchRequestStatus.ACCEPTED, respondedAt: new Date() },
       });
+
+      // 2b. Cancel / Expire all other sibling pending offers for this trip
+      const siblingOffers = await tx.dispatchRequest.findMany({
+        where: {
+          tripId: request.tripId,
+          id: { not: dispatchRequestId },
+          status: DispatchRequestStatus.PENDING,
+        },
+        select: { id: true, driverId: true },
+      });
+
+      if (siblingOffers.length > 0) {
+        await tx.dispatchRequest.updateMany({
+          where: {
+            tripId: request.tripId,
+            id: { not: dispatchRequestId },
+            status: DispatchRequestStatus.PENDING,
+          },
+          data: {
+            status: DispatchRequestStatus.EXPIRED,
+            respondedAt: new Date(),
+            declineReason: `Trip claimed by nearby driver ${request.driver.user.name}.`,
+          },
+        });
+      }
 
       // 3. Update driver status to ASSIGNED
       await tx.driverProfile.update({
@@ -497,13 +644,27 @@ export class DispatchService {
         },
       });
 
-      return committedTrip;
+      return { committedTrip, siblingOffers };
     }, { maxWait: 10000, timeout: 20000 });
 
-    // Notify all authorized subscribers of acceptance
-    SocketManager.getInstance().emitTripUpdated(updatedTrip.id, updatedTrip);
+    // Clear active timers and notify all sibling candidate drivers that the offer was claimed
+    for (const sibling of siblingOffers) {
+      const siblingTimer = this.activeTimers.get(sibling.id);
+      if (siblingTimer) {
+        clearTimeout(siblingTimer);
+        this.activeTimers.delete(sibling.id);
+      }
+      SocketManager.getInstance().emitDispatchExpired(sibling.driverId, {
+        dispatchRequestId: sibling.id,
+        tripId: request.tripId,
+        message: `Trip was claimed by another nearby emergency responder (${request.driver.user.name}).`,
+      });
+    }
 
-    return { success: true, action: 'ACCEPTED', trip: updatedTrip };
+    // Notify all authorized subscribers of acceptance
+    SocketManager.getInstance().emitTripUpdated(committedTrip.id, committedTrip);
+
+    return { success: true, action: 'ACCEPTED', trip: committedTrip };
   }
 
   public async getPendingOfferForDriver(driverProfileId: string): Promise<DispatchOfferDTO | null> {

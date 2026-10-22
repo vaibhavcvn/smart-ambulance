@@ -1,4 +1,4 @@
-﻿import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { UserRole } from '@aurangabad-ambulance/shared';
 import { demoGpsSimulator } from '../../services/demo-gps-simulator.service.js';
 import { getProximityConfig, updateProximityConfig } from '../../services/proximity-alert.service.js';
@@ -41,6 +41,16 @@ export async function demoControlRoutes(app: FastifyInstance): Promise<void> {
     const { tripId } = req.params;
     const result = await demoGpsSimulator.stopSimulation(tripId);
     clearTripAlerts(tripId);
+    return reply.send(result);
+  });
+
+  /**
+   * POST /api/v1/demo/advance/:tripId
+   * Fast-forward / advance simulation progress immediately (testing phase accelerator)
+   */
+  app.post('/api/v1/demo/advance/:tripId', adminOnly, async (req: FastifyRequest<{ Params: { tripId: string } }>, reply: FastifyReply) => {
+    const { tripId } = req.params;
+    const result = await demoGpsSimulator.advanceSimulation(tripId);
     return reply.send(result);
   });
 

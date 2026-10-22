@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Demo GPS Simulation Engine
  *
  * Route-following deterministic simulation that:
@@ -38,8 +38,8 @@ export interface ActiveSimulation {
 }
 
 const DEFAULT_CONFIG: SimulatorConfig = {
-  speedKmh: 40,
-  tickIntervalMs: 2000,
+  speedKmh: 90,
+  tickIntervalMs: 1000,
   proximityAlertRadiusKm: 0.8,
   alertLeadTimeSeconds: 300,
 };
@@ -152,6 +152,35 @@ export class DemoGpsSimulatorService {
 
     if (this.simulations.size === 0) this.stopTicker();
     return { success: true };
+  }
+
+  public async advanceSimulation(tripId: string): Promise<{ success: boolean; message: string }> {
+    const sim = this.simulations.get(tripId);
+    if (!sim) return { success: false, message: 'Simulation not active for this trip.' };
+
+    // Advance 60% of remaining waypoints or jump straight to end if close
+    const remaining = sim.routeWaypoints.length - 1 - sim.currentWaypointIndex;
+    const jump = Math.max(1, Math.ceil(remaining * 0.6));
+    sim.currentWaypointIndex = Math.min(sim.routeWaypoints.length - 1, sim.currentWaypointIndex + jump);
+
+    const [currentLng, currentLat] = sim.routeWaypoints[sim.currentWaypointIndex];
+    try {
+      await trackingService.updateDriverLocation(sim.driverProfileId, {
+        latitude: currentLat,
+        longitude: currentLng,
+        isSimulated: true,
+        timestamp: new Date().toISOString(),
+      });
+    } catch { /* non-critical */ }
+
+    if (sim.currentWaypointIndex >= sim.routeWaypoints.length - 1) {
+      await this.handlePhaseCompletion(tripId, sim);
+    }
+
+    return {
+      success: true,
+      message: `Advanced trip ${tripId} to waypoint ${sim.currentWaypointIndex + 1}/${sim.routeWaypoints.length}.`,
+    };
   }
 
   public async loadHospitalRoute(tripId: string, hospitalLat: number, hospitalLng: number): Promise<void> {

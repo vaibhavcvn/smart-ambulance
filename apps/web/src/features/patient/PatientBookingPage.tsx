@@ -32,6 +32,8 @@ import {
   UserCheck,
   Compass,
   Loader2,
+  ChevronUp,
+  ChevronDown,
 } from 'lucide-react';
 
 export const PatientBookingPage: React.FC = () => {
@@ -58,8 +60,17 @@ export const PatientBookingPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  // Mobile layout tab toggle: 'panel' vs 'map'
-  const [mobileView, setMobileView] = useState<'panel' | 'map'>('panel');
+  // Mobile layout sheet mode: 'peek' (minimal HUD) | 'half' (standard) | 'full' (expanded)
+  const [mobileSheetMode, setMobileSheetMode] = useState<'peek' | 'half' | 'full'>('half');
+
+  const cycleSheetMode = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(25);
+    setMobileSheetMode((prev) => {
+      if (prev === 'peek') return 'half';
+      if (prev === 'half') return 'full';
+      return 'peek';
+    });
+  };
 
   // Hospitals for map and recommendation preview
   const [hospitals, setHospitals] = useState<HospitalDTO[]>([]);
@@ -281,7 +292,7 @@ export const PatientBookingPage: React.FC = () => {
       });
 
       setActiveTrip(trip);
-      setMobileView('panel');
+      setMobileSheetMode('half');
     } catch (err: any) {
       if (err instanceof ApiError) {
         setErrorMessage(err.message);
@@ -377,40 +388,45 @@ export const PatientBookingPage: React.FC = () => {
   };
 
   return (
-    <div className="relative h-[calc(100vh-88px)] w-full flex flex-col md:flex-row overflow-hidden bg-neutral-950 font-sans">
-      {/* MOBILE VIEW TOGGLE TABS (Visible only on small screens) */}
-      <div className="md:hidden z-30 flex border-b border-neutral-800 bg-neutral-900 text-xs font-bold">
-        <button
-          onClick={() => setMobileView('panel')}
-          className={`flex-1 py-3 text-center transition-colors flex items-center justify-center gap-1.5 ${
-            mobileView === 'panel'
-              ? 'text-white border-b-2 border-red-500 bg-neutral-800'
-              : 'text-neutral-400 hover:text-neutral-200'
-          }`}
-        >
-          <Activity className="w-4 h-4 text-red-500" />
-          <span>{activeTrip ? 'Live Trip Status' : 'Request Unit'}</span>
-        </button>
-        <button
-          onClick={() => setMobileView('map')}
-          className={`flex-1 py-3 text-center transition-colors flex items-center justify-center gap-1.5 ${
-            mobileView === 'map'
-              ? 'text-white border-b-2 border-red-500 bg-neutral-800'
-              : 'text-neutral-400 hover:text-neutral-200'
-          }`}
-        >
-          <Compass className="w-4 h-4 text-emerald-400" />
-          <span>Live Map View</span>
-        </button>
-      </div>
-
-      {/* LEFT PANEL: UBER-INSPIRED BOOKING / LIVE TRACKING DRAWER */}
+    <div className="relative h-[calc(100dvh-48px)] sm:h-[calc(100vh-88px)] w-full flex flex-col md:flex-row overflow-hidden bg-neutral-950 font-sans">
+      {/* 1. UBER-STYLE DESKTOP SIDEBAR / MOBILE BOTTOM SHEET DRAWER */}
       <div
         id="tracking-card"
-        className={`z-20 w-full md:w-[440px] lg:w-[470px] xl:w-[490px] h-full bg-neutral-900 border-r border-neutral-800 shadow-2xl flex flex-col overflow-y-auto text-neutral-100 ${
-          mobileView === 'map' ? 'hidden md:flex' : 'flex'
-        }`}
+        className={`z-20 w-full md:w-[440px] lg:w-[470px] xl:w-[490px] bg-neutral-900 md:border-r border-t md:border-t-0 border-neutral-800 shadow-2xl flex flex-col text-neutral-100 transition-all duration-300 order-1
+          fixed inset-x-0 bottom-14 md:relative md:bottom-auto md:h-full mobile-bottom-sheet md:rounded-none
+          ${
+            mobileSheetMode === 'peek'
+              ? 'max-h-[170px] md:max-h-none'
+              : mobileSheetMode === 'half'
+              ? 'max-h-[58dvh] md:max-h-none'
+              : 'max-h-[85dvh] md:max-h-none'
+          }
+        `}
       >
+        {/* Mobile Drag Handle & Sheet Height Toggle */}
+        <div
+          onClick={cycleSheetMode}
+          className="md:hidden flex flex-col items-center pt-2 pb-1.5 cursor-pointer select-none bg-neutral-900 border-b border-neutral-800/80 active:bg-neutral-800/80 transition-colors"
+        >
+          <div className="sheet-drag-handle" />
+          <div className="flex items-center gap-1.5 text-[10px] font-black uppercase text-neutral-400 tracking-wider">
+            <span>
+              {mobileSheetMode === 'peek'
+                ? '▲ Tap to expand options'
+                : mobileSheetMode === 'half'
+                ? 'Tap for full sheet / map'
+                : '▼ Tap to minimize sheet'}
+            </span>
+            <ChevronUp
+              className={`w-3.5 h-3.5 transition-transform ${
+                mobileSheetMode === 'full' ? 'rotate-180' : ''
+              }`}
+            />
+          </div>
+        </div>
+
+        {/* Scrollable Form / Tracking Body */}
+        <div className="flex-1 overflow-y-auto">
         {!activeTrip || activeTrip.status === TripStatus.COMPLETED || activeTrip.status === TripStatus.CANCELLED ? (
           /* ======================== PATIENT BOOKING FORM ======================== */
           <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-6">
@@ -450,14 +466,24 @@ export const PatientBookingPage: React.FC = () => {
                       <span className="w-2 h-2 rounded-full bg-red-500"></span>
                       <span>1. Emergency Pickup Point</span>
                     </label>
-                    <button
-                      type="button"
-                      onClick={handleUseMyLocation}
-                      className="text-xs font-bold text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors"
-                    >
-                      <Crosshair className="w-3.5 h-3.5" />
-                      <span>Use GPS</span>
-                    </button>
+                    <div className="flex items-center gap-2.5">
+                      <button
+                        type="button"
+                        onClick={() => setMobileSheetMode('peek')}
+                        className="md:hidden text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                      >
+                        <Compass className="w-3.5 h-3.5" />
+                        <span>View Map</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleUseMyLocation}
+                        className="text-xs font-bold text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors"
+                      >
+                        <Crosshair className="w-3.5 h-3.5" />
+                        <span>Use GPS</span>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Connected Uber-style pin input */}
@@ -905,14 +931,11 @@ export const PatientBookingPage: React.FC = () => {
             </div>
           </div>
         )}
+        </div>
       </div>
 
-      {/* RIGHT / MAIN AREA: FULLSCREEN INTERACTIVE LIVE MAP */}
-      <div
-        className={`flex-1 h-full w-full relative ${
-          mobileView === 'panel' ? 'hidden md:block' : 'block'
-        }`}
-      >
+      {/* 2. FULLSCREEN INTERACTIVE LIVE MAP (Always mounted and active) */}
+      <div className="absolute inset-0 md:relative md:flex-1 h-full w-full z-0 order-2">
         <EmergencyMap
           pickupLat={activeTrip ? activeTrip.pickupLatitude : pickupLat}
           pickupLng={activeTrip ? activeTrip.pickupLongitude : pickupLng}
@@ -935,7 +958,16 @@ export const PatientBookingPage: React.FC = () => {
           routePointCount={routeCoords.length}
           onRetryRouting={activeTrip ? handleRetryRoute : undefined}
           isRoutingLoading={isRetryingRoute}
+          invalidateTrigger={mobileSheetMode}
         />
+
+        {/* Mobile Guidance Banner: Tap to Pin on Map */}
+        {!activeTrip && (
+          <div className="md:hidden absolute top-2.5 left-1/2 -translate-x-1/2 z-[400] bg-neutral-900/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-neutral-700/80 shadow-2xl text-[11px] font-bold text-neutral-200 flex items-center gap-1.5 pointer-events-none">
+            <MapPin className="w-3.5 h-3.5 text-red-500 animate-bounce" />
+            <span>Tap map to set emergency pickup point</span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -309,7 +309,7 @@ export const AdminDashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-88px)] bg-neutral-950 text-neutral-100 font-sans py-8 px-4 sm:px-6 lg:px-8 space-y-6">
+    <div className="min-h-[calc(100dvh-48px)] sm:min-h-[calc(100vh-88px)] bg-neutral-950 text-neutral-100 font-sans pt-4 sm:pt-8 pb-24 sm:pb-8 px-3.5 sm:px-6 lg:px-8 space-y-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-800">
@@ -335,8 +335,8 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex border-b border-neutral-800 space-x-2 sm:space-x-4 overflow-x-auto">
+        {/* Tabs - Smooth Mobile Touch Scrolling */}
+        <div className="flex border-b border-neutral-800 space-x-2 sm:space-x-4 overflow-x-auto pb-1 -mx-2 px-2 scrollbar-none">
           <button
             onClick={() => setActiveTab('kpis')}
             className={`py-2.5 px-3 text-xs font-extrabold border-b-2 transition-all flex items-center gap-1.5 whitespace-nowrap ${

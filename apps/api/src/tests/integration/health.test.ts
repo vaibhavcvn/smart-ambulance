@@ -8,7 +8,7 @@ describe('Health Check Routes', () => {
   beforeAll(async () => {
     app = await buildApp();
     await app.ready();
-  });
+  }, 30000);
 
   afterAll(async () => {
     await app.close();

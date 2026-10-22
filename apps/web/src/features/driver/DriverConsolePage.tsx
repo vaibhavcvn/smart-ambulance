@@ -27,6 +27,8 @@ import {
   UserCheck,
   Compass,
   Loader2,
+  ChevronUp,
+  ChevronDown,
 } from 'lucide-react';
 
 interface ApplicationStatusInfo {
@@ -75,8 +77,17 @@ export const DriverConsolePage: React.FC = () => {
   const [isSimulatingGps, setIsSimulatingGps] = useState<boolean>(false);
   const simIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Mobile layout tab toggle: 'panel' vs 'map'
-  const [mobileView, setMobileView] = useState<'panel' | 'map'>('panel');
+  // Mobile layout sheet mode: 'peek' (minimal HUD) | 'half' (standard) | 'full' (expanded)
+  const [mobileSheetMode, setMobileSheetMode] = useState<'peek' | 'half' | 'full'>('peek');
+
+  const cycleSheetMode = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(25);
+    setMobileSheetMode((prev) => {
+      if (prev === 'peek') return 'half';
+      if (prev === 'half') return 'full';
+      return 'peek';
+    });
+  };
 
   // 1. Fetch application status, pending offer & active trip on mount
   useEffect(() => {
@@ -364,14 +375,51 @@ export const DriverConsolePage: React.FC = () => {
     const nextStatus =
       driverStatus === DriverStatus.AVAILABLE ? DriverStatus.OFFLINE : DriverStatus.AVAILABLE;
     try {
-      await api.patch('/api/v1/drivers/availability', {
+      const res = await api.patch<any>('/api/v1/drivers/availability', {
         status: nextStatus,
         currentLatitude: currentLat,
         currentLongitude: currentLng,
       });
       setDriverStatus(nextStatus);
+      if (res.applicationStatus) {
+        setAppStatusInfo((prev) =>
+          prev
+            ? {
+                ...prev,
+                applicationStatus: res.applicationStatus as DriverApplicationStatus,
+                status: nextStatus,
+                assignedAmbulance: res.assignedAmbulance ?? prev.assignedAmbulance,
+              }
+            : null
+        );
+      }
     } catch (err: any) {
       alert(err.message || 'Failed to change driver status.');
+    } finally {
+      setIsTogglingAvailability(false);
+    }
+  };
+
+  const handleActivateDriver = async () => {
+    if (isTogglingAvailability) return;
+    setIsTogglingAvailability(true);
+    try {
+      const res = await api.post<{ success: boolean; driver: any }>('/api/v1/drivers/activate', {});
+      if (res.driver) {
+        setDriverStatus(DriverStatus.AVAILABLE);
+        setAppStatusInfo((prev) =>
+          prev
+            ? {
+                ...prev,
+                applicationStatus: DriverApplicationStatus.APPROVED,
+                status: DriverStatus.AVAILABLE,
+                assignedAmbulance: res.driver.assignedAmbulance ?? prev.assignedAmbulance,
+              }
+            : null
+        );
+      }
+    } catch (err: any) {
+      alert(err.message || 'Failed to activate driver account.');
     } finally {
       setIsTogglingAvailability(false);
     }
@@ -459,39 +507,44 @@ export const DriverConsolePage: React.FC = () => {
       : null;
 
   return (
-    <div className="relative h-[calc(100vh-88px)] w-full flex flex-col md:flex-row overflow-hidden bg-neutral-950 font-sans text-neutral-100">
-      {/* MOBILE VIEW TOGGLE TABS */}
-      <div className="md:hidden z-30 flex border-b border-neutral-800 bg-neutral-900 text-xs font-bold">
-        <button
-          onClick={() => setMobileView('panel')}
-          className={`flex-1 py-3 text-center transition-colors flex items-center justify-center gap-1.5 ${
-            mobileView === 'panel'
-              ? 'text-white border-b-2 border-blue-500 bg-neutral-800'
-              : 'text-neutral-400 hover:text-neutral-200'
-          }`}
-        >
-          <Ambulance className="w-4 h-4 text-blue-500" />
-          <span>Driver Terminal</span>
-        </button>
-        <button
-          onClick={() => setMobileView('map')}
-          className={`flex-1 py-3 text-center transition-colors flex items-center justify-center gap-1.5 ${
-            mobileView === 'map'
-              ? 'text-white border-b-2 border-blue-500 bg-neutral-800'
-              : 'text-neutral-400 hover:text-neutral-200'
-          }`}
-        >
-          <Compass className="w-4 h-4 text-emerald-400" />
-          <span>Live Route Map</span>
-        </button>
-      </div>
-
-      {/* LEFT: DRIVER ACTION CONTROL PANEL */}
+    <div className="relative h-[calc(100dvh-48px)] sm:h-[calc(100vh-88px)] w-full flex flex-col md:flex-row overflow-hidden bg-neutral-950 font-sans text-neutral-100">
+      {/* 1. UBER-STYLE DRIVER BOTTOM SHEET / DESKTOP SIDEBAR */}
       <div
-        className={`z-20 w-full md:w-[440px] lg:w-[470px] xl:w-[490px] h-full bg-neutral-900 border-r border-neutral-800 shadow-2xl flex flex-col overflow-y-auto ${
-          mobileView === 'map' ? 'hidden md:flex' : 'flex'
-        }`}
+        className={`z-20 w-full md:w-[440px] lg:w-[470px] xl:w-[490px] bg-neutral-900 md:border-r border-t md:border-t-0 border-neutral-800 shadow-2xl flex flex-col text-neutral-100 transition-all duration-300 order-1
+          fixed inset-x-0 bottom-14 md:relative md:bottom-auto md:h-full mobile-bottom-sheet md:rounded-none
+          ${
+            mobileSheetMode === 'peek'
+              ? 'max-h-[185px] md:max-h-none'
+              : mobileSheetMode === 'half'
+              ? 'max-h-[58dvh] md:max-h-none'
+              : 'max-h-[85dvh] md:max-h-none'
+          }
+        `}
       >
+        {/* Mobile Drag Handle & Sheet Height Toggle */}
+        <div
+          onClick={cycleSheetMode}
+          className="md:hidden flex flex-col items-center pt-2 pb-1.5 cursor-pointer select-none bg-neutral-900 border-b border-neutral-800/80 active:bg-neutral-800/80 transition-colors"
+        >
+          <div className="sheet-drag-handle" />
+          <div className="flex items-center gap-1.5 text-[10px] font-black uppercase text-neutral-400 tracking-wider">
+            <span>
+              {mobileSheetMode === 'peek'
+                ? '▲ Tap to expand mission details'
+                : mobileSheetMode === 'half'
+                ? 'Tap for full controls or map'
+                : '▼ Tap to minimize sheet'}
+            </span>
+            <ChevronUp
+              className={`w-3.5 h-3.5 transition-transform ${
+                mobileSheetMode === 'full' ? 'rotate-180' : ''
+              }`}
+            />
+          </div>
+        </div>
+
+        {/* Scrollable Driver Controls Body */}
+        <div className="flex-1 overflow-y-auto">
         <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-5">
           <div>
             {/* Driver Identity Card */}
@@ -516,7 +569,8 @@ export const DriverConsolePage: React.FC = () => {
               </div>
 
               {/* Online/Offline Toggle */}
-              {appStatusInfo?.applicationStatus === DriverApplicationStatus.APPROVED ? (
+              {appStatusInfo?.applicationStatus === DriverApplicationStatus.APPROVED ||
+              appStatusInfo?.applicationStatus === DriverApplicationStatus.PENDING_REVIEW ? (
                 <button
                   onClick={handleToggleAvailability}
                   disabled={isTogglingAvailability}
@@ -531,7 +585,13 @@ export const DriverConsolePage: React.FC = () => {
                       driverStatus === DriverStatus.AVAILABLE ? 'bg-emerald-400 animate-pulse' : 'bg-neutral-500'
                     }`}
                   ></span>
-                  <span>{isTogglingAvailability ? 'Updating...' : driverStatus}</span>
+                  <span>
+                    {isTogglingAvailability
+                      ? 'Updating...'
+                      : driverStatus === DriverStatus.AVAILABLE
+                      ? 'ONLINE (AVAILABLE)'
+                      : 'OFFLINE (CLICK TO GO ONLINE)'}
+                  </span>
                 </button>
               ) : (
                 <span className="text-[10px] font-black uppercase px-2.5 py-1 bg-amber-950 text-amber-300 rounded-full border border-amber-800">
@@ -543,13 +603,28 @@ export const DriverConsolePage: React.FC = () => {
             {/* ONBOARDING NOTICES */}
             {appStatusInfo?.applicationStatus === DriverApplicationStatus.PENDING_REVIEW && (
               <div className="my-4 p-4 bg-amber-950/40 border border-amber-800/80 rounded-2xl text-xs text-amber-200">
-                <div className="flex items-center gap-2 font-bold mb-1 text-amber-300">
-                  <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>DRIVER APPLICATION UNDER REVIEW</span>
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2 font-bold text-amber-300">
+                    <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+                    <span>DRIVER APPLICATION REGISTERED</span>
+                  </div>
+                  <span className="text-[10px] font-bold px-2 py-0.5 bg-amber-900/60 text-amber-300 rounded border border-amber-700/60">
+                    READY TO ACTIVATE
+                  </span>
                 </div>
                 <p className="text-[11px] leading-relaxed text-amber-300/80">
-                  Your credentials (License: {appStatusInfo.licenseNumber}) and requested vehicle ({appStatusInfo.vehicleTypeRequested || 'BLS'}) are being verified by the Aurangabad EMS Administrator.
+                  License: <span className="font-semibold text-white">{appStatusInfo.licenseNumber}</span> | Requested Vehicle:{' '}
+                  <span className="font-semibold text-white">{appStatusInfo.vehicleTypeRequested || 'BLS'}</span>. You can activate your profile and go online immediately to receive incoming patient requests.
                 </p>
+                <div className="mt-3 flex items-center gap-2">
+                  <button
+                    onClick={handleActivateDriver}
+                    disabled={isTogglingAvailability}
+                    className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-neutral-950 text-xs font-black rounded-xl transition-all shadow-md shadow-amber-900/30 flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    <span>⚡ Activate Profile &amp; Go Online</span>
+                  </button>
+                </div>
               </div>
             )}
 
@@ -952,14 +1027,11 @@ export const DriverConsolePage: React.FC = () => {
             Aurangabad Smart Mobility &bull; Authenticated Driver Terminal
           </div>
         </div>
+        </div>
       </div>
 
-      {/* RIGHT: LIVE MAP VIEW */}
-      <div
-        className={`flex-1 h-full w-full relative ${
-          mobileView === 'panel' ? 'hidden md:block' : 'block'
-        }`}
-      >
+      {/* 2. FULLSCREEN INTERACTIVE DRIVER NAVIGATION MAP */}
+      <div className="absolute inset-0 md:relative md:flex-1 h-full w-full z-0 order-2">
         <EmergencyMap
           pickupLat={activeTrip ? activeTrip.pickupLatitude : currentLat}
           pickupLng={activeTrip ? activeTrip.pickupLongitude : currentLng}
@@ -979,7 +1051,44 @@ export const DriverConsolePage: React.FC = () => {
           routePointCount={routeCoords.length}
           onRetryRouting={handleRecalculateRoute}
           isRoutingLoading={isRecalculating}
+          invalidateTrigger={mobileSheetMode}
         />
+
+        {/* Floating Mobile Incoming Offer Banner (Shown on top of map) */}
+        {pendingOffer && (
+          <div className="md:hidden absolute top-3 left-3 right-3 z-[450] bg-neutral-900/98 border-2 border-red-500 rounded-2xl p-4 shadow-2xl backdrop-blur-md animate-pulse">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-black text-red-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Radio className="w-3.5 h-3.5 text-red-500 animate-ping" />
+                DISPATCH OFFER ({countdown}s)
+              </span>
+              <span className="text-xs font-black text-white px-2 py-0.5 rounded bg-red-950 border border-red-800">
+                {pendingOffer.emergencyCategory.replace(/_/g, ' ')}
+              </span>
+            </div>
+            <div className="text-xs font-semibold text-neutral-200 mt-1.5 truncate">
+              📍 {pendingOffer.pickupAddress}
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button
+                onClick={handleAcceptOffer}
+                disabled={isAccepting || isDeclining}
+                className="py-3 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-xl shadow-lg flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
+              >
+                <CheckCircle className="w-4 h-4" />
+                <span>ACCEPT ({countdown}s)</span>
+              </button>
+              <button
+                onClick={handleDeclineOffer}
+                disabled={isAccepting || isDeclining}
+                className="py-3 px-3 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold text-xs rounded-xl border border-neutral-700 flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
+              >
+                <XCircle className="w-4 h-4" />
+                <span>DECLINE</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
