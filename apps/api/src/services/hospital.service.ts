@@ -122,6 +122,11 @@ export class HospitalService {
    * Transparent Multi-Factor Hospital Recommendation Scoring:
    * Score = (AvailableBeds * 15) + (CapabilityBonus * 40) - (DistanceKm * 8) - (DivertingPenalty)
    */
+  /**
+   * Clinical Severity & Proximity Multi-Factor Hospital Recommendation Engine:
+   * Prioritizes life-saving clinical specialty (Trauma Center, Cath Lab, Stroke Unit, ICU)
+   * combined with nearest road proximity to ensure survival during the golden hour.
+   */
   public async recommendHospital(
     pickupLat: number,
     pickupLng: number,
@@ -138,45 +143,108 @@ export class HospitalService {
     let selectedDistance = 0;
 
     for (const h of hospitals) {
-      // Exclude closed or diverting hospitals
+      // Exclude closed hospitals
       if (h.status === 'CLOSED') continue;
 
       const distKm = calculateHaversineDistanceKm(pickupLat, pickupLng, h.latitude, h.longitude);
-      let score = 100 - distKm * 8; // Closer is better
 
-      const totalEmergencyBeds = h.availableEmergencyBeds + h.availableIcuBeds;
-      score += Math.min(totalEmergencyBeds, 20) * 3; // Bed availability bonus
+      // Base score starts at 100, proximity is heavily weighted to save life during golden hour
+      let score = 100 - distKm * 10;
+
+      // Bed capacity
+      const erBeds = h.availableEmergencyBeds;
+      const icuBeds = h.availableIcuBeds;
+
+      if (erBeds === 0 && icuBeds === 0) {
+        score -= 120; // 100% saturated capacity penalty
+      } else {
+        score += Math.min(erBeds, 25) * 3 + Math.min(icuBeds, 15) * 5;
+      }
 
       let capabilityReason = '';
+      let isMatched = false;
 
-      if (category === EmergencyCategory.CARDIAC_ARREST) {
-        if (h.hasCathLab) {
-          score += 45;
-          capabilityReason = 'Dedicated cardiac catheterization lab active.';
-        }
-      } else if (category === EmergencyCategory.TRAUMA_ACCIDENT) {
-        if (h.hasTraumaCenter) {
-          score += 50;
-          capabilityReason = 'Level-1 Emergency Trauma Resuscitation Center.';
-        }
-      } else if (category === EmergencyCategory.STROKE) {
-        if (h.hasStrokeUnit) {
-          score += 45;
-          capabilityReason = 'Specialized Stroke & Neuro-vascular Care Unit.';
-        }
+      switch (category) {
+        case EmergencyCategory.TRAUMA_ACCIDENT:
+          if (h.hasTraumaCenter) {
+            score += 75;
+            isMatched = true;
+            capabilityReason = 'Level-1 Emergency Trauma Resuscitation Center with surgical theater';
+          } else {
+            // Crucial: facilities without emergency trauma surgery cannot treat polytrauma
+            score -= 150;
+          }
+          break;
+
+        case EmergencyCategory.CARDIAC_ARREST:
+          if (h.hasCathLab) {
+            score += 70;
+            isMatched = true;
+            capabilityReason = 'Dedicated 24/7 Cardiac Catheterization Lab active for acute PCI';
+          } else {
+            // Acute STEMI / cardiac arrest requires catheterization
+            score -= 140;
+          }
+          break;
+
+        case EmergencyCategory.STROKE:
+          if (h.hasStrokeUnit) {
+            score += 70;
+            isMatched = true;
+            capabilityReason = 'Specialized Stroke & Neuro-vascular Center with urgent thrombolysis';
+          } else {
+            score -= 140;
+          }
+          break;
+
+        case EmergencyCategory.RESPIRATORY_FAILURE:
+          if (icuBeds >= 4) {
+            score += 60;
+            isMatched = true;
+            capabilityReason = 'Tertiary Intensive Care Facility with mechanical ventilators';
+          } else if (icuBeds > 0) {
+            score += 30;
+            isMatched = true;
+            capabilityReason = 'ICU Facility with respiratory support beds';
+          } else {
+            score -= 90;
+          }
+          break;
+
+        case EmergencyCategory.MATERNITY_LABOR:
+          score += 40;
+          isMatched = true;
+          capabilityReason = 'Emergency Obstetric & Neonatal Resuscitation Care';
+          break;
+
+        case EmergencyCategory.GENERAL_EMERGENCY:
+        default:
+          score += 30;
+          isMatched = true;
+          capabilityReason = 'Multi-specialty Emergency Dept with 24/7 triage';
+          break;
+      }
+
+      // Proximity tier bonus: immediate response zone
+      if (distKm <= 2.5) {
+        score += 25;
+      } else if (distKm <= 5.0) {
+        score += 12;
+      } else if (distKm > 10.0) {
+        score -= 30;
       }
 
       if (h.status === 'DIVERTING') {
-        score -= 60; // Diverting penalty
+        score -= 80; // Heavy diverting penalty
       }
 
       if (score > bestScore) {
         bestScore = score;
         selectedHospital = h;
         selectedDistance = distKm;
-        selectedReason = capabilityReason
-          ? `${capabilityReason} (${distKm} km, ${h.availableEmergencyBeds} ER beds available)`
-          : `Optimal combination of proximity (${distKm} km) and bed capacity (${h.availableEmergencyBeds} ER beds)`;
+        selectedReason = isMatched && capabilityReason
+          ? `${capabilityReason} (${distKm.toFixed(1)} km away • ${erBeds} ER beds, ${icuBeds} ICU beds available)`
+          : `Optimal combination of proximity (${distKm.toFixed(1)} km) and open bed capacity (${erBeds} ER beds)`;
       }
     }
 
@@ -184,7 +252,7 @@ export class HospitalService {
       hospital: this.mapToDTO(selectedHospital),
       score: Math.round(bestScore),
       reason: selectedReason,
-      distanceKm: selectedDistance,
+      distanceKm: Math.round(selectedDistance * 10) / 10,
     };
   }
 

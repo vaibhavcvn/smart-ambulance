@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   EmergencyCategory,
   EMERGENCY_CATEGORIES_META,
@@ -35,6 +35,159 @@ import {
   ChevronUp,
   ChevronDown,
 } from 'lucide-react';
+
+function calculateDistanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return Math.round(R * c * 10) / 10;
+}
+
+export interface HospitalRecommendationResult {
+  hospital: HospitalDTO;
+  score: number;
+  reason: string;
+  distanceKm: number;
+  specialtyTag: string;
+}
+
+export function recommendBestHospital(
+  hospitals: HospitalDTO[],
+  pickupLat: number,
+  pickupLng: number,
+  category: EmergencyCategory
+): HospitalRecommendationResult | null {
+  if (!hospitals || hospitals.length === 0) return null;
+
+  let bestHospital: HospitalDTO = hospitals[0];
+  let bestScore = -Infinity;
+  let bestReason = '';
+  let bestDistance = 0;
+  let bestSpecialty = 'Emergency Department';
+
+  for (const h of hospitals) {
+    if (h.status === 'CLOSED') continue;
+
+    const distKm = calculateDistanceKm(pickupLat, pickupLng, h.latitude, h.longitude);
+    let score = 100 - distKm * 10;
+
+    const erBeds = h.availableEmergencyBeds;
+    const icuBeds = h.availableIcuBeds;
+
+    if (erBeds === 0 && icuBeds === 0) {
+      score -= 120;
+    } else {
+      score += Math.min(erBeds, 25) * 3 + Math.min(icuBeds, 15) * 5;
+    }
+
+    let capabilityReason = '';
+    let isMatched = false;
+    let specialtyTag = 'Multi-specialty ER';
+
+    switch (category) {
+      case EmergencyCategory.TRAUMA_ACCIDENT:
+        if (h.hasTraumaCenter) {
+          score += 75;
+          isMatched = true;
+          specialtyTag = 'Level-1 Trauma Center';
+          capabilityReason = 'Level-1 Emergency Trauma Resuscitation Center with surgical theater';
+        } else {
+          score -= 150;
+        }
+        break;
+
+      case EmergencyCategory.CARDIAC_ARREST:
+        if (h.hasCathLab) {
+          score += 70;
+          isMatched = true;
+          specialtyTag = '24/7 Cath Lab / PCI';
+          capabilityReason = 'Dedicated 24/7 Cardiac Catheterization Lab active for acute PCI';
+        } else {
+          score -= 140;
+        }
+        break;
+
+      case EmergencyCategory.STROKE:
+        if (h.hasStrokeUnit) {
+          score += 70;
+          isMatched = true;
+          specialtyTag = 'Stroke & Neuro Center';
+          capabilityReason = 'Specialized Stroke & Neuro-vascular Center with urgent thrombolysis';
+        } else {
+          score -= 140;
+        }
+        break;
+
+      case EmergencyCategory.RESPIRATORY_FAILURE:
+        if (icuBeds >= 4) {
+          score += 60;
+          isMatched = true;
+          specialtyTag = 'Tertiary ICU & Ventilators';
+          capabilityReason = 'Tertiary Intensive Care Facility with mechanical ventilators';
+        } else if (icuBeds > 0) {
+          score += 30;
+          isMatched = true;
+          specialtyTag = 'ICU Facility';
+          capabilityReason = 'ICU Facility with respiratory support beds';
+        } else {
+          score -= 90;
+        }
+        break;
+
+      case EmergencyCategory.MATERNITY_LABOR:
+        score += 40;
+        isMatched = true;
+        specialtyTag = 'Obstetric Emergency';
+        capabilityReason = 'Emergency Obstetric & Neonatal Resuscitation Care';
+        break;
+
+      case EmergencyCategory.GENERAL_EMERGENCY:
+      default:
+        score += 30;
+        isMatched = true;
+        specialtyTag = '24/7 Emergency Triage';
+        capabilityReason = 'Multi-specialty Emergency Dept with 24/7 triage';
+        break;
+    }
+
+    if (distKm <= 2.5) {
+      score += 25;
+    } else if (distKm <= 5.0) {
+      score += 12;
+    } else if (distKm > 10.0) {
+      score -= 30;
+    }
+
+    if (h.status === 'DIVERTING') {
+      score -= 80;
+    }
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestHospital = h;
+      bestDistance = distKm;
+      bestSpecialty = specialtyTag;
+      bestReason = isMatched && capabilityReason
+        ? `${capabilityReason} (${distKm.toFixed(1)} km away • ${erBeds} ER beds, ${icuBeds} ICU beds available)`
+        : `Optimal combination of proximity (${distKm.toFixed(1)} km) and open bed capacity (${erBeds} ER beds)`;
+    }
+  }
+
+  return {
+    hospital: bestHospital,
+    score: Math.round(bestScore),
+    reason: bestReason,
+    distanceKm: bestDistance,
+    specialtyTag: bestSpecialty,
+  };
+}
 
 export const PatientBookingPage: React.FC = () => {
   const { user } = useAuth();
@@ -74,6 +227,21 @@ export const PatientBookingPage: React.FC = () => {
 
   // Hospitals for map and recommendation preview
   const [hospitals, setHospitals] = useState<HospitalDTO[]>([]);
+
+  // Selected hospital ID: 'AUTO' matches clinically recommended hospital
+  const [selectedHospitalId, setSelectedHospitalId] = useState<string>('AUTO');
+
+  const clinicalRecommendation = useMemo(() => {
+    return recommendBestHospital(hospitals, pickupLat, pickupLng, selectedCategory);
+  }, [hospitals, pickupLat, pickupLng, selectedCategory]);
+
+  const activeHospitalToBook = useMemo(() => {
+    if (selectedHospitalId !== 'AUTO') {
+      const found = hospitals.find((h) => h.id === selectedHospitalId);
+      if (found) return found;
+    }
+    return clinicalRecommendation?.hospital || hospitals[0] || null;
+  }, [selectedHospitalId, clinicalRecommendation, hospitals]);
 
   // Telemetry status
   const [lastLocationPing, setLastLocationPing] = useState<string | null>(null);
@@ -287,6 +455,7 @@ export const PatientBookingPage: React.FC = () => {
         pickupLongitude: pickupLng,
         pickupLandmark: landmark,
         emergencyCategory: selectedCategory,
+        hospitalId: activeHospitalToBook?.id,
         notes: notes.trim() || undefined,
         patientName: user.name,
         patientPhone: user.phone || undefined,
@@ -632,26 +801,60 @@ export const PatientBookingPage: React.FC = () => {
                   />
                 </div>
 
-                {/* Nearest Hospital ER Preview */}
-                {hospitals.length > 0 && (
-                  <div className="p-3 bg-neutral-950 border border-neutral-800 rounded-xl">
-                    <div className="flex items-center justify-between text-xs font-bold text-neutral-200 mb-1">
+                {/* Clinical Matched Hospital Allocation Preview */}
+                {activeHospitalToBook && (
+                  <div className="p-3.5 bg-neutral-950 border border-neutral-800 rounded-xl space-y-2">
+                    <div className="flex items-center justify-between text-xs font-bold text-neutral-200">
                       <span className="flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>Recommended ER Facility</span>
+                        <Building2 className="w-4 h-4 text-emerald-400" />
+                        <span>Allotted Emergency Facility</span>
                       </span>
-                      <span className="text-[10px] text-emerald-400 font-extrabold">LIVE CAPACITY</span>
+                      <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">
+                        {selectedHospitalId === 'AUTO' && clinicalRecommendation
+                          ? clinicalRecommendation.specialtyTag
+                          : 'DIRECT ALLOTMENT'}
+                      </span>
                     </div>
-                    <div className="text-xs font-semibold text-white truncate">
-                      {hospitals[0]?.name}
+
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="text-xs sm:text-sm font-black text-white truncate">
+                        {activeHospitalToBook.name}
+                      </div>
+                      <span className="text-[11px] font-bold text-emerald-400 shrink-0">
+                        {calculateDistanceKm(pickupLat, pickupLng, activeHospitalToBook.latitude, activeHospitalToBook.longitude)} km away
+                      </span>
                     </div>
-                    <div className="flex items-center gap-3 text-[11px] text-neutral-400 mt-1">
-                      <span>
-                        Available ER Beds: <strong className="text-red-400">{hospitals[0]?.availableEmergencyBeds}</strong>
-                      </span>
-                      <span>
-                        ICU Beds: <strong className="text-blue-400">{hospitals[0]?.availableIcuBeds}</strong>
-                      </span>
+
+                    <p className="text-[11px] text-neutral-300 leading-relaxed bg-neutral-900/80 p-2 rounded-lg border border-neutral-800">
+                      {selectedHospitalId === 'AUTO' && clinicalRecommendation
+                        ? clinicalRecommendation.reason
+                        : `${activeHospitalToBook.address} (${activeHospitalToBook.availableEmergencyBeds} ER beds, ${activeHospitalToBook.availableIcuBeds} ICU beds available)`}
+                    </p>
+
+                    <div className="flex items-center justify-between pt-1 text-[11px] text-neutral-400">
+                      <div className="flex items-center gap-3">
+                        <span>
+                          ER Beds: <strong className="text-emerald-400 font-extrabold">{activeHospitalToBook.availableEmergencyBeds}</strong>
+                        </span>
+                        <span>
+                          ICU Beds: <strong className="text-blue-400 font-extrabold">{activeHospitalToBook.availableIcuBeds}</strong>
+                        </span>
+                      </div>
+
+                      {/* Hospital selector toggle / dropdown */}
+                      <select
+                        value={selectedHospitalId}
+                        onChange={(e) => setSelectedHospitalId(e.target.value)}
+                        className="text-[10px] bg-neutral-900 text-neutral-300 border border-neutral-700 rounded-md px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-emerald-500 max-w-[130px] sm:max-w-none truncate"
+                        title="Change receiving hospital destination"
+                      >
+                        <option value="AUTO">✨ Auto: Clinical Best Match</option>
+                        {hospitals.map((h) => (
+                          <option key={h.id} value={h.id}>
+                            {h.name} ({calculateDistanceKm(pickupLat, pickupLng, h.latitude, h.longitude)} km)
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                 )}
@@ -843,7 +1046,7 @@ export const PatientBookingPage: React.FC = () => {
               {/* ACTIVE DESTINATION TRANSITION CARD (Pickup vs Hospital ER) */}
               <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-2xl mb-4">
                 <div className="flex items-start justify-between">
-                  <div>
+                  <div className="flex-1 pr-2">
                     <span className="text-[10px] font-extrabold uppercase tracking-wider text-neutral-400 block">
                       {isPostPickup ? 'Target Receiving Hospital' : 'Emergency Pickup Point'}
                     </span>
@@ -857,6 +1060,27 @@ export const PatientBookingPage: React.FC = () => {
                         ? activeTrip.hospital.address
                         : activeTrip.pickupLandmark || 'Near Aurangabad landmark'}
                     </span>
+
+                    {/* Allotted hospital indicator during pickup phase */}
+                    {!isPostPickup && activeTrip.hospital && (
+                      <div className="mt-3 p-2.5 bg-neutral-900 border border-neutral-800 rounded-xl space-y-1">
+                        <div className="flex items-center justify-between text-[11px]">
+                          <span className="text-neutral-400 font-medium flex items-center gap-1.5">
+                            <Building2 className="w-3.5 h-3.5 text-emerald-400" />
+                            <span>Allotted ER Facility:</span>
+                            <strong className="text-white">{activeTrip.hospital.name}</strong>
+                          </span>
+                          <span className="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-800 font-bold">
+                            {activeTrip.hospital.availableEmergencyBeds} ER Beds
+                          </span>
+                        </div>
+                        {activeTrip.recommendedHospitalReason && (
+                          <div className="text-[10px] text-emerald-400/90 font-medium leading-tight">
+                            {activeTrip.recommendedHospitalReason}
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     {/* Recommendation reason if post pickup */}
                     {isPostPickup && activeTrip.recommendedHospitalReason && (

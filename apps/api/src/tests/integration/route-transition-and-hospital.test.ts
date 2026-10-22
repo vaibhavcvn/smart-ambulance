@@ -202,6 +202,51 @@ describe('Phase 12: Route Transition, Hospital Persistence & Strict Tenancy Isol
     expect(finalAmbulance?.status).toBe(AmbulanceStatus.AVAILABLE);
   });
 
+  it('Clinical Severity Allocation: allocates Trauma Center for TRAUMA_ACCIDENT and Cath Lab for CARDIAC_ARREST', async () => {
+    // 1. Trauma accident booking at Kranti Chowk
+    const traumaBooking = await prisma.booking.create({
+      data: {
+        patientId: patientUserId,
+        pickupAddress: 'Kranti Chowk, Aurangabad',
+        pickupLatitude: 19.8762,
+        pickupLongitude: 75.3242,
+        emergencyCategory: 'TRAUMA_ACCIDENT',
+        priority: 'CRITICAL',
+      },
+    });
+
+    const traumaRec = await hospitalService.recommendHospital(
+      traumaBooking.pickupLatitude,
+      traumaBooking.pickupLongitude,
+      'TRAUMA_ACCIDENT' as any
+    );
+
+    // Trauma Center MUST be present (GMCH Ghati or MGM)
+    expect(traumaRec.hospital.hasTraumaCenter).toBe(true);
+    expect(traumaRec.reason).toContain('Trauma');
+
+    // 2. Cardiac arrest booking
+    const cardiacRec = await hospitalService.recommendHospital(
+      19.8762,
+      75.3242,
+      'CARDIAC_ARREST' as any
+    );
+    expect(cardiacRec.hospital.hasCathLab).toBe(true);
+    expect(cardiacRec.reason).toContain('Cardiac');
+
+    // 3. Stroke booking
+    const strokeRec = await hospitalService.recommendHospital(
+      19.8762,
+      75.3242,
+      'STROKE' as any
+    );
+    expect(strokeRec.hospital.hasStrokeUnit).toBe(true);
+    expect(strokeRec.reason).toContain('Stroke');
+
+    // Clean up trauma booking
+    await prisma.booking.deleteMany({ where: { id: traumaBooking.id } });
+  });
+
   afterAll(async () => {
     if (testTripId) {
       await prisma.trafficCorridor.deleteMany({ where: { tripId: testTripId } });

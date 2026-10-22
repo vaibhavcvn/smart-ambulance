@@ -12,6 +12,7 @@ import {
 } from '../common/errors/app-error.js';
 import { isPointInAurangabad } from '../integrations/maps/boundary.js';
 import { dispatchService } from './dispatch.service.js';
+import { hospitalService } from './hospital.service.js';
 import { MLPredictor } from '../ml/inference/predictor.js';
 import { getRoute, calculateHaversineDistanceKm } from '../integrations/routing/osrm.js';
 import { AURANGABAD_BOUNDS } from '@aurangabad-ambulance/shared';
@@ -84,7 +85,37 @@ export class BookingService {
       console.warn('ML Prediction failed during booking creation, continuing without delay estimate:', err);
     }
 
-    // 5. Transactional Creation of Booking and Trip records
+    // 5. Pre-allocate clinically matched nearest hospital based on Category & Clinical Severity
+    let allocatedHospitalId: string | null = null;
+    let allocatedHospitalReason: string | null = null;
+
+    if (input.hospitalId) {
+      const customHosp = await prisma.hospital.findUnique({
+        where: { id: input.hospitalId },
+      });
+      if (customHosp && customHosp.status !== 'CLOSED') {
+        allocatedHospitalId = customHosp.id;
+        allocatedHospitalReason = `Directly requested emergency destination: ${customHosp.name}`;
+      }
+    }
+
+    if (!allocatedHospitalId) {
+      try {
+        const rec = await hospitalService.recommendHospital(
+          input.pickupLatitude,
+          input.pickupLongitude,
+          input.emergencyCategory
+        );
+        if (rec && rec.hospital) {
+          allocatedHospitalId = rec.hospital.id;
+          allocatedHospitalReason = rec.reason;
+        }
+      } catch (err) {
+        console.warn('Hospital recommendation failed during booking creation, continuing without pre-allocated hospital:', err);
+      }
+    }
+
+    // 6. Transactional Creation of Booking and Trip records
     const result = await prisma.$transaction(async (tx) => {
       const booking = await tx.booking.create({
         data: {
@@ -114,6 +145,8 @@ export class BookingService {
           priority,
           notes: input.notes,
           predictedDelaySeconds,
+          hospitalId: allocatedHospitalId,
+          recommendedHospitalReason: allocatedHospitalReason,
           requestedAt: new Date(),
         },
         include: {

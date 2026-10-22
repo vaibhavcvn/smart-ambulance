@@ -67,6 +67,7 @@ export const CreateBookingSchema = z.object({
     .max(75.65, 'Longitude is outside Aurangabad region'),
   pickupLandmark: z.string().optional(),
   emergencyCategory: z.nativeEnum(EmergencyCategory),
+  hospitalId: z.string().optional(),
   patientName: z.string().min(2).optional(),
   patientPhone: z.string().optional(),
   notes: z.string().max(500, 'Notes cannot exceed 500 characters').optional(),

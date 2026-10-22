@@ -44,8 +44,8 @@ export const DriverApplyPage: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-[calc(100vh-88px)] flex items-center justify-center p-4 bg-neutral-950 font-sans text-neutral-100">
-        <div className="max-w-md w-full bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-800 p-8 text-center space-y-5">
+      <div className="min-h-[calc(100dvh-48px)] flex items-center justify-center px-4 pt-4 pb-28 sm:py-8 bg-neutral-950 font-sans text-neutral-100">
+        <div className="max-w-md w-full bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-800 p-6 sm:p-8 text-center space-y-5 my-auto">
           <div className="w-16 h-16 bg-blue-950/80 text-blue-400 border border-blue-800 rounded-3xl mx-auto flex items-center justify-center shadow-xl shadow-blue-950/40">
             <CheckCircle2 className="w-9 h-9" />
           </div>
@@ -92,8 +92,8 @@ export const DriverApplyPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-[calc(100vh-88px)] flex items-center justify-center p-4 bg-neutral-950 font-sans text-neutral-100">
-      <div className="max-w-lg w-full bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-800 p-7 sm:p-8">
+    <div className="min-h-[calc(100dvh-48px)] flex items-center justify-center px-4 pt-4 pb-28 sm:py-8 bg-neutral-950 font-sans text-neutral-100">
+      <div className="max-w-lg w-full bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-800 p-5 sm:p-8 my-auto">
         <Link to="/login" className="inline-flex items-center gap-1 text-xs text-neutral-400 hover:text-white mb-4">
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Sign In</span>

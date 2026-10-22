@@ -50,8 +50,8 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-88px)] flex items-center justify-center p-4 bg-neutral-950 font-sans text-neutral-100">
-      <div className="max-w-md w-full bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-800 p-7 sm:p-8">
+    <div className="min-h-[calc(100dvh-48px)] flex items-center justify-center px-4 pt-4 pb-28 sm:py-8 bg-neutral-950 font-sans text-neutral-100">
+      <div className="max-w-md w-full bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-800 p-5 sm:p-8 my-auto">
         <div className="text-center">
           <div className="w-12 h-12 bg-red-600 rounded-2xl mx-auto flex items-center justify-center text-white shadow-xl shadow-red-900/40">
             <User className="w-7 h-7" />

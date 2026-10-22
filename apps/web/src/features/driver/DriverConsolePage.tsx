@@ -873,14 +873,19 @@ export const DriverConsolePage: React.FC = () => {
                   </div>
 
                   {activeTrip.hospital && (
-                    <div className="mt-3 p-3 bg-emerald-950/40 border border-emerald-800/80 rounded-xl text-xs text-emerald-200">
+                    <div className="mt-3 p-3 bg-emerald-950/40 border border-emerald-800/80 rounded-xl text-xs text-emerald-200 space-y-1">
                       <div className="flex items-center justify-between">
                         <strong>Receiving ER: {activeTrip.hospital.name}</strong>
                         <span className="text-[10px] bg-emerald-900 text-emerald-200 font-bold px-1.5 py-0.5 rounded">
                           Beds: {activeTrip.hospital.availableEmergencyBeds}
                         </span>
                       </div>
-                      <div className="text-[11px] text-emerald-300/80 mt-0.5">{activeTrip.hospital.address}</div>
+                      <div className="text-[11px] text-emerald-300/80">{activeTrip.hospital.address}</div>
+                      {activeTrip.recommendedHospitalReason && (
+                        <div className="text-[10px] text-emerald-400 font-medium pt-1 border-t border-emerald-800/50">
+                          {activeTrip.recommendedHospitalReason}
+                        </div>
+                      )}
                     </div>
                   )}
 

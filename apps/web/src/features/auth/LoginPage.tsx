@@ -128,8 +128,8 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-88px)] flex items-center justify-center p-4 bg-neutral-950 font-sans text-neutral-100">
-      <div className="max-w-md w-full bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-800 p-7 sm:p-8">
+    <div className="min-h-[calc(100dvh-48px)] flex items-center justify-center px-4 pt-4 pb-28 sm:py-8 bg-neutral-950 font-sans text-neutral-100">
+      <div className="max-w-md w-full bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-800 p-5 sm:p-8 my-auto">
         <div className="text-center">
           <div className="w-12 h-12 bg-red-600 rounded-2xl mx-auto flex items-center justify-center text-white shadow-xl shadow-red-900/40">
             <Ambulance className="w-7 h-7" />
@@ -219,17 +219,34 @@ export const LoginPage: React.FC = () => {
           </button>
         </form>
 
-        <div className="mt-6 pt-4 border-t border-neutral-800 flex flex-col gap-2 text-center text-xs text-neutral-400">
+        <div className="mt-6 pt-5 border-t border-neutral-800 flex flex-col gap-3 text-center text-xs text-neutral-400">
           <div>
             Need emergency booking?{' '}
             <Link to="/register" className="text-red-400 font-bold hover:underline">
               Register as Patient
             </Link>
           </div>
-          <div>
-            Commercial ambulance driver?{' '}
-            <Link to="/driver/apply" className="text-blue-400 font-bold hover:underline">
-              Apply for Driver Onboarding &rarr;
+
+          <div className="p-3 bg-gradient-to-r from-blue-950/60 to-slate-900/60 border border-blue-800/60 rounded-2xl flex items-center justify-between gap-3 text-left hover:border-blue-500/80 transition-all">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-xl bg-blue-600/30 text-blue-400 border border-blue-500/30 flex items-center justify-center shrink-0">
+                <Ambulance className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[11px] font-black text-white leading-tight truncate">
+                  Commercial Ambulance Driver?
+                </div>
+                <div className="text-[10px] text-blue-300 font-medium truncate">
+                  Apply for Driver Onboarding &rarr;
+                </div>
+              </div>
+            </div>
+            <Link
+              to="/driver/apply"
+              className="shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-[11px] rounded-lg shadow-sm flex items-center gap-1 transition-all active:scale-95"
+            >
+              <span>Apply</span>
+              <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
         </div>
